@@ -14,7 +14,7 @@ public class Endereco {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long userID;
+	private long endID;
 	
 	private String cep;
 	private String rua;
@@ -22,10 +22,10 @@ public class Endereco {
 	private String bairro;
 	private String cidade;
 	public long getUserID() {
-		return userID;
+		return endID;
 	}
 	public void setUserID(long userID) {
-		this.userID = userID;
+		this.endID = userID;
 	}
 	public String getCep() {
 		return cep;

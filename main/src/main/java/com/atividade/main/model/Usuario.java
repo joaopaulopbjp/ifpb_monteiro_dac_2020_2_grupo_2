@@ -1,9 +1,10 @@
-package com.Atividade.main.model;
+package Atividade.main.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.Data;
 
@@ -20,6 +21,8 @@ public class Usuario {
 	private String senha;
 	private String email;
 	private Pedido pedido;
+	
+	@OneToMany(name = "endID") 
 
 	
 	public long getUserID() {
