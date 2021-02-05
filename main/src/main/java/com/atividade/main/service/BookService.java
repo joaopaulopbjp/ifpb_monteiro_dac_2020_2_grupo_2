@@ -43,4 +43,9 @@ public class BookService {
         return bookRepository.findAll(page);
 	}
 	
+//	consultar os 5 livros mais baratos disponíveis no estoque;
+	public Page<Book> getListaCincoMaisBaratos(Pageable page){
+        return bookRepository.findAll(page);
+	}
+	
 }

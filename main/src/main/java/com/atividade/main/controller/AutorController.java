@@ -1,4 +1,4 @@
-package Atividade.main.controller;
+package com.Atividade.main.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

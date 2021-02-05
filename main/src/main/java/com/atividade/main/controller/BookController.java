@@ -40,6 +40,17 @@ public class BookController{
 	public Page<Book> getListaOrdenadaAsedentePrice(){
         return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 3, Sort.by(Sort.Direction.ASC, "price")));
 	}
+	
+	public Page<Book> getListaCincoMaisBaratos(){
+        return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "price")));
+	}
+	
+//	consultar todos os livros (em estoque e sem estoque tb) ordenados de forma ascendente pelo título de forma paginada 
+	//(defina um tamanho fixo para a página - ex.: 5 livros). O usuário pode informar a página que deseja consultar.
+
+	public Page<Book> getAllBookList(){
+        return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "titulo")));
+	}
 		
 
 }
