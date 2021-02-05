@@ -1,11 +1,11 @@
-package com.atividade.main.repository;
+package com.Atividade.main.repository;
 
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.atividade.main.model.Autor;
+import com.Atividade.main.model.Autor;
 
 
 

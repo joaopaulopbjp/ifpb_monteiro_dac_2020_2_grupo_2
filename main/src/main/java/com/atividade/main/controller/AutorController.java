@@ -1,12 +1,11 @@
-package com.atividade.main.controller;
+package com.Atividade.main.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-
-import com.atividade.main.model.Autor;
-import com.atividade.main.service.AutorService;
+import com.Atividade.main.model.Autor;
+import com.Atividade.main.service.AutorService;
 
 
 @Controller

@@ -1,6 +1,4 @@
-package com.atividade.main.controller;
-
-import java.util.Optional;
+package com.Atividade.main.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,8 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
-import com.atividade.main.model.Book;
-import com.atividade.main.service.BookService;
+import com.Atividade.main.model.Book;
+import com.Atividade.main.service.BookService;
 
 
 @Controller
@@ -18,8 +16,6 @@ public class BookController{
 	
 	@Autowired
 	private BookService bookService; 
-	
-	
 	
 	public void save(Book Book) {
 		bookService.save(Book);

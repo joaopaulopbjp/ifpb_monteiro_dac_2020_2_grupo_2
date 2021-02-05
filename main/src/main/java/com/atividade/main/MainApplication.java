@@ -1,4 +1,4 @@
-package com.atividade.main;
+package com.Atividade.main;
 
 
 import org.springframework.boot.SpringApplication;

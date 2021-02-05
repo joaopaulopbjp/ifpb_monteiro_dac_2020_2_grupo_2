@@ -1,4 +1,4 @@
-package com.atividade.main.view;
+package com.Atividade.main.view;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-
-import com.atividade.main.controller.AutorController;
-import com.atividade.main.controller.BookController;
-import com.atividade.main.model.Autor;
-import com.atividade.main.model.Book;
+import com.Atividade.main.controller.AutorController;
+import com.Atividade.main.controller.BookController;
+import com.Atividade.main.model.Autor;
+import com.Atividade.main.model.Book;
 
 
 @Component
@@ -36,7 +35,7 @@ public class MenuRetaguarda {
 
 		while (tie < 9) {
 
-			System.out.println("\n*----Menu do Systema Livraria---*"
+			System.out.println("\n*----Menu do System Livraria---*"
 					+ "\n-----------------------------------\n"
 					+ "1.Cadastro de Autor\n" 
 					+ "2.Editar Autor\n" 

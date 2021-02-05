@@ -1,4 +1,4 @@
-package com.atividade.main.model;
+package com.Atividade.main.model;
 
 import java.util.List;
 
@@ -37,6 +37,8 @@ public class Book {
 				joinColumns = @JoinColumn(name="livroId"),
 				inverseJoinColumns = @JoinColumn(name="autorId"))
 	private List<Autor> listAutor;
+	
+	
 
 	public long getLivroId() {
 		return livroId;

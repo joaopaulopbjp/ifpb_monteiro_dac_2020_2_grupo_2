@@ -1,4 +1,4 @@
-package com.atividade.main.service;
+package com.Atividade.main.service;
 
 import java.util.Optional;
 
@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.atividade.main.model.Autor;
-import com.atividade.main.repository.AutorRepository;
+import com.Atividade.main.model.Autor;
+import com.Atividade.main.repository.AutorRepository;
 
 
 
