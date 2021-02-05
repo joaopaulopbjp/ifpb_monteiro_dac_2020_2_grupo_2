@@ -1,4 +1,4 @@
-package com.Atividade.main.controller;
+package com.atividade.main.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -6,8 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
-import com.Atividade.main.model.Book;
-import com.Atividade.main.service.BookService;
+import com.atividade.main.model.Book;
+import com.atividade.main.service.BookService;
 
 
 @Controller

@@ -1,4 +1,4 @@
-package com.Atividade.main.model;
+package com.atividade.main.model;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;

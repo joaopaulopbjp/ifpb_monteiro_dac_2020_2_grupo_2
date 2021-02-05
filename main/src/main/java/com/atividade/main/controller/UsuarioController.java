@@ -1,12 +1,12 @@
-package com.Atividade.main.controller;
+package com.atividade.main.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-import com.Atividade.main.model.Usuario;
-import com.Atividade.main.service.UsuarioService;
+import com.atividade.main.model.Usuario;
+import com.atividade.main.service.UsuarioService;
 
 @Controller
 public class UsuarioController {

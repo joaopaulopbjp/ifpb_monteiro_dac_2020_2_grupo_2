@@ -1,4 +1,4 @@
-package com.Atividade.main.model;
+package com.atividade.main.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

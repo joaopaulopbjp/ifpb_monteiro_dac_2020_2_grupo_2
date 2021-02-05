@@ -1,4 +1,5 @@
-package com.Atividade.main.service;
+package com.atividade.main.service;
+
 
 import java.util.Optional;
 
@@ -7,9 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.Atividade.main.model.Autor;
-import com.Atividade.main.model.Usuario;
-import com.Atividade.main.repository.UsuarioRepository;
+import com.atividade.main.model.Usuario;
+import com.atividade.main.repository.UsuarioRepository;
+
 
 @Service
 public class UsuarioService {
@@ -36,7 +37,7 @@ public class UsuarioService {
 	}
 	
 	public Usuario getUsuarioPorNome(String nome){
-		return usuarioRepository.findUsuarioByName(nome);
+		return usuarioRepository.findUsuarioByNome(nome);
 	}
 	
 	public Page<Usuario> getListaOrdenadaAsedente(Pageable page){

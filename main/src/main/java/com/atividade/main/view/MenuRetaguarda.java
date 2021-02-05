@@ -1,18 +1,19 @@
-package com.Atividade.main.view;
+package com.atividade.main.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import com.Atividade.main.controller.AutorController;
-import com.Atividade.main.controller.BookController;
-import com.Atividade.main.model.Autor;
-import com.Atividade.main.model.Book;
+
+import com.atividade.main.controller.AutorController;
+import com.atividade.main.controller.BookController;
+import com.atividade.main.model.Autor;
+import com.atividade.main.model.Book;
 
 
 @Component

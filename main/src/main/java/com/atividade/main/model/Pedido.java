@@ -1,4 +1,4 @@
-package com.Atividade.main.model;
+package com.atividade.main.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
