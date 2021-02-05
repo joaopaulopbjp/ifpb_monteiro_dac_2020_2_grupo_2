@@ -29,6 +29,7 @@ public class Book {
   	@Column(nullable = false)
 	private String descricao;
   	
+  	private int quantidade;
   	private float price;
 	
 	
@@ -37,8 +38,6 @@ public class Book {
 				joinColumns = @JoinColumn(name="livroId"),
 				inverseJoinColumns = @JoinColumn(name="autorId"))
 	private List<Autor> listAutor;
-	
-	
 
 	public long getLivroId() {
 		return livroId;
@@ -79,8 +78,14 @@ public class Book {
 	public void setListAutor(List<Autor> listAutor) {
 		this.listAutor = listAutor;
 	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
 	
-	
-				
 
 }
