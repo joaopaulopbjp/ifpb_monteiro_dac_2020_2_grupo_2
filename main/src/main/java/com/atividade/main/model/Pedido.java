@@ -1,4 +1,4 @@
-package com.Atividade.main.model;
+package com.atividade.main.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -32,10 +32,68 @@ public class Pedido {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataVenda;
 	
-	
+	@Column(nullable = false)
 	private String status;
-	
-	
+
+
+	public int getPedidoID() {
+		return pedidoID;
+	}
+
+
+	public void setPedidoID(int pedidoID) {
+		this.pedidoID = pedidoID;
+	}
+
+
+	public Usuario getUser() {
+		return user;
+	}
+
+
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
+
+
+	public List<Book> getBooks() {
+		return books;
+	}
+
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
+
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+
+
+	public Date getDataVenda() {
+		return dataVenda;
+	}
+
+
+	public void setDataVenda(Date dataVenda) {
+		this.dataVenda = dataVenda;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 
 }

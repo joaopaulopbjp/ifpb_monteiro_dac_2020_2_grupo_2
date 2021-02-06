@@ -1,4 +1,4 @@
-package com.Atividade.main.model;
+package com.atividade.main.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,11 +21,12 @@ public class Endereco {
 	private int numero;
 	private String bairro;
 	private String cidade;
-	public long getUserID() {
+
+	public long getEndID() {
 		return endID;
 	}
-	public void setUserID(long userID) {
-		this.endID = userID;
+	public void setEndID(long endID) {
+		this.endID = endID;
 	}
 	public String getCep() {
 		return cep;
