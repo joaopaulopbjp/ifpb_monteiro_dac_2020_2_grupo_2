@@ -16,7 +16,6 @@ public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long endID;
-	
 	@Column(nullable = false)
 	private String cep;
 	@Column(nullable = false)
@@ -29,6 +28,12 @@ public class Endereco {
 	private String cidade;
 	@Column(nullable = false, length = 2)
 	private String UF;
+	@Column(nullable = false)
+	private String complemento;
+	@Column(nullable = false)
+	private String pontoReferencia;
+	
+	
 	
 	
 	public long getEndID() {
@@ -73,6 +78,19 @@ public class Endereco {
 	public void setUF(String uF) {
 		UF = uF;
 	}
+	public String getComplemento() {
+		return complemento;
+	}
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+	public String getPontoReferencia() {
+		return pontoReferencia;
+	}
+	public void setPontoReferencia(String pontoReferencia) {
+		this.pontoReferencia = pontoReferencia;
+	}
+	
 	
 	
 }

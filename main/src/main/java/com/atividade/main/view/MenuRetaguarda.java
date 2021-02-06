@@ -22,6 +22,7 @@ public class MenuRetaguarda {
 	private int tie = 0;
 
 	
+	@SuppressWarnings("unused")
 	private final AutorController autorController;
 
 	@SuppressWarnings("unused")
