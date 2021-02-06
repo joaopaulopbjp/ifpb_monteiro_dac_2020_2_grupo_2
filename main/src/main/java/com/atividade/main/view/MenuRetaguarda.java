@@ -2,8 +2,8 @@ package com.atividade.main.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +21,7 @@ public class MenuRetaguarda {
 	private int tie = 0;
 
 	
+	@SuppressWarnings("unused")
 	private final AutorController autorController;
 
 	@SuppressWarnings("unused")

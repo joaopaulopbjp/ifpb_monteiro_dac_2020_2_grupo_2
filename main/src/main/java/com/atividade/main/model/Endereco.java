@@ -1,5 +1,6 @@
 package com.atividade.main.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,13 +16,26 @@ public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long endID;
-	
+	@Column(nullable = false)
 	private String cep;
+	@Column(nullable = false)
 	private String rua;
+	@Column(nullable = false)
 	private int numero;
+	@Column(nullable = false)
 	private String bairro;
+	@Column(nullable = false)
 	private String cidade;
-
+	@Column(nullable = false, length = 2)
+	private String UF;
+	@Column(nullable = false)
+	private String complemento;
+	@Column(nullable = false)
+	private String pontoReferencia;
+	
+	
+	
+	
 	public long getEndID() {
 		return endID;
 	}
@@ -58,5 +72,25 @@ public class Endereco {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
+	public String getUF() {
+		return UF;
+	}
+	public void setUF(String uF) {
+		UF = uF;
+	}
+	public String getComplemento() {
+		return complemento;
+	}
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+	public String getPontoReferencia() {
+		return pontoReferencia;
+	}
+	public void setPontoReferencia(String pontoReferencia) {
+		this.pontoReferencia = pontoReferencia;
+	}
+	
+	
 	
 }

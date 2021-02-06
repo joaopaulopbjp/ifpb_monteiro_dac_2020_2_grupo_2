@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.atividade.main.model.Autor;
 import com.atividade.main.model.Usuario;
 import com.atividade.main.repository.UsuarioRepository;
 
@@ -36,7 +35,7 @@ public class UsuarioService {
 	}
 	
 	public Usuario getUsuarioPorNome(String nome){
-		return usuarioRepository.findUsuarioByName(nome);
+		return usuarioRepository.findUsuarioByNome(nome);
 	}
 	
 	public Page<Usuario> getListaOrdenadaAsedente(Pageable page){

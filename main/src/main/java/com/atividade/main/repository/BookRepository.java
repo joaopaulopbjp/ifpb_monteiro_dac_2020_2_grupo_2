@@ -12,4 +12,6 @@ public interface BookRepository extends JpaRepository<Book, Long>{
 	
 	//buscar por nome do titulo do book   
 		public Book findBookByTitulo(String titulo);
+		
+		
 }
