@@ -1,5 +1,6 @@
 package com.atividade.main.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,16 +17,25 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long endID;
 	
+	@Column(nullable = false)
 	private String cep;
+	@Column(nullable = false)
 	private String rua;
+	@Column(nullable = false)
 	private int numero;
+	@Column(nullable = false)
 	private String bairro;
+	@Column(nullable = false)
 	private String cidade;
-	public long getUserID() {
+	@Column(nullable = false, length = 2)
+	private String UF;
+	
+	
+	public long getEndID() {
 		return endID;
 	}
-	public void setUserID(long userID) {
-		this.endID = userID;
+	public void setEndID(long endID) {
+		this.endID = endID;
 	}
 	public String getCep() {
 		return cep;
@@ -57,5 +67,12 @@ public class Endereco {
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
+	public String getUF() {
+		return UF;
+	}
+	public void setUF(String uF) {
+		UF = uF;
+	}
+	
 	
 }
