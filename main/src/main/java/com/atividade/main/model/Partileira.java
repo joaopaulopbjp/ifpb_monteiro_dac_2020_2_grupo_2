@@ -45,5 +45,4 @@ public class Partileira {
 		this.identificacaoPartileira = identificacaoPartileira;
 	}
 	
-	
 }

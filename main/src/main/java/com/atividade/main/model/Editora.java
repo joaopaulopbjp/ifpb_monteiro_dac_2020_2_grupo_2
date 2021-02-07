@@ -40,7 +40,4 @@ public class Editora {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	} 
-	
-	
-	
 }
