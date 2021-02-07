@@ -1,4 +1,4 @@
-package com.atividade.main.service;
+package com.atividade.main.controller;
 
 import java.util.Optional;
 
@@ -10,36 +10,34 @@ import org.springframework.stereotype.Service;
 import com.atividade.main.model.Editora;
 import com.atividade.main.repository.EditoraRepository;
 
-
-
 @Service
-public class EditoraService {
+public class EditoraController {
 	
 	@Autowired
-	private EditoraRepository editoraRepository;
+	private EditoraRepository editoraService;
 
 	public Editora save(Editora editora) {
-		return editoraRepository.save(editora);
+		return editoraService.save(editora);
 	}
 	
 	public void edit(Editora editora) {
-		editoraRepository.save(editora);
+		editoraService.save(editora);
 	}
 	
 	public void excluir(long id) {
-		editoraRepository.deleteById(id);
+		editoraService.deleteById(id);
 	}
 	
-	public Editora findById(long id) {
-		Optional<Editora> editora=editoraRepository.findById(id);
+	public Editora EditorafindById(long id) {
+		Optional<Editora> editora=editoraService.findById(id);
 		return editora.get();
 	}
 	
 	public Editora getEditoraPorNome(String nome) {
-		return editoraRepository.findEditoraByNome(nome);
+		return editoraService.findEditoraByNome(nome);
 	}	
 	public Page<Editora> getListaOrdenadaAsedente(Pageable page){
-		return editoraRepository.findAll(page);
-	}
-	
+		return editoraService.findAll(page);
+	}	
+
 }
