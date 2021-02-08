@@ -34,9 +34,6 @@ public class PedidoService {
 		return pedido.get();
 	}
 	
-	public Pedido getPedidoPorNome(String nome){
-		return pedidoRepository.findPedidoByName(nome);
-	}
 	
 	public Page<Pedido> getListaOrdenadaAsedente(Pageable page){
         return pedidoRepository.findAll(page);

@@ -3,7 +3,6 @@ package com.atividade.main.model;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,12 +30,13 @@ public class Pedido {
 	private int pedidoID;
 	
 	@OneToOne
+	@JoinColumn(name="userID")
 	private Usuario user;
 	
 	@ManyToMany(fetch= FetchType.EAGER, cascade = {CascadeType.MERGE})
 	@JoinTable(name="pedidolivro",
-				joinColumns = @JoinColumn(name="pedidoid"),
-				inverseJoinColumns = @JoinColumn(name="livroid"))
+				joinColumns = @JoinColumn(name="pedidoID"),
+				inverseJoinColumns = @JoinColumn(name="livroId"))
 	private List<Book> books;
 	
 	private BigDecimal total;
@@ -49,11 +49,12 @@ public class Pedido {
 	
 	private String status = "Pedente";
 	
-	
-	private Endereco enderecoEntrega;
-	
 	@OneToOne
-	@JoinColumn(name="pagamentoID")
+	@JoinColumn(name = "endID")
+	private Endereco enderecoEntrega;
+
+	@OneToOne
+	@JoinColumn(name = "pagamentoId")
 	private Pagamento pagamento;
 
 	public Pedido() {

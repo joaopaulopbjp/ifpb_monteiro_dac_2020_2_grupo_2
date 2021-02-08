@@ -1,5 +1,6 @@
 package com.atividade.main.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -29,7 +31,11 @@ public class Book {
   	@Column(nullable = false)
 	private String descricao;
   	
-  	private float price;
+  	private BigDecimal price;
+  	
+  	@OneToOne
+  	@JoinColumn(name = "categoriaId")
+  	private Categoria categoria;
 	
 	
 	@ManyToMany(fetch= FetchType.EAGER, cascade = {CascadeType.MERGE})
@@ -64,11 +70,12 @@ public class Book {
 		this.descricao = descrição;
 	}
 
-	public float getPrice() {
+
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -78,6 +85,14 @@ public class Book {
 
 	public void setListAutor(List<Autor> listAutor) {
 		this.listAutor = listAutor;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	
 	

@@ -10,9 +10,9 @@ import com.atividade.main.model.Prateleira;
 public interface PrateleiraRepository extends JpaRepository<Prateleira, Long>{
 	
 //		buscar por nome da prateleira   
-		public Prateleira findPrateleiraByNome(String nome);
+		public Prateleira findPrateleiraByIndetificacao(String indentificacao);
 		
 //		retorna uma listapaginadar ordenada por nome
-		public List<Prateleira>findAllByNome(String nome, Pageable pagina);
+		public List<Prateleira>findAllByIndetificacao(String nome, Pageable pagina);
 
 }

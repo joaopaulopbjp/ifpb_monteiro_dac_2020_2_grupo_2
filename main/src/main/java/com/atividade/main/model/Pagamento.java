@@ -1,15 +1,19 @@
 package com.atividade.main.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Data;
 
+@Entity
+@Data
 public class Pagamento {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long pagamentoID;
+	private long pagamentoId;
 	
 	@Column(nullable = false)	
 	private String descricao;
@@ -26,18 +30,18 @@ public class Pagamento {
 
 	public Pagamento(long pagamentoID, String descricao) {
 		super();
-		this.pagamentoID = pagamentoID;
+		this.pagamentoId = pagamentoID;
 		this.descricao = descricao;
 	}
 
 
 
 	public long getPagamentoID() {
-		return pagamentoID;
+		return pagamentoId;
 	}
 
 	public void setPagamentoID(long pagamentoID) {
-		this.pagamentoID = pagamentoID;
+		this.pagamentoId = pagamentoID;
 	}
 
 	public String getDescricao() {

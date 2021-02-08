@@ -33,10 +33,6 @@ public class PrateleiraService {
 		return prateleira.get();
 	}
 	
-	public Prateleira getPrateleiraPorNome(String nome){
-		return prateleiraRepository.findPrateleiraByNome(nome);
-	}
-	
 	public Page<Prateleira> getListaOrdenadaAsedente(Pageable page){
         return prateleiraRepository.findAll(page);
 	}

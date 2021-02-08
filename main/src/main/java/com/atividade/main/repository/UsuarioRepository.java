@@ -16,6 +16,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
 //	retorna uma listapaginadar ordenada por nome
 	public List<Usuario>findAllByNome(String nome, Pageable pagina);
+	
+//	Buscar por nome do Usuario
+	public Usuario findUsuarioByCPF(String CPF);
 
 	
 

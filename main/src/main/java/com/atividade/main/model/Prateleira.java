@@ -1,5 +1,6 @@
 package com.atividade.main.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,9 @@ public class Prateleira {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long prateleiraID;
 	
-	private CentroDistribuicao centrodis;
+	@Column(nullable = false)
+	private String indetificacao;
+	
 
 	public long getPraID() {
 		return prateleiraID;
@@ -26,12 +29,22 @@ public class Prateleira {
 		this.prateleiraID = praID;
 	}
 
-	public CentroDistribuicao getCentrodis() {
-		return centrodis;
+	public long getPrateleiraID() {
+		return prateleiraID;
 	}
 
-	public void setCentrodis(CentroDistribuicao centrodis) {
-		this.centrodis = centrodis;
+	public void setPrateleiraID(long prateleiraID) {
+		this.prateleiraID = prateleiraID;
 	}
+
+	public String getIndetificacao() {
+		return indetificacao;
+	}
+
+	public void setIndetificacao(String indetificacao) {
+		this.indetificacao = indetificacao;
+	}
+
+	
 	
 }

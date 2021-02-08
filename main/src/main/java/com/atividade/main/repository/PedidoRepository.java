@@ -9,7 +9,5 @@ import com.atividade.main.model.Pedido;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
-//	Buscar por nome do Usuario
-	public Pedido findPedidoByName(String nome);
 	
 }

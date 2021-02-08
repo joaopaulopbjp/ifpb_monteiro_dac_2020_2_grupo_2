@@ -44,6 +44,7 @@ public class Usuario {
 	@OneToMany
 	@JoinColumn(name="endID")
 	private List<Endereco> enderecos;
+
 	
 	public Usuario() {
 		super();

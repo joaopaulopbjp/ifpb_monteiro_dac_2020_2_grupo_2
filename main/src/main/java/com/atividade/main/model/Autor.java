@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Autor {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long autorId;

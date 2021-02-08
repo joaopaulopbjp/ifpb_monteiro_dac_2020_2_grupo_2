@@ -35,8 +35,8 @@ public class EnderecoService {
 		return endereco.get();
 	}
 	
-	public Endereco getEnderecoPorNome(String CEP, String rua, String cidade){
-		return enderecoRepository.findEnderecoByCepRuaCidade(CEP, rua, cidade);
+	public Endereco getEnderecoPorNome(String CEP){
+		return enderecoRepository.findEnderecoByCep(CEP);
 	}
 	
 	public Page<Endereco> getListaOrdenadaAsedente(Pageable page){

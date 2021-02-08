@@ -1,5 +1,6 @@
 package com.atividade.main.view;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,6 +27,8 @@ public class MenuRetaguarda {
 
 	@SuppressWarnings("unused")
 	private final BookController bookController;
+	
+	
 
 	public MenuRetaguarda(AutorController  autorController, BookController bookController) {
 		this.autorController=autorController;
@@ -120,7 +123,7 @@ public class MenuRetaguarda {
 				System.out.println("Digite a descrição do livro?");
 				book.setDescricao(load.nextLine());
 				System.out.println("Digite o preço?");
-				book.setPrice(Float.parseFloat(load.nextLine()));
+				book.setPrice(BigDecimal.valueOf(Float.parseFloat(load.nextLine())));
 
 				long id = -1;
 				List<Autor> lista = new ArrayList<>();
@@ -170,7 +173,7 @@ public class MenuRetaguarda {
 					System.out.println("Digite o novo preço?");
 					String preco = load.nextLine();
 					if (!preco.equals("")) {
-						book.setPrice(Float.parseFloat(preco));
+						book.setPrice(BigDecimal.valueOf(Float.parseFloat(preco)));
 					}
 
 					long id = -1;

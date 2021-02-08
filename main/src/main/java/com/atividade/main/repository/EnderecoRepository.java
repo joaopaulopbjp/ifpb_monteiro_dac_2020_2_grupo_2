@@ -9,7 +9,7 @@ import com.atividade.main.model.Endereco;
 public interface EnderecoRepository extends JpaRepository<Endereco, Long>{
 
 //	Busca de endereco por cep, rua, bairro
-	public Endereco findEnderecoByCepRuaCidade(String CEP, String rua, String cidade);
+	public Endereco findEnderecoByCep(String CEP);
 
 
 }
