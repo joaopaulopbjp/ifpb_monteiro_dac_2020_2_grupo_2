@@ -32,10 +32,6 @@ public class PrateleiraController {
 		return prateleiraService.findById(id);
 	}
 
-	public Prateleira getPrateleiraPorNome(String nome) {
-		return prateleiraService.getPrateleiraPorNome(nome);
-	}
-
 	public Page<Prateleira> getListaOrdenadaAsedente(Pageable page) {
 		return prateleiraService.getListaOrdenadaAsedente(page);
 	}

@@ -33,10 +33,6 @@ public class PedidoController {
 		return pedidoService.findById(id);
 	}
 
-	public Pedido getPedidoPorNome(String nome) {
-		return pedidoService.getPedidoPorNome(nome);
-	}
-
 	public Page<Pedido> getListaOrdenadaAsedente(Pageable page) {
 		return pedidoService.getListaOrdenadaAsedente(page);
 	}

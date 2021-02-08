@@ -36,6 +36,7 @@ public class MenuRetaguarda {
 	
 
 		Scanner load = new Scanner(System.in);
+		
 
 		while (tie < 9) {
 
