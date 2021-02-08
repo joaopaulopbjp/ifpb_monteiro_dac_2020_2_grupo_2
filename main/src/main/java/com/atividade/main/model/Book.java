@@ -44,7 +44,45 @@ public class Book {
 				inverseJoinColumns = @JoinColumn(name="autorId"))
 	private List<Autor> listAutor;
 	
+	private String ISPB;
 	
+	private Byte capa;
+	
+	private String edicao;
+
+	private String ano;
+	
+	public String getISPB() {
+		return ISPB;
+	}
+
+	public void setISPB(String iSPB) {
+		ISPB = iSPB;
+	}
+
+	public Byte getCapa() {
+		return capa;
+	}
+
+	public void setCapa(Byte capa) {
+		this.capa = capa;
+	}
+
+	public String getEdicao() {
+		return edicao;
+	}
+
+	public void setEdicao(String edicao) {
+		this.edicao = edicao;
+	}
+
+	public String getAno() {
+		return ano;
+	}
+
+	public void setAno(String ano) {
+		this.ano = ano;
+	}
 
 	public long getLivroId() {
 		return livroId;
