@@ -1,9 +1,13 @@
 package com.atividade.main.view;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.mail.MessagingException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +18,7 @@ import com.atividade.main.controller.AutorController;
 import com.atividade.main.controller.BookController;
 import com.atividade.main.model.Autor;
 import com.atividade.main.model.Book;
+import com.atividade.main.model.Email;
 
 
 @Component
@@ -28,14 +33,18 @@ public class MenuRetaguarda {
 	@SuppressWarnings("unused")
 	private final BookController bookController;
 	
+	private final Email email;
+	
 	
 
-	public MenuRetaguarda(AutorController  autorController, BookController bookController) {
+	public MenuRetaguarda(AutorController  autorController, BookController bookController,Email email) {
 		this.autorController=autorController;
 		this.bookController=bookController;
+		this.email = email;
 	
 
 		Scanner load = new Scanner(System.in);
+		
 
 		while (tie < 9) {
 
@@ -228,9 +237,20 @@ public class MenuRetaguarda {
 
 			} else if (option == 9) {
 				tie = 9;
+				/*
+				 * load.close(); System.exit(0);
+				 */
+				System.err.println("Enviando o email...");
+				try {
+					email.sendEmailComAnexo("luanprof30@gmail.com", "Bom dia !", "Caro luan o email ta sucesso!",
+							new File("src/main/java/tmp/modelo-pedido foreverliss.pdf") );
+				} catch (MessagingException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.err.println("Finalizado...");
 				load.close();
 				System.exit(0);
-				System.err.println("Finalizado...");
 			} else {
 				System.err.println("Opção inválida digite os numero correto!");
 			}

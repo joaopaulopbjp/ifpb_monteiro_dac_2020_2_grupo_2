@@ -10,6 +10,11 @@ import com.atividade.main.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+	
+	
+
+	
+	
 
 //	Buscar por nome do Usuario
 	public Usuario findUsuarioByNome(String nome);
@@ -19,7 +24,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
 //	Buscar por nome do Usuario
 	public Usuario findUsuarioByCPF(String CPF);
-
+	
+//	Buscar por email
+	public Usuario findUsuarioByEmail(String email);
+	
 	
 
 }

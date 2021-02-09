@@ -39,6 +39,7 @@ public class Pedido {
 				inverseJoinColumns = @JoinColumn(name="livroId"))
 	private List<Book> books;
 	
+	@Column(nullable = false)
 	private BigDecimal total;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -56,6 +57,9 @@ public class Pedido {
 	@OneToOne
 	@JoinColumn(name = "pagamentoId")
 	private Pagamento pagamento;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataFechamento;
 
 	public Pedido() {
 		super();

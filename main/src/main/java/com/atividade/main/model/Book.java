@@ -31,7 +31,20 @@ public class Book {
   	@Column(nullable = false)
 	private String descricao;
   	
+  	@Column(nullable = false)
   	private BigDecimal price;
+  	
+  	@Column(nullable = false)
+  	private String ISBN;
+  	
+  	@Column(nullable = false)
+  	private byte capa;
+  	
+  	@Column(nullable = false)
+  	private String edicao;
+  	
+  	@Column(nullable = false)
+  	private String anoPublicacao;
   	
   	@OneToOne
   	@JoinColumn(name = "categoriaId")
@@ -94,6 +107,39 @@ public class Book {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
+	public String getISBN() {
+		return ISBN;
+	}
+
+	public void setISBN(String iSBN) {
+		ISBN = iSBN;
+	}
+
+	public byte getCapa() {
+		return capa;
+	}
+
+	public void setCapa(byte capa) {
+		this.capa = capa;
+	}
+
+	public String getEdicao() {
+		return edicao;
+	}
+
+	public void setEdicao(String edicao) {
+		this.edicao = edicao;
+	}
+
+	public String getAnoPublicacao() {
+		return anoPublicacao;
+	}
+
+	public void setAnoPublicacao(String anoPublicacao) {
+		this.anoPublicacao = anoPublicacao;
+	}
+	
 	
 	
 				
