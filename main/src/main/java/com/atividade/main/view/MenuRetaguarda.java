@@ -244,6 +244,7 @@ public class MenuRetaguarda {
 				try {
 					email.sendEmailComAnexo("luanprof30@gmail.com", "Bom dia !", "Caro luan o email ta sucesso!",
 							new File("src/main/java/tmp/modelo-pedido foreverliss.pdf") );
+					System.err.println("print test...");
 				} catch (MessagingException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
