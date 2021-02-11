@@ -20,39 +20,6 @@ public class Pagamento {
 	
 	
 	
-
-	public Pagamento() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-
-	public Pagamento(long pagamentoID, String descricao) {
-		super();
-		this.pagamentoId = pagamentoID;
-		this.descricao = descricao;
-	}
-
-
-
-	public long getPagamentoID() {
-		return pagamentoId;
-	}
-
-	public void setPagamentoID(long pagamentoID) {
-		this.pagamentoId = pagamentoID;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	
-	
 	
 
 }

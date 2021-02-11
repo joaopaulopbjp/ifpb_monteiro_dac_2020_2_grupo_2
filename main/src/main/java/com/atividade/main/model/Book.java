@@ -15,10 +15,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import lombok.Data;
 
 
 @Entity
 @Table(name ="LIVRO")
+@Data
 public class Book {
 	
   	@Id
@@ -49,6 +53,10 @@ public class Book {
   	@OneToOne
   	@JoinColumn(name = "categoriaId")
   	private Categoria categoria;
+  	
+//  	essa coluna não sera perssistida e so para facilitar o calculo na venda
+  	@Transient
+  	private int quantVenda;
 	
 	
 	@ManyToMany(fetch= FetchType.EAGER, cascade = {CascadeType.MERGE})
@@ -56,89 +64,6 @@ public class Book {
 				joinColumns = @JoinColumn(name="livroId"),
 				inverseJoinColumns = @JoinColumn(name="autorId"))
 	private List<Autor> listAutor;
-	
-	
-
-	public long getLivroId() {
-		return livroId;
-	}
-
-	public void setLivroId(long livroId) {
-		this.livroId = livroId;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descrição) {
-		this.descricao = descrição;
-	}
-
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public List<Autor> getListAutor() {
-		return listAutor;
-	}
-
-	public void setListAutor(List<Autor> listAutor) {
-		this.listAutor = listAutor;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	public String getISBN() {
-		return ISBN;
-	}
-
-	public void setISBN(String iSBN) {
-		ISBN = iSBN;
-	}
-
-	public byte getCapa() {
-		return capa;
-	}
-
-	public void setCapa(byte capa) {
-		this.capa = capa;
-	}
-
-	public String getEdicao() {
-		return edicao;
-	}
-
-	public void setEdicao(String edicao) {
-		this.edicao = edicao;
-	}
-
-	public String getAnoPublicacao() {
-		return anoPublicacao;
-	}
-
-	public void setAnoPublicacao(String anoPublicacao) {
-		this.anoPublicacao = anoPublicacao;
-	}
 	
 	
 	

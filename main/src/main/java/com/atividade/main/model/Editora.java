@@ -26,32 +26,4 @@ public class Editora {
 	@OneToOne
 	private Endereco endereco;
 	
-	
-	
-	
-	
-	public long getEditoraId() {
-		return editoraId;
-	}
-	public void setEditoraId(long editoraId) {
-		this.editoraId = editoraId;
-	}
-	public String getCNPJ() {
-		return CNPJ;
-	}
-	public void setCNPJ(String cNPJ) {
-		CNPJ = cNPJ;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public Endereco getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	} 
 }

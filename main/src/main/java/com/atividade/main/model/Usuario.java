@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 import lombok.Data;
 
@@ -44,81 +46,41 @@ public class Usuario {
 	@OneToMany
 	@JoinColumn(name="endID")
 	private List<Endereco> enderecos;
-
 	
-	public Usuario() {
-		super();
-		// TODO Auto-generated constructor stub
+	@PrePersist
+	private void inclusao() {
+		Email email = new Email();
+		email.sendEmail(this.email, "Oi, "+this.nome+" Bem vindo a CJL Livraria online!"
+				, "Seu dados de acesso são:\n"
+						+ "Email:"+this.email+"\n"
+								+ "Senha:"+this.senha);
 	}
-	
-	
-	public Usuario(long userID, String nome, String email, String celular, String cPF, String sexo, String senha,
-			String papel) {
-		super();
-		this.userID = userID;
-		this.nome = nome;
-		this.email = email;
-		this.celular = celular;
-		CPF = cPF;
-		this.sexo = sexo;
-		this.senha = senha;
-		this.papel = papel;
+	@PreUpdate
+	private void atulizacao() {
+		Email email = new Email();
+		String end = null;
+		for(Endereco e: this.enderecos) {
+			end = "Cep:"+e.getCep()+"\n"
+				 +"Rua:"+e.getRua()+"\n"
+				 +"Numero:"+e.getNumero()+"\n"
+				 +"Rua:"+e.getComplemento()+"\n"
+				 +"Bairro:"+e.getBairro()+"\n"
+				 +"Cidade:"+e.getCidade()+"\n"
+				 +"UF:"+e.getUF()+"\n"
+				 +"PontoReferencia:"+e.getPontoReferencia()+"\n"
+				 +"==========*==========";
+		}
+		email.sendEmail(this.email, "Oi, "+this.nome+" Seu dados foram Atualizados!"
+				, "Seu atualizado foram:\n"
+						+ "CPF:"+this.CPF+"\n"
+						+ "Nome:"+this.nome+"\n"
+						+ "Celular:"+this.celular+"\n"
+						+ "Sexo:"+this.email+"\n"
+						+ "Email:"+this.email+"\n"
+						+ "Senha:"+this.senha+"\n"
+						+ "============*Seus endereços*===========\n"
+						+ end);
 	}
-
-
-
-	public long getUserID() {
-		return userID;
-	}
-	public void setUserID(long userID) {
-		this.userID = userID;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getCelular() {
-		return celular;
-	}
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-	public String getCPF() {
-		return CPF;
-	}
-	public void setCPF(String cPF) {
-		CPF = cPF;
-	}
-	public String getSexo() {
-		return sexo;
-	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	public String getPapel() {
-		return papel;
-	}
-	public void setPapel(String papel) {
-		this.papel = papel;
-	}
-	
-	
-	
-	
 	
 	
 }

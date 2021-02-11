@@ -7,9 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import lombok.Data;
+
 
 
 @Entity
+@Data
 public class Autor {
 	
 	@Id
@@ -31,53 +34,6 @@ public class Autor {
 	@ManyToMany(mappedBy = "listAutor")
 	private List<Book>listLivro;
 
-	public long getAutorId() {
-		return autorId;
-	}
-
-	public void setAutorId(long autorId) {
-		this.autorId = autorId;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
-	public String getNacionalidade() {
-		return nacionalidade;
-	}
-
-	public void setNacionalidade(String nacionalidade) {
-		this.nacionalidade = nacionalidade;
-	}
-
-	public String getDtNascimento() {
-		return dtNascimento;
-	}
-
-	public void setDtNascimento(String dtNascimento) {
-		this.dtNascimento = dtNascimento;
-	}
-
-	public List<Book> getListLivro() {
-		return listLivro;
-	}
-
-	public void setListLivro(List<Book> listLivro) {
-		this.listLivro = listLivro;
-	}
 	
 
 }

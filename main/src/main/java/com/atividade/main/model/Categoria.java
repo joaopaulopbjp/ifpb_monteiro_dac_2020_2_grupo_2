@@ -20,29 +20,4 @@ public class Categoria {
 	private String descricao;
 	
 	
-	
-	public Categoria(long categoriaId, String descricao) {
-		super();
-		this.categoriaId = categoriaId;
-		this.descricao = descricao;
-	}
-	
-	public Categoria() {
-		
-	}
-	
-	public long getCategoriaId() {
-		return categoriaId;
-	}
-	public void setCategoriaId(long categoriaId) {
-		this.categoriaId = categoriaId;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	
-	
 }

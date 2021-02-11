@@ -26,13 +26,13 @@ public class MenuRetaguarda {
 	private int option;
 	private int tie = 0;
 
-	
 	@SuppressWarnings("unused")
 	private final AutorController autorController;
 
 	@SuppressWarnings("unused")
 	private final BookController bookController;
 	
+	@SuppressWarnings("unused")
 	private final Email email;
 	
 	
