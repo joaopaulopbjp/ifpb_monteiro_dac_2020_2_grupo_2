@@ -13,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import lombok.Data;
 
@@ -53,10 +53,9 @@ public class Book {
   	@OneToOne
   	@JoinColumn(name = "categoriaId")
   	private Categoria categoria;
-  	
-//  	essa coluna não sera perssistida e so para facilitar o calculo na venda
-  	@Transient
-  	private int quantVenda;
+	
+	@OneToMany(mappedBy = "bookId")
+	private List<BookPedido>listaPedido;
 	
 	
 	@ManyToMany(fetch= FetchType.EAGER, cascade = {CascadeType.MERGE})

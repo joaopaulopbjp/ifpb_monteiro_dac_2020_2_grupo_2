@@ -6,23 +6,18 @@ import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.atividade.main.service.EstoqueService;
 
@@ -41,15 +36,11 @@ public class Pedido {
 	@JoinColumn(name = "userID")
 	private Usuario user;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
-	@JoinTable(name = "pedidolivro", joinColumns = @JoinColumn(name = "pedidoID"), inverseJoinColumns = @JoinColumn(name = "livroId"))
-	private List<Book> books;
-
 	@Column(nullable = false)
 	private BigDecimal total;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataVenda;
+	private Date dataCriacao;
 
 	@Column(nullable = false)
 	private String status;
@@ -65,12 +56,15 @@ public class Pedido {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFechamento;
 	
+	@OneToMany(mappedBy = "pedidoId")
+	private List<BookPedido>listaPedido;
+	
 	
 
 	
 	@PrePersist
 	private void setDataDeCriacaoPedido() {
-		this.dataVenda = new Date();
+		this.dataCriacao = new Date();
 		this.status = "pedente";
 	}
 
@@ -79,9 +73,9 @@ public class Pedido {
 		if (this.dataFechamento != null) {
 			EstoqueService estoqueService = new EstoqueService();
 			this.status = "finalizado";
-			for (Book b : getBooks()) {
-				Estoque estoque = estoqueService.findEstoqueByBook(b);	
-				estoque.setQuantidade(estoque.getQuantidade() - b.getQuantVenda());
+			for (int i=0;i<this.listaPedido.size();i++) {
+				Estoque estoque = estoqueService.findEstoqueByBook(this.listaPedido.get(i).getBookId());	
+				estoque.setQuantidade(estoque.getQuantidade() - this.listaPedido.get(i).getQuantidadeVendida());
 				estoqueService.save(estoque);
 			}
 			Email email = new Email();
