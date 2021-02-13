@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
@@ -35,5 +36,10 @@ public class BookPedido {
 	@ManyToOne
 	@JoinColumn(name="pedidoID")
 	private Pedido pedidoId;
+	
+	@PrePersist
+	private void inserir() {
+		this.dataVenda = new Date();
+	}
 	
 }

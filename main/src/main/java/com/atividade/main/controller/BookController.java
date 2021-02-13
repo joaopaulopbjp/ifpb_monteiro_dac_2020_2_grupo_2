@@ -3,6 +3,7 @@ package com.atividade.main.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +54,11 @@ public class BookController{
 
 	public Page<Book> getAllBookList(){
         return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "titulo")));
+	}
+	
+	//	retorna uma lista de livro
+	public Page<Book> getAllBookList(Pageable page){
+        return bookService.getListaOrdenadaAsedente(page);
 	}
 		
 
