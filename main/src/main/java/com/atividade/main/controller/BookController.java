@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,8 +56,8 @@ public class BookController{
 	}
 	
 	//	retorna uma lista de livro
-	public Page<Book> getAllBookList(Pageable page){
-        return bookService.getListaOrdenadaAsedente(page);
+	public Page<Book> getListaBookAllPaginada(Pageable page){
+        return bookService.getListaBookAllPaginada(page);
 	}
 		
 

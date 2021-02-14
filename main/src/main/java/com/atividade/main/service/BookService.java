@@ -47,5 +47,7 @@ public class BookService {
 	public Page<Book> getListaCincoMaisBaratos(Pageable page){
         return bookRepository.findAll(page);
 	}
-	
+	public Page<Book> getListaBookAllPaginada(Pageable page){
+        return bookRepository.findAll(page);
+	}
 }

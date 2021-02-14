@@ -1,13 +1,11 @@
 package com.atividade.main.view;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.mail.MessagingException;
+import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.atividade.main.controller.AutorController;
 import com.atividade.main.controller.BookController;
+import com.atividade.main.controller.BookPedidoController;
 import com.atividade.main.controller.CategoriaController;
 import com.atividade.main.controller.EditoraController;
 import com.atividade.main.controller.EnderecoController;
@@ -29,6 +28,7 @@ import com.atividade.main.model.Book;
 import com.atividade.main.model.BookPedido;
 import com.atividade.main.model.Email;
 import com.atividade.main.model.Endereco;
+import com.atividade.main.model.Estoque;
 import com.atividade.main.model.Pedido;
 import com.atividade.main.model.Usuario;
 
@@ -68,12 +68,17 @@ public class MenuRetaguarda {
 	@SuppressWarnings("unused")
 	private final PagamentoController pagamentoController;
 	
+	@SuppressWarnings("unused")
+	private final BookPedidoController bookPedidoController;
+ 	
+	
+	
 	
 	
 	public MenuRetaguarda(AutorController  autorController, BookController bookController,Email email, 
 			UsuarioController usuarioController, EditoraController editoraController,EnderecoController enderecoController,
 			EstoqueController estoqueController, PedidoController pedidoController, 
-			CategoriaController categoriaController, PagamentoController pagamentoController) {
+			CategoriaController categoriaController, PagamentoController pagamentoController, BookPedidoController bookPedidoController) {
 		
 		this.autorController=autorController;
 		this.bookController=bookController;
@@ -85,6 +90,7 @@ public class MenuRetaguarda {
 		this.pedidoController = pedidoController;
 		this.categoriaController = categoriaController;
 		this.pagamentoController = pagamentoController;
+		this.bookPedidoController= bookPedidoController;
 
 		Scanner load = new Scanner(System.in);
 		Endereco end;
@@ -95,7 +101,7 @@ public class MenuRetaguarda {
 
 			System.out.println("\n*----Menu do System Livraria---*"
 					+ "\n-----------------------------------\n"
-					+ "0.Fechar"
+					+ "0.Fechar\n"
 					+ "1.Cadastro de Autor\n" 
 					+ "2.Editar Autor\n" 
 					+ "3.Excluir Autor\n"
@@ -113,7 +119,6 @@ public class MenuRetaguarda {
 					+ "13.Consulta usuario pelo email\n"
 					+ "===============================\n"
 					+ "14.Listar os 5 livros mais baratos disponíveis"
-					+ "15.Adicionar um livro ao estoque"
 					);
 			
 			System.out.println("Digite um numero do que deseja fazer ?");
@@ -184,6 +189,7 @@ public class MenuRetaguarda {
 							+ "\n------------------------------------------------------------------");
 
 				}
+				
 
 			} else if (option == 5) {
 //				instancia do objeto autor
@@ -193,7 +199,7 @@ public class MenuRetaguarda {
 				System.out.println("Digite a descrição do livro?");
 				book.setDescricao(load.nextLine());
 				System.out.println("Digite o preço?");
-				book.setPrice(BigDecimal.valueOf(Float.parseFloat(load.nextLine())));
+				book.setPrice(Double.parseDouble(load.nextLine()));
 
 				long id = -1;
 				List<Autor> lista = new ArrayList<>();
@@ -213,10 +219,29 @@ public class MenuRetaguarda {
 					}
 
 				}
+				
 //			salvar objeto do book no banco
 				book.setListAutor(lista);
 				bookController.save(book);
-				System.out.println("Salvo com sucesso!");
+				System.out.println("Livro salvo com sucesso!");
+				
+				System.out.println("Quer colocar o livro no estoque? sim ou não");
+				String op= load.nextLine();
+				
+				if(op.equals("sim")) {
+				
+				System.out.println("Digite a quantidade do livro");
+				int quant = Integer.parseInt(load.nextLine());
+				Estoque estoque = new Estoque();
+				estoque.setBook(book);
+				estoque.setQuantidade(quant);
+				
+				System.out.println("Digite a prateleira do livro A ou B ou C");
+				String part= load.nextLine();
+				estoque.setPrateleira(part);
+				System.out.println("Adicionado com sucesso!");
+				}
+				
 
 			} else if (option == 6) {
 				
@@ -243,7 +268,7 @@ public class MenuRetaguarda {
 					System.out.println("Digite o novo preço?");
 					String preco = load.nextLine();
 					if (!preco.equals("")) {
-						book.setPrice(BigDecimal.valueOf(Float.parseFloat(preco)));
+						book.setPrice(Double.parseDouble(preco));
 					}
 
 					long id = -1;
@@ -316,8 +341,9 @@ public class MenuRetaguarda {
 				}
 				else if (condicao == 3) {
 					Pedido pedido = new Pedido();
+					pedido.setTotal(0.00d);
 					pedidoController.save(pedido);
-					pedido.setTotal(new BigDecimal(0.00f));
+					
 	
 					System.out.println("Insira o codigo do livro: ");
 					long codLivro = Long.parseLong(load.nextLine());
@@ -326,17 +352,14 @@ public class MenuRetaguarda {
 					BookPedido bp = new BookPedido();
 					bp.setBookId(livro);
 					bp.setPedidoId(pedido);
-					System.out.println("Infome a quatidade: ");
+					System.out.println("Informe a quatidade: ");
 					
 					int quantidade = 1;
 					quantidade = Integer.parseInt(load.nextLine());
 					
 					if (quantidade > 0) {
 						bp.setQuantidadeVendida(quantidade);
-						List<BookPedido>lista=new ArrayList<>();
-						lista.add(bp);
-						pedido.setListaPedido(lista);
-						pedidoController.save(pedido);
+						bookPedidoController.save(bp);
 						menu=16;
 					}
 					
@@ -476,13 +499,17 @@ public class MenuRetaguarda {
 						+ "\n------------------------------------------------------------------");
 			}
 			else if (option == 14) {
-				System.out.println("5 livros mais baratos disponíveis no estoque");
+				
+				 System.out.println("5 livros mais baratos disponíveis no estoque"); 
+				 Pageable sortedByAcendente = PageRequest.of(0, 5, Sort.by("price"));
+				 
 				Page<Book> page = bookController.getListaCincoMaisBaratos();
 				
-				for (Book book : page) {
-					System.out.println("|Cod ISBN: " + book.getISBN() + " |Titulo: " + book.getTitulo() + " |Descrição:" + book.getDescricao()
-							+ " |Capa: " + book.getCapa() + " |Edição " + book.getEdicao() + " |Categoria: " + book.getCategoria()
-							+ " |Ano : "+book.getAnoPublicacao() + " | Cod ID: "+ book.getLivroId() + " |:"+ book.getPrice()
+				for (Book estoque : page) {
+				
+					System.out.println("|Cod ISBN: " + estoque.getISBN() + " |Titulo: " + estoque.getTitulo() + " |Descrição:" + estoque.getDescricao()
+							+ " |Capa: " + estoque.getCapa() + " |Edição " + estoque.getEdicao() + " |Categoria: " + estoque.getCategoria()
+							+ " |Ano : "+estoque.getAnoPublicacao() + " | Cod ID: "+ estoque.getLivroId() + " |:"+ estoque.getPrice()
 							+ "\n------------------------------------------------------------------");
 
 				}
@@ -498,18 +525,16 @@ public class MenuRetaguarda {
 		
 	}
 
-	public void listarLivroPAginado(int pag) {
-		
-		Pageable sortedByAcendente = PageRequest.of(pag, 5, Sort.by(Sort.Direction.ASC));
-		Page<Book> page = bookController.getAllBookList(sortedByAcendente);
-		for (Book a : page) {
-			System.out.println("|Cod: " + a.getLivroId() + " |Titulo: " + a.getTitulo() + " |Descrição:"
-					+ a.getDescricao() + " |Preço: " + a.getPrice());
-			for (Autor b : a.getListAutor()) {
-				System.out.println("|Autores:" + b.getNome());
-				
-			}
-			System.out.print("--------------------------------------------\n");
-		}
-	}
+
+	  public void listarLivroPAginado(int pag) {
+	  
+     Pageable sortedByAcendente = PageRequest.of(pag, 5, Sort.by(Sort.Direction.ASC, "livroId")); Page<Book> page =
+	  bookController.getListaBookAllPaginada(sortedByAcendente); for (Book a :
+	  page) { System.out.println("|Cod: " + a.getLivroId() + " |Titulo: " +
+	 a.getTitulo() + " |Descrição:" + a.getDescricao() + " |Preço: " +
+	  a.getPrice()); for (Autor b : a.getListAutor()) {
+	  System.out.println("|Autores:" + b.getNome());
+	 
+	  } System.out.print("--------------------------------------------\n"); } }
+	 
 }

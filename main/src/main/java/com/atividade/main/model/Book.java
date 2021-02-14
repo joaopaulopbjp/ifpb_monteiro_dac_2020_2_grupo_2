@@ -1,6 +1,5 @@
 package com.atividade.main.model;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -36,18 +36,20 @@ public class Book {
 	private String descricao;
   	
   	@Column(nullable = false)
-  	private BigDecimal price;
+  	private Double price;
   	
-  	@Column(nullable = false)
+  	//@Column(nullable = false)
   	private String ISBN;
   	
-  	@Column(nullable = false)
+  	//@Lob
+  	//@Column(nullable = false)
+//  	no futuro atualizar para array
   	private byte capa;
   	
-  	@Column(nullable = false)
+  //	@Column(nullable = false)
   	private String edicao;
   	
-  	@Column(nullable = false)
+  	//@Column(nullable = false)
   	private String anoPublicacao;
   	
   	@OneToOne
