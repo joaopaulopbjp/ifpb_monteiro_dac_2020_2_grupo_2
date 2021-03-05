@@ -42,6 +42,7 @@ public class BookController{
 	
 	public Page<Book> getListaOrdenadaAsedentePrice(){
         return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 3, Sort.by(Sort.Direction.ASC, "price")));
+        
 	}
 	
 	public Page<Book> getListaCincoMaisBaratos(){

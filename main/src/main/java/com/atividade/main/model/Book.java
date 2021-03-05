@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,55 +18,54 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-
 @Entity
-@Table(name ="LIVRO")
+@Table(name = "LIVRO")
 @Data
 public class Book {
-	
-  	@Id
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long livroId;
-  	
-  	@Column(nullable = false)
+
+	@Column(nullable = false)
 	private String titulo;
-  	
-  	@Column(nullable = false)
+
+	@Column(nullable = false)
 	private String descricao;
-  	
-  	@Column(nullable = false)
-  	private Double price;
-  	
-  	//@Column(nullable = false)
-  	private String ISBN;
-  	
-  	//@Lob
-  	//@Column(nullable = false)
+
+	@Column(nullable = false)
+	private double price;
+
+	// @Column(nullable = false)
+	private String ISBN;
+
+	// @Lob
+	// @Column(nullable = false)
 //  	no futuro atualizar para array
-  	private byte capa;
-  	
-  //	@Column(nullable = false)
-  	private String edicao;
-  	
-  	//@Column(nullable = false)
-  	private String anoPublicacao;
-  	
-  	@OneToOne
-  	@JoinColumn(name = "categoriaId")
-  	private Categoria categoria;
-	
+	private byte capa;
+
+	// @Column(nullable = false)
+	private String edicao;
+
+	// @Column(nullable = false)
+	private String anoPublicacao;
+
+	@OneToOne
+	@JoinColumn(name = "categoriaId")
+	private Categoria categoria;
+
+	@OneToOne
+	@JoinColumn(name = "editoraId")
+	private Editora editora;
+
+	@OneToOne(mappedBy = "book")
+	private Estoque estoque;
+
 	@OneToMany(mappedBy = "bookId")
-	private List<BookPedido>listaPedido;
-	
-	
-	@ManyToMany(fetch= FetchType.EAGER, cascade = {CascadeType.MERGE})
-	@JoinTable(name="livro_Atores",
-				joinColumns = @JoinColumn(name="livroId"),
-				inverseJoinColumns = @JoinColumn(name="autorId"))
+	private List<BookPedido> listaPedido;
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+	@JoinTable(name = "livro_Atores", joinColumns = @JoinColumn(name = "livroId"), inverseJoinColumns = @JoinColumn(name = "autorId"))
 	private List<Autor> listAutor;
-	
-	
-	
-				
 
 }

@@ -1,12 +1,9 @@
 package com.atividade.main.view;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.persistence.criteria.CriteriaBuilder.In;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -143,7 +140,7 @@ public class MenuRetaguarda {
 				System.out.println("Digite a Nacionalidade do autor?");
 				autor.setNacionalidade(load.nextLine());
 				System.out.println("Digite a Data de Nascimento do autor?");
-				autor.setDtNascimento(load.nextLine());
+				autor.setDtNascimento(new Date());
 
 //			salvar objeto do autor no banco
 				autorController.save(autor);
@@ -161,7 +158,7 @@ public class MenuRetaguarda {
 				System.out.println("Digite a Nacionalidade do autor?");
 				autor.setNacionalidade(load.nextLine());
 				System.out.println("Digite a Data de Nascimento do autor?");
-				autor.setDtNascimento(load.nextLine());
+				autor.setDtNascimento(new Date());
 
 //			salvar objeto do autor no banco
 				autorController.save(autor);

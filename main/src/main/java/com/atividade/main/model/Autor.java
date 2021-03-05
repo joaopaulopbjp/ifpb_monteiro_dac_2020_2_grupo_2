@@ -1,4 +1,5 @@
 package com.atividade.main.model;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ public class Autor {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="autorid")
 	private long autorId;
 	
 	@Column(nullable = false)
@@ -28,8 +30,8 @@ public class Autor {
 	@Column(nullable = false)
 	private String nacionalidade;
 	
-	@Column(nullable = false)
-	private String dtNascimento;
+	@Column(name="DATANASCIMENTO",nullable = false)
+	private Date dtNascimento;
 	
 	@ManyToMany(mappedBy = "listAutor")
 	private List<Book>listLivro;

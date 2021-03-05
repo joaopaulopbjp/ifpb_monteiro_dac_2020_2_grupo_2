@@ -37,7 +37,7 @@ public class Pedido {
 	private Usuario user;
 
 	@Column(nullable = false)
-	private Double total;
+	private double total;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
