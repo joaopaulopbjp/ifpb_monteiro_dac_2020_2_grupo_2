@@ -1,12 +1,19 @@
 package com.atividade.main.model;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -21,16 +28,21 @@ public class Autor {
 	@Column(name="autorid")
 	private long autorId;
 	
-	@Column(nullable = false)
+	@NotNull
+	@Size(min=4, max=255)
 	private String nome;
 	
-	@Column(length = 1, nullable = false)
-	private String sexo;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Size(max=1)
+	private Sexo sexo;
 	
-	@Column(nullable = false)
+	@NotNull
+	@Size(min=3, max=50)
 	private String nacionalidade;
 	
-	@Column(name="DATANASCIMENTO",nullable = false)
+	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date dtNascimento;
 	
 	@ManyToMany(mappedBy = "listAutor")

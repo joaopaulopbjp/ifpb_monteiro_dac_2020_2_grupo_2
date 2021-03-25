@@ -1,13 +1,14 @@
 package com.atividade.main.model;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +19,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import com.atividade.main.service.EstoqueService;
 
@@ -42,8 +44,9 @@ public class Pedido {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
 
-	@Column(nullable = false)
-	private String status;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private StatusPedido status;
 
 	@OneToOne
 	@JoinColumn(name = "endID")
@@ -65,14 +68,12 @@ public class Pedido {
 	@PrePersist
 	private void setDataDeCriacaoPedido() {
 		this.dataCriacao = new Date();
-		this.status = "pedente";
 	}
 
 	@PreUpdate
 	private void setBaixaNoEstoque() {
 		if (this.dataFechamento != null) {
 			EstoqueService estoqueService = new EstoqueService();
-			this.status = "finalizado";
 			for (int i=0;i<this.listaPedido.size();i++) {
 				Estoque estoque = estoqueService.findEstoqueByBook(this.listaPedido.get(i).getBookId());	
 				estoque.setQuantidade(estoque.getQuantidade() - this.listaPedido.get(i).getQuantidadeVendida());

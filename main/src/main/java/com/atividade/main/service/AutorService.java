@@ -2,7 +2,9 @@ package com.atividade.main.service;
 
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,11 +23,18 @@ public class AutorService {
 		return autorRepository.save(autor);
 	}
 	
-	public void edit(Autor autor) {
+	public  Autor update(Long codigo, Autor autor) {
+		Autor autorSalvo = autorRepository.findById(codigo).get();
+		if(autorSalvo==null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		BeanUtils.copyProperties(autor, autorSalvo,"autorId");
 		autorRepository.save(autor);
+		return autorSalvo;	
 	}
 	
-	public void excluir(long id) {
+	
+	public void delete(long id) {
 		autorRepository.deleteById(id);
 	}
 	
