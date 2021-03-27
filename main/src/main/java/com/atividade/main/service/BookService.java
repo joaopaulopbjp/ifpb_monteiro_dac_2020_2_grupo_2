@@ -2,15 +2,15 @@ package com.atividade.main.service;
 
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.atividade.main.model.Book;
 import com.atividade.main.repository.BookRepository;
-
-
 
 @Service
 public class BookService {
@@ -22,11 +22,17 @@ public class BookService {
 		return bookRepository.save(Book);
 	}
 	
-	public void edit(Book Book) {
-		bookRepository.save(Book);
+	public Book update(Long codigo, Book book) {
+		Book bookSalvo = bookRepository.findById(codigo).get();
+		if (bookSalvo == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		BeanUtils.copyProperties(book, bookSalvo, "bookID");
+		bookRepository.save(book);
+		return bookSalvo;
 	}
 	
-	public void excluir(long id) {
+	public void delete(long id) {
 		bookRepository.deleteById(id);
 	}
 	

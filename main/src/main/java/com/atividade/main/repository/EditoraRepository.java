@@ -16,6 +16,4 @@ public interface EditoraRepository extends JpaRepository<Editora, Long>{
 //		retorna uma listapaginadar ordenada por nome
 		public List<Editora>findAllByNome(String nome, Pageable pagina);
 
-
-		
 }

@@ -2,12 +2,10 @@ package com.atividade.main.service;
 
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,34 +16,28 @@ import com.atividade.main.repository.UsuarioRepository;
 @Service
 public class UsuarioService {
 
-	private EntityManager em = null;
-	private Root<Usuario> root = null;
-	private CriteriaBuilder build = null;
-	private CriteriaQuery<Usuario> query;
-	
-	private void setCriteria() {
-		build = em.getCriteriaBuilder();
-		query = build.createQuery(Usuario.class);
-		root = query.from(Usuario.class);
-	}
-	
-
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
+	
 	public Usuario save(Usuario usuario) {
 		return usuarioRepository.save(usuario);
-
 	}
 
-	public void edit(Usuario usuario) {
+	public Usuario update(Long codigo ,Usuario usuario) {
+		Usuario usuarioSalvo = usuarioRepository.findById(codigo).get();
+		if(usuarioSalvo==null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		BeanUtils.copyProperties(usuario, usuarioSalvo,"usuarioID");
 		usuarioRepository.save(usuario);
+		return usuarioSalvo;	
+		
 	}
-
-	public void excluir(long id) {
+	
+	public void delete(long id) {
 		usuarioRepository.deleteById(id);
 	}
-
+	
 	public Usuario findById(long id) {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 		return usuario.get();
@@ -64,11 +56,9 @@ public class UsuarioService {
 		return usuarioRepository.findUsuarioByEmail(email);
 	}
 
-	// enviar uma notificação para finalização do pedido*
+//	 enviar uma notificação para finalização do pedido*
 	public void sendEmailNotficacao(long id) {
-		setCriteria();
-		query.where(build.equal(root.get("userID"),id));
-		Usuario user = em.createQuery(query).getSingleResult();
+//		Luan ficou de fazer
 		
 	}
 

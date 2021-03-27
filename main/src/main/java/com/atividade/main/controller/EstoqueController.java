@@ -1,31 +1,58 @@
 package com.atividade.main.controller;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Estoque;
 import com.atividade.main.service.EstoqueService;
 
-
-
-@Service
+@RestController
+@RequestMapping("/estoque")
 public class EstoqueController {
 	
 	@Autowired
 	private EstoqueService estoqueService;
+	
+	@Autowired
+	private ApplicationEventPublisher publisher;
 
-	public Estoque save(Estoque Estoque) {
-		return estoqueService.save(Estoque);
+//	metodo de salvar Estoque
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<Estoque> save(@Valid @RequestBody Estoque estoque, HttpServletResponse response) {
+		Estoque estoqueSalvo = estoqueService.save(estoque);
+		publisher.publishEvent(new RecursoCriadoEvent(this, response, estoqueSalvo.getEstoqueid()));
+		return ResponseEntity.status(HttpStatus.CREATED).body(estoqueSalvo);
 	}
-	
-	public void edit(Estoque Estoque) {
-		estoqueService.save(Estoque);
+
+//	metodo de atualizar entidade
+	@PutMapping("/{codigo}")
+	public ResponseEntity<Estoque> update(@PathVariable Long codigo, @RequestBody Estoque estoque) {
+		Estoque estoqueSalvo = estoqueService.update(codigo, estoque);
+		return ResponseEntity.ok(estoqueSalvo);
 	}
-	
-	public void excluir(long id) {
-		estoqueService.excluir(id);
+
+//	metodo de deletar
+	@DeleteMapping("/{codigo}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(long id) {
+		estoqueService.delete(id);
 	}
 	
 	public Estoque findById(long id) {
