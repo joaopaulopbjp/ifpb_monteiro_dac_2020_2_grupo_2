@@ -2,11 +2,12 @@ package com.atividade.main.service;
 
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.atividade.main.model.Pedido;
 import com.atividade.main.repository.PedidoRepository;
 
@@ -21,8 +22,15 @@ public class PedidoService {
 		return pedidoRepository.save(pedido);
 	}
 	
-	public void edit(Pedido pedido) {
+	public Pedido update(Long codigo, Pedido pedido) {
+		Pedido pedidoSalvo = pedidoRepository.findById(codigo).get();
+		if(pedidoSalvo==null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		BeanUtils.copyProperties(pedido, pedidoSalvo,"pedidoId");
 		pedidoRepository.save(pedido);
+		return pedidoSalvo;	
+		
 	}
 	
 	public void excluir(long id) {

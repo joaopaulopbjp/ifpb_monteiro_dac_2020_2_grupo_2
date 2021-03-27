@@ -32,7 +32,7 @@ public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int pedidoID;
+	private long pedidoID;
 
 	@OneToOne
 	@JoinColumn(name = "userID")
