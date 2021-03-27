@@ -34,7 +34,7 @@ public class AutorController {
 	private ApplicationEventPublisher publisher;
 
 //	metodo de salvar autor
-	@PostMapping("/save")
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Autor> save(@Valid @RequestBody Autor autor, HttpServletResponse response) {
 		Autor autorSalvo = autorService.save(autor);
@@ -62,7 +62,7 @@ public class AutorController {
 		return autor != null ? ResponseEntity.ok(autor) : ResponseEntity.notFound().build();
 	}
 
-	@GetMapping("/autornome")
+	@GetMapping("/{autornome}")
 	public Autor getAutorPorNome(String nome) {
 		return autorService.getAutorPorNome(nome);
 	}
