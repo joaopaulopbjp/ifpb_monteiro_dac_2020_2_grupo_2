@@ -23,7 +23,7 @@ import com.atividade.main.service.BookPedidoService;
 
 
 @RestController
-@RequestMapping("/BookPedidos")
+@RequestMapping("/bookpedidos")
 public class BookPedidoController {
 	
 	@Autowired
