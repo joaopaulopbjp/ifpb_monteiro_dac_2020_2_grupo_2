@@ -18,5 +18,6 @@ public interface AutorRepository extends JpaRepository<Autor, Long>{
 	
 //	retorna uma listapaginadar ordenada por nome
 	public List<Autor>findAllByNome(String nome, Pageable pagina);
+
 	
 }

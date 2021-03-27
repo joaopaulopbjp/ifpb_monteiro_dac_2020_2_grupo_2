@@ -19,7 +19,7 @@ public class Estoque {
 	private long estoqueid;
 	
 	@OneToOne
-	@JoinColumn(name="livroid")
+	@JoinColumn(name="BOOK")
 	private Book book;
 	
 	private int quantidade;

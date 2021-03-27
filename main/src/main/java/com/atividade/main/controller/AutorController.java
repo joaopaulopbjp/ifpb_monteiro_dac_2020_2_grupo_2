@@ -57,17 +57,18 @@ public class AutorController {
 	}
 
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Autor> findById(@PathVariable long id) {
-		Autor autor = autorService.findById(id);
+	public ResponseEntity<Autor> findById(@PathVariable Long codigo) {
+		Autor autor = autorService.findById(codigo);
 		return autor != null ? ResponseEntity.ok(autor) : ResponseEntity.notFound().build();
 	}
 
-	@GetMapping("/{autornome}")
-	public Autor getAutorPorNome(String nome) {
-		return autorService.getAutorPorNome(nome);
+	@GetMapping("/buscanome/{nome}")
+	public ResponseEntity<Autor> getAutorPorNome(@PathVariable String nome) {
+		Autor autor = autorService.getAutorPorNome(nome);
+		return autor != null ? ResponseEntity.ok(autor) : ResponseEntity.notFound().build();
 	}
 
-	@GetMapping("/lista")
+	@GetMapping
 	public Page<Autor> getListaOrdenadaAsedente(Pageable page) {
 		return autorService.getListaOrdenadaAsedente(page);
 	}

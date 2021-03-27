@@ -25,6 +25,7 @@ public class Book {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="LIVROID")
 	private long livroId;
 
 	@Column(nullable = false)
@@ -47,15 +48,15 @@ public class Book {
 	// @Column(nullable = false)
 	private String edicao;
 
-	// @Column(nullable = false)
+	@Column(name="ANOPUBLICACAO")
 	private String anoPublicacao;
 
 	@OneToOne
-	@JoinColumn(name = "categoriaId")
+	@JoinColumn(name = "CATEGORIA")
 	private Categoria categoria;
 
 	@OneToOne
-	@JoinColumn(name = "editoraId")
+	@JoinColumn(name = "EDITORAID")
 	private Editora editora;
 
 	@OneToOne(mappedBy = "book")
@@ -65,7 +66,7 @@ public class Book {
 	private List<BookPedido> listaPedido;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
-	@JoinTable(name = "livro_Atores", joinColumns = @JoinColumn(name = "livroId"), inverseJoinColumns = @JoinColumn(name = "autorId"))
+	@JoinTable(name = "LIVROAUTOR", joinColumns = @JoinColumn(name = "LIVROID"), inverseJoinColumns = @JoinColumn(name = "AUTORID"))
 	private List<Autor> listAutor;
 
 }

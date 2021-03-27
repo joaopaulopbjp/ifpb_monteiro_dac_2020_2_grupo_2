@@ -39,8 +39,10 @@ public class AutorService {
 	}
 	
 	public Autor findById(long id) {
-		Optional<Autor> autor =autorRepository.findById(id);
-		return autor.get();
+		Optional<Autor> autorSalvo = autorRepository.findById(id);
+	
+		
+		return autorSalvo != null ? autorSalvo.get() : null;
 	}
 	
 	public Autor getAutorPorNome(String nome){

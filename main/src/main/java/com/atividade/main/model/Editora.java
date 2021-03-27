@@ -14,6 +14,7 @@ public class Editora {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="editoraid")
 	private long editoraId;
 
 	@Column(nullable = false)
