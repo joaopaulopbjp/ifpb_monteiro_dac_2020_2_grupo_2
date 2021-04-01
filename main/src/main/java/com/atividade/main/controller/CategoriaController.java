@@ -45,24 +45,25 @@ public class CategoriaController {
 //	metodo de atualizar entidade
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Categoria> update(@PathVariable Long codigo, @RequestBody Categoria categoria){
-		Categoria categoriaSalva = categoriaService.update(categoria);
+		Categoria categoriaSalva = categoriaService.update(codigo, categoria);
 		return ResponseEntity.ok(categoriaSalva);
 	}
 
 	//	metodo de deletar
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void excluir(long id) {
-		categoriaService.excluir(id);
+	public void excluir(@PathVariable Long codigo) {
+		categoriaService.excluir(codigo);
 	}
 	
 	@GetMapping
 	public Page<Categoria> getListaCategoria(Pageable page){
 		return categoriaService.getListaOrdenadaAsedente(page);
 	}
-		
-	public Categoria findById(long id) {
-		return categoriaService.CategoriafindById(id);
+	
+	@GetMapping("/{codigo}")	
+	public Categoria findById(@PathVariable Long codigo) {
+		return categoriaService.CategoriafindById(codigo);
 	}
 	
 	

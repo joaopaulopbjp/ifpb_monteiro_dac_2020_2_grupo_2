@@ -2,6 +2,7 @@ package com.atividade.main.service;
 
 import java.util.NoSuchElementException;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +25,10 @@ public class CategoriaService {
 		return categoriaRepository.save(categoria);
 	}
 	
-	public Categoria update(Categoria Categoria) {
-		return categoriaRepository.save(Categoria);
+	public Categoria update(Long codigo, Categoria categoria) {
+		Categoria categoriaSalva = categoriaRepository.findById(codigo).get();
+		BeanUtils.copyProperties(categoria, categoriaSalva, "categoriaId");
+		return categoriaRepository.save(categoriaSalva);
 	}
 	
 	public void excluir(long id) {

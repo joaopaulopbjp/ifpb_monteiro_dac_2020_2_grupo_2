@@ -27,7 +27,7 @@ public class AutorService {
 	public  Autor update(Long codigo, Autor autor) {
 		Autor autorSalvo = buscaAutorById(codigo);
 		BeanUtils.copyProperties(autor, autorSalvo,"autorId");
-		autorRepository.save(autor);
+		autorRepository.save(autorSalvo);
 		return autorSalvo;	
 	}
 
