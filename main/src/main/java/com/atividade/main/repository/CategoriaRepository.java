@@ -8,6 +8,8 @@ import com.atividade.main.model.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{ 
+	
+	public Categoria findCategoriaByDescricao(String descricao);
 
 		
 }

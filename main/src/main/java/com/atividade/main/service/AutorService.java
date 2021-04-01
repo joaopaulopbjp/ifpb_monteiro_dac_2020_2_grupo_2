@@ -24,17 +24,23 @@ public class AutorService {
 	}
 	
 	public  Autor update(Long codigo, Autor autor) {
-		Autor autorSalvo = autorRepository.findById(codigo).get();
-		if(autorSalvo==null) {
-			throw new EmptyResultDataAccessException(1);
-		}
+		Autor autorSalvo = buscaAutorById(codigo);
 		BeanUtils.copyProperties(autor, autorSalvo,"autorId");
 		autorRepository.save(autor);
 		return autorSalvo;	
 	}
+
+	private Autor buscaAutorById(Long codigo) {
+		Autor autorSalvo = autorRepository.findById(codigo).get();
+		if(autorSalvo==null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		return autorSalvo;
+	}
 	
 	
 	public void delete(long id) {
+		buscaAutorById(id);
 		autorRepository.deleteById(id);
 	}
 	

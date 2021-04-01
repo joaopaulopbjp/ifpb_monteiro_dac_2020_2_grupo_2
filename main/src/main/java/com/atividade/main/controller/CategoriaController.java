@@ -5,10 +5,12 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,7 +24,7 @@ import com.atividade.main.model.Categoria;
 import com.atividade.main.service.CategoriaService;
 
 @RestController
-@RequestMapping("/categoriacontroller")
+@RequestMapping("/categoria")
 public class CategoriaController {
 
 	@Autowired
@@ -53,10 +55,15 @@ public class CategoriaController {
 	public void excluir(long id) {
 		categoriaService.excluir(id);
 	}
+	
+	@GetMapping
+	public Page<Categoria> getListaCategoria(Pageable page){
+		return categoriaService.getListaOrdenadaAsedente(page);
+	}
 		
 	public Categoria findById(long id) {
 		return categoriaService.CategoriafindById(id);
 	}
-
+	
 	
 }

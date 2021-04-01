@@ -1,16 +1,15 @@
 package com.atividade.main.service;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.atividade.main.model.Categoria;
 import com.atividade.main.repository.CategoriaRepository;
-
-import antlr.collections.List;
-
-
+import com.atividade.main.service.exception.CategoriaExistException;
 
 @Service
 public class CategoriaService {
@@ -18,8 +17,11 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
-	public Categoria save(Categoria Categoria) {
-		return categoriaRepository.save(Categoria);
+	public Categoria save(Categoria categoria) {
+		if(isCategoriaExist(categoria.getDescricao())) {
+			throw new CategoriaExistException();
+		}
+		return categoriaRepository.save(categoria);
 	}
 	
 	public Categoria update(Categoria Categoria) {
@@ -29,11 +31,29 @@ public class CategoriaService {
 	public void excluir(long id) {
 		categoriaRepository.deleteById(id);
 	}
+	
+	public Page<Categoria> getListaOrdenadaAsedente(Pageable page){
+        return categoriaRepository.findAll(page);
+	}
+	
+	public boolean isCategoriaExist(String descricao) {
+		Categoria categoria = categoriaRepository.findCategoriaByDescricao(descricao);
+		return categoria ==  null ? false : true;
+	}
+	
+	public Categoria findCategoriaByDescricao(String descricao) {
+		Categoria categoria = categoriaRepository.findCategoriaByDescricao(descricao);
+		return categoria ==  null ? null: categoria;
+	}
 		
 
 	public Categoria CategoriafindById(long id) {
-		Optional<Categoria> Categoria=categoriaRepository.findById(id);
-		return Categoria.get();
+		Categoria categoria=categoriaRepository.findById(id).get();
+		
+		if(categoria == null) {
+			 throw new NoSuchElementException();
+		}
+		return categoria;
 	}
 
 	

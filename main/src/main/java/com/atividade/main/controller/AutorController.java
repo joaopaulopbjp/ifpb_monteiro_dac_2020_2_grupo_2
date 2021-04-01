@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Autor;
+import com.atividade.main.repository.filter.AutorFilter;
 import com.atividade.main.service.AutorService;
 
 @RestController
@@ -52,8 +53,8 @@ public class AutorController {
 //	metodo de deletar
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(long id) {
-		autorService.delete(id);
+	public void delete(@PathVariable Long codigo) {
+		autorService.delete(codigo);
 	}
 
 	@GetMapping("/{codigo}")
@@ -69,7 +70,7 @@ public class AutorController {
 	}
 
 	@GetMapping
-	public Page<Autor> getListaOrdenadaAsedente(Pageable page) {
+	public Page<Autor> getListaOrdenadaAsedente(AutorFilter filter, Pageable page) {
 		return autorService.getListaOrdenadaAsedente(page);
 	}
 
