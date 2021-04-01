@@ -71,7 +71,7 @@ public class AutorController {
 
 	@GetMapping
 	public Page<Autor> getListaOrdenadaAsedente(AutorFilter filter, Pageable page) {
-		return autorService.getListaOrdenadaAsedente(page);
+		return autorService.getListaOrdenadaAsedente(filter, page);
 	}
 
 }

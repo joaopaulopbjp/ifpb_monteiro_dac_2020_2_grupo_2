@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.atividade.main.model.Autor;
 import com.atividade.main.repository.AutorRepository;
+import com.atividade.main.repository.filter.AutorFilter;
 
 
 @Service
@@ -55,8 +56,8 @@ public class AutorService {
 		return autorRepository.findAutorByNome(nome);
 	}
 	
-	public Page<Autor> getListaOrdenadaAsedente(Pageable page){
-        return autorRepository.findAll(page);
+	public Page<Autor> getListaOrdenadaAsedente(AutorFilter filter, Pageable page){
+        return autorRepository.filter(filter, page);
 	}
 	
 }
