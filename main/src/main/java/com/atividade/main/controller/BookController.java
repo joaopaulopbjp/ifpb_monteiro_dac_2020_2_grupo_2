@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Book;
+import com.atividade.main.model.Book_;
+import com.atividade.main.repository.filter.BookFilter;
 import com.atividade.main.service.BookService;
 
 
@@ -59,38 +62,19 @@ public class BookController{
 	
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(long id) {
-		bookService.delete(id);
+	public void delete(@PathVariable Long codigo) {
+		bookService.delete(codigo);
 	}
 	
-	
-//	public void save(Book Book) {
-//		bookService.save(Book);
-//	}
-//	
-//	public void edit() {
-//		
-//	}
-//	
-//	public void excluir(long id) {
-//		bookService.excluir(id);
-//	}
-//	
-//	public Book getBookPorId(long id){
-//		return bookService.findById(id);
-//	}
-//	
-//	public Book getBookPorNome(String nome){
-//		return bookService.getBookPorNome(nome);
-//	}
 	
 	public Page<Book> getListaOrdenadaAsedentePrice(){
         return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 3, Sort.by(Sort.Direction.ASC, "price")));
         
 	}
 	
+	@GetMapping("/cincomaisbaratos")
 	public Page<Book> getListaCincoMaisBaratos(){
-        return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "price")));
+        return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, Book_.PRICE)));
 	}
 	
 //	consultar todos os livros (em estoque e sem estoque tb) ordenados de forma ascendente pelo título de forma paginada 
@@ -100,9 +84,10 @@ public class BookController{
         return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "titulo")));
 	}
 	
-	//	retorna uma lista de livro
-	public Page<Book> getListaBookAllPaginada(Pageable page){
-        return bookService.getListaBookAllPaginada(page);
+	//	retorna uma lista de livro com filtro
+	@GetMapping
+	public Page<Book> getListaBookAllPaginada(BookFilter filter, Pageable page){
+        return bookService.getListaBookAllPaginada(filter, page);
 	}
 		
 

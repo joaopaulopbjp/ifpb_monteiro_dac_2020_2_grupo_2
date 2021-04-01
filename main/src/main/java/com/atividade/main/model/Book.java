@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -28,33 +29,34 @@ public class Book {
 	@Column(name="LIVROID")
 	private long livroId;
 
-	@Column(nullable = false)
+	@NotNull
 	private String titulo;
 
-	@Column(nullable = false)
+	@NotNull
 	private String descricao;
 
-	@Column(nullable = false)
+	@NotNull
 	private double price;
 
-	// @Column(nullable = false)
+	@NotNull
 	private String ISBN;
 
-	// @Lob
-	// @Column(nullable = false)
-//  	no futuro atualizar para array
-	private byte capa;
+	@NotNull
+	private String capa;
 
-	// @Column(nullable = false)
+	@NotNull
 	private String edicao;
-
+	
+	@NotNull
 	@Column(name="ANOPUBLICACAO")
 	private String anoPublicacao;
-
+	
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "CATEGORIA")
 	private Categoria categoria;
 
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "EDITORAID")
 	private Editora editora;
@@ -62,7 +64,7 @@ public class Book {
 	@OneToOne(mappedBy = "book")
 	private Estoque estoque;
 
-	@OneToMany(mappedBy = "bookId")
+	@OneToMany(mappedBy = "bookId", fetch = FetchType.LAZY)
 	private List<BookPedido> listaPedido;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })

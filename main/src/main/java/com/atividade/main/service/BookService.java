@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.atividade.main.model.Book;
 import com.atividade.main.repository.BookRepository;
+import com.atividade.main.repository.filter.BookFilter;
 
 @Service
 public class BookService {
@@ -53,7 +54,7 @@ public class BookService {
 	public Page<Book> getListaCincoMaisBaratos(Pageable page){
         return bookRepository.findAll(page);
 	}
-	public Page<Book> getListaBookAllPaginada(Pageable page){
-        return bookRepository.findAll(page);
+	public Page<Book> getListaBookAllPaginada(BookFilter filter ,Pageable page){
+        return bookRepository.filter(filter , page);
 	}
 }

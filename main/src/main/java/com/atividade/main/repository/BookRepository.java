@@ -3,11 +3,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.atividade.main.model.Book;
+import com.atividade.main.repository.query.BookRepositoryQuery;
 
 
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, Long>{ 
+public interface BookRepository extends JpaRepository<Book, Long>, BookRepositoryQuery{ 
 
 	
 	//buscar por nome do titulo do book   
