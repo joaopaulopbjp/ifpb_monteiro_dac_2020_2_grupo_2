@@ -33,7 +33,7 @@ public class EditoraService {
 			throw new EmptyResultDataAccessException(1);
 		}
 		BeanUtils.copyProperties(editora, editoraSalvo, "editoraId");
-		editoraRepository.save(editora);
+		editoraRepository.save(editoraSalvo);
 		return editoraSalvo;
 	}
 	
