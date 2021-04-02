@@ -13,6 +13,9 @@ public interface EditoraRepository extends JpaRepository<Editora, Long>{
 //		buscar por nome da editora   
 		public Editora findEditoraByNome(String nome);
 		
+//		buscar por CNPJ
+		public Editora findEditoraByCNPJ(String cnpj);
+		
 //		retorna uma listapaginadar ordenada por nome
 		public List<Editora>findAllByNome(String nome, Pageable pagina);
 

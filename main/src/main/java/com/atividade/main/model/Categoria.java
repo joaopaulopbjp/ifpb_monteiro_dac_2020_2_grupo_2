@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -15,10 +16,11 @@ public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="CATEGORIAID")
-	private long categoriaId;
+	private Long categoriaId;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String descricao;
+	
 	
 	
 }

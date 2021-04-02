@@ -35,13 +35,14 @@ public class Pedido {
 	private long pedidoID;
 
 	@OneToOne
-	@JoinColumn(name = "userID")
+	@JoinColumn(name = "USERID")
 	private Usuario user;
 
 	@Column(nullable = false)
 	private double total;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="DATACRIACAO")
 	private Date dataCriacao;
 
 	@NotNull
@@ -49,14 +50,15 @@ public class Pedido {
 	private StatusPedido status;
 
 	@OneToOne
-	@JoinColumn(name = "endID")
+	@JoinColumn(name = "ENDERECO")
 	private Endereco enderecoEntrega;
 
 	@OneToOne
-	@JoinColumn(name = "pagamentoId")
+	@JoinColumn(name = "pagamento")
 	private Pagamento pagamento;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="DATAFECHAMENTO")
 	private Date dataFechamento;
 	
 	@OneToMany(mappedBy = "pedidoId")

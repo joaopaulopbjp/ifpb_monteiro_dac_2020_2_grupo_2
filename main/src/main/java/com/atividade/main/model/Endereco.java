@@ -37,7 +37,7 @@ public class Endereco {
 	@Column(nullable = false)
 	private String complemento;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, name ="PONTOREFERENCIA")
 	private String pontoReferencia;
 	
 	

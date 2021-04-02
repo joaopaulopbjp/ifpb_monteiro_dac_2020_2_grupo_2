@@ -64,7 +64,7 @@ public class Book {
 	@OneToOne(mappedBy = "book")
 	private Estoque estoque;
 
-	@OneToMany(mappedBy = "bookId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "bookId")
 	private List<BookPedido> listaPedido;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })

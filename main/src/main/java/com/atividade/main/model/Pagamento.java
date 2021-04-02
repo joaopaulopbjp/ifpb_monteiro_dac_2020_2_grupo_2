@@ -13,6 +13,7 @@ public class Pagamento {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="pagamentoid")
 	private long pagamentoId;
 	
 	@Column(nullable = false)	

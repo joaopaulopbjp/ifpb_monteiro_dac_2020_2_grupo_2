@@ -13,34 +13,43 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name="")
+@Table(name="BOOKPEDIDO")
+
 //classe intermediaria entre pedido e livro fazendo uym reação de n to n  
 public class BookPedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="BOOKPEDIDOID")
 	private long bookPedidoId;
 	
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="DATAVENDA")
 	private Date dataVenda;
 	
-	@Column(nullable = false)	
+	@NotNull
+	@Column(name="QUANTIDADE")
 	private int quantidadeVendida;
 	
 	@ManyToOne
-	@JoinColumn(name="livroId")
+	@JoinColumn(name="LIVROID")
 	private Book bookId;
 	
 	@ManyToOne
-	@JoinColumn(name="pedidoID")
+	@JoinColumn(name="PEDIDOID")
 	private Pedido pedidoId;
 	
 	@PrePersist
-	private void inserir() {
+	private void setDateAtual() {
 		this.dataVenda = new Date();
 	}
 	

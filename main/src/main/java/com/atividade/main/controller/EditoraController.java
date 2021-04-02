@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,7 +25,7 @@ import com.atividade.main.model.Editora;
 import com.atividade.main.service.EditoraService;
 
 @RestController
-@RequestMapping("/Editora")
+@RequestMapping("/editora")
 public class EditoraController {
 	
 	@Autowired
@@ -52,18 +53,20 @@ public class EditoraController {
 //	metodo de deletar
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(long id) {
-		editoraService.excluir(id);
+	public void delete(@PathVariable long codigo) {
+		editoraService.excluir(codigo);
 	}
-	
-	public Editora EditorafindById(long id) {
-		Editora editora=editoraService.findById(id);
+	@GetMapping("/{codigo}")
+	public Editora EditorafindById(long codigo) {
+		Editora editora=editoraService.findById(codigo);
 		return editora;
 	}
-	
+	@GetMapping("/buscabyname/{nome}")
 	public Editora getEditoraPorNome(String nome) {
 		return editoraService.getEditoraPorNome(nome);
 	}	
+	
+	@GetMapping
 	public Page<Editora> getListaOrdenadaAsedente(Pageable page){
 		return editoraService.getListaOrdenadaAsedente(page);
 	}	

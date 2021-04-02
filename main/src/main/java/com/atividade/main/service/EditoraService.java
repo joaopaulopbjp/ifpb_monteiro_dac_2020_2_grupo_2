@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.atividade.main.model.Editora;
 import com.atividade.main.repository.EditoraRepository;
+import com.atividade.main.service.exception.EditoraExistException;
 
 
 @Service
@@ -20,6 +21,9 @@ public class EditoraService {
 	private EditoraRepository editoraRepository;
 
 	public Editora save(Editora editora) {
+		if(isEditoraExist(editora.getCNPJ())){
+			throw new EditoraExistException();
+		}
 		return editoraRepository.save(editora);
 	}
 	
@@ -42,6 +46,16 @@ public class EditoraService {
 		return editora.get();
 	}
 	
+	public boolean isEditoraExist(String cnpj) {
+		Editora editora=editoraRepository.findEditoraByCNPJ(cnpj);
+		return editora == null ? false : true;
+		
+	}
+	
+	public Editora findByCNPJ(String cnpj) {
+		Editora editora=editoraRepository.findEditoraByCNPJ(cnpj);
+		return editora;
+	}
 	public Editora getEditoraPorNome(String nome) {
 		return editoraRepository.findEditoraByNome(nome);
 	}	

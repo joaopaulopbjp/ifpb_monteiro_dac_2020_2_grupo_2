@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-
+import com.atividade.main.model.Autor_;
 import com.atividade.main.model.Book;
 import com.atividade.main.model.Book_;
 import com.atividade.main.repository.filter.BookFilter;
@@ -30,6 +30,7 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 		CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
 		Root<Book> root = criteria.from(Book.class);
 		Predicate[] predicates = criarRestricoes(filter,builder, root );
+		root.fetch(Autor_.AUTOR_ID);
 		criteria.where(predicates);
 		TypedQuery<Book> query = manager.createQuery(criteria);
 		adicionarPaginacao(query,page);

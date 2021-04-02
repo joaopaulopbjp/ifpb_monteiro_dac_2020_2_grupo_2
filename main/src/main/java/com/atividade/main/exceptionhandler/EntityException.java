@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.atividade.main.exceptionhandler.GeralExceptionHandler.Erro;
 import com.atividade.main.service.exception.CategoriaExistException;
+import com.atividade.main.service.exception.EditoraExistException;
 
 @ControllerAdvice
 public class EntityException {
@@ -25,6 +26,14 @@ public class EntityException {
 	@ExceptionHandler(CategoriaExistException.class)
 	public ResponseEntity<Object> handCategoriaExist(CategoriaExistException ex){
 		mensagemUsuario = menssageSourse.getMessage("categoria.existe", null, LocaleContextHolder.getLocale());
+		mensagemDesenvolvedor = ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		return ResponseEntity.badRequest().body(erros);		
+	}
+	
+	@ExceptionHandler(EditoraExistException.class)
+	public ResponseEntity<Object> handCategoriaExist(EditoraExistException ex){
+		mensagemUsuario = menssageSourse.getMessage("editora.existe", null, LocaleContextHolder.getLocale());
 		mensagemDesenvolvedor = ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return ResponseEntity.badRequest().body(erros);		

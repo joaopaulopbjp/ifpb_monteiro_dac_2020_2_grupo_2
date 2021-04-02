@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -17,28 +19,29 @@ public class Editora {
 	@Column(name="editoraid")
 	private long editoraId;
 
-	@Column(nullable = false)
+	@NotNull
 	private String CNPJ;
 
-	@Column(nullable = false)
+	@NotNull
 	private String nome;
 
-	@Column(nullable = false)
+	@NotNull
 	private String cep;
 
-	@Column(nullable = false)
+	@NotNull
 	private String rua;
 
-	@Column(nullable = false)
+	
 	private int numero;
 
-	@Column(nullable = false)
+	@NotNull
 	private String bairro;
 
-	@Column(nullable = false)
+	@NotNull
 	private String cidade;
 
-	@Column(nullable = false, length = 2)
+	@NotNull
+	@Size(max=2)
 	private String UF;
 
 }
