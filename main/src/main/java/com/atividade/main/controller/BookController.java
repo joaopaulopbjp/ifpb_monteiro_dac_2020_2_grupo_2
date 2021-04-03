@@ -1,14 +1,14 @@
 package com.atividade.main.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Book;
-import com.atividade.main.model.Book_;
 import com.atividade.main.repository.filter.BookFilter;
 import com.atividade.main.service.BookService;
 
@@ -43,8 +42,7 @@ public class BookController{
 //	metodo de salvar book
 	
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Book> save(@Valid @RequestBody Book book, HttpServletResponse response) {
+	public ResponseEntity<Book> save( @RequestBody @Valid Book book, HttpServletResponse response) {
 		Book bookSalvo = bookService.save(book);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, bookSalvo.getLivroId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(bookSalvo);
@@ -66,22 +64,16 @@ public class BookController{
 		bookService.delete(codigo);
 	}
 	
-	
-	public Page<Book> getListaOrdenadaAsedentePrice(){
-        return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 3, Sort.by(Sort.Direction.ASC, "price")));
-        
-	}
-	
 	@GetMapping("/cincomaisbaratos")
-	public Page<Book> getListaCincoMaisBaratos(){
-        return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, Book_.PRICE)));
+	public List<Book> getListaCincoMaisBaratos(){
+        return bookService.findListaCincoMaisBaratos();
 	}
 	
 //	consultar todos os livros (em estoque e sem estoque tb) ordenados de forma ascendente pelo título de forma paginada 
 	//(defina um tamanho fixo para a página - ex.: 5 livros). O usuário pode informar a página que deseja consultar.
-
-	public Page<Book> getAllBookList(){
-        return bookService.getListaOrdenadaAsedente(PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC, "titulo")));
+	@GetMapping("/tudo")
+	public Page<Book> getAllBookList(Pageable page){
+        return bookService.findListBookOrdenadaTituloComOuSemEstoque(page);
 	}
 	
 	//	retorna uma lista de livro com filtro

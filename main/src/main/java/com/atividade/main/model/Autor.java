@@ -35,7 +35,7 @@ public class Autor {
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Size(max=1)
+	//@Size(min=1)
 	private Sexo sexo;
 	
 	@NotNull

@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import com.atividade.main.model.Autor_;
+
 import com.atividade.main.model.Book;
 import com.atividade.main.model.Book_;
 import com.atividade.main.repository.filter.BookFilter;
@@ -30,7 +30,11 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 		CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
 		Root<Book> root = criteria.from(Book.class);
 		Predicate[] predicates = criarRestricoes(filter,builder, root );
-		root.fetch(Autor_.AUTOR_ID);
+		root.fetch(Book_.LIST_AUTOR);
+		root.fetch(Book_.CATEGORIA);
+		root.fetch(Book_.EDITORA);
+		root.fetch(Book_.ESTOQUE);
+		
 		criteria.where(predicates);
 		TypedQuery<Book> query = manager.createQuery(criteria);
 		adicionarPaginacao(query,page);
@@ -75,6 +79,35 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 		}
 		
 		return predicates.toArray( new Predicate[predicates.size()]);
+	}
+
+
+	@Override
+	public List<Book> filterCincoBaratos() {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
+		Root<Book> root = criteria.from(Book.class);
+		root.fetch(Book_.LIST_AUTOR);
+		root.fetch(Book_.CATEGORIA);
+		root.fetch(Book_.EDITORA);
+	    root.fetch(Book_.ESTOQUE);
+		criteria.orderBy(builder.desc(root.get(Book_.PRICE)));
+		TypedQuery<Book> query = manager.createQuery(criteria).setMaxResults(5);
+		return query.getResultList();
+	}
+
+
+	@Override
+	public Page<Book> findListBookOrdenadaTituloComOuSemEstoque(Pageable page) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
+		Root<Book> root = criteria.from(Book.class);
+		root.fetch(Book_.LIST_AUTOR);
+		root.fetch(Book_.CATEGORIA);
+		root.fetch(Book_.EDITORA);
+		TypedQuery<Book> query = manager.createQuery(criteria);
+		adicionarPaginacao(query,page);
+		return new PageImpl<>(query.getResultList(), page,query.getResultList().size());
 	}
 
 }

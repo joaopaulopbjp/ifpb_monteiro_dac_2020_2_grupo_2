@@ -41,7 +41,7 @@ public class Editora {
 	private String cidade;
 
 	@NotNull
-	@Size(max=2)
+	@Size(min=2,max=2)
 	private String UF;
 
 }

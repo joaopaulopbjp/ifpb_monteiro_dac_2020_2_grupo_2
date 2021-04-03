@@ -1,5 +1,6 @@
 package com.atividade.main.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.atividade.main.model.Book;
 import com.atividade.main.repository.BookRepository;
 import com.atividade.main.repository.filter.BookFilter;
+import com.atividade.main.service.exception.BookExistException;
 
 @Service
 public class BookService {
@@ -19,17 +21,20 @@ public class BookService {
 	@Autowired
 	private BookRepository bookRepository;
 
-	public Book save(Book Book) {
-		return bookRepository.save(Book);
+	public Book save(Book book) {
+		if(isBookExist(book.getISBN())) {
+			throw new BookExistException();
+		}
+		return bookRepository.save(book);
 	}
 	
 	public Book update(Long codigo, Book book) {
-		Book bookSalvo = bookRepository.findById(codigo).get();
+		Book bookSalvo = findById(codigo);
 		if (bookSalvo == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		BeanUtils.copyProperties(book, bookSalvo, "bookID");
-		bookRepository.save(book);
+		BeanUtils.copyProperties(book, bookSalvo, "livroId");
+		bookRepository.save(bookSalvo);
 		return bookSalvo;
 	}
 	
@@ -37,8 +42,19 @@ public class BookService {
 		bookRepository.deleteById(id);
 	}
 	
+	public boolean isBookExist(String ISBN) {
+		if(findBookByISBN(ISBN)!=null) {
+			return true;
+		}
+		return false;
+	}
+	public Book findBookByISBN(String ISBN) {
+		Book bookSalvo = bookRepository.findBookByISBN(ISBN);
+		return bookSalvo!=null? bookSalvo:null;
+	}
+	
 	public Book findById(long id) {
-		Optional<Book> b =bookRepository.findById(id);
+		Optional<Book> b = bookRepository.findById(id);
 		return b.get();
 	}
 	
@@ -46,13 +62,13 @@ public class BookService {
 		return bookRepository.findBookByTitulo(nome);
 	}
 	
-	public Page<Book> getListaOrdenadaAsedente(Pageable page){
-        return bookRepository.findAll(page);
+	public Page<Book> findListBookOrdenadaTituloComOuSemEstoque(Pageable page){
+        return bookRepository.findListBookOrdenadaTituloComOuSemEstoque(page);
 	}
 	
 //	consultar os 5 livros mais baratos disponíveis no estoque;
-	public Page<Book> getListaCincoMaisBaratos(Pageable page){
-        return bookRepository.findAll(page);
+	public List<Book> findListaCincoMaisBaratos(){
+        return bookRepository.filterCincoBaratos();
 	}
 	public Page<Book> getListaBookAllPaginada(BookFilter filter ,Pageable page){
         return bookRepository.filter(filter , page);

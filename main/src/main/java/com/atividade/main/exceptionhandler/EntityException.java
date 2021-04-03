@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.atividade.main.exceptionhandler.GeralExceptionHandler.Erro;
+import com.atividade.main.service.exception.BookExistException;
 import com.atividade.main.service.exception.CategoriaExistException;
 import com.atividade.main.service.exception.EditoraExistException;
 
@@ -34,6 +35,14 @@ public class EntityException {
 	@ExceptionHandler(EditoraExistException.class)
 	public ResponseEntity<Object> handCategoriaExist(EditoraExistException ex){
 		mensagemUsuario = menssageSourse.getMessage("editora.existe", null, LocaleContextHolder.getLocale());
+		mensagemDesenvolvedor = ex.toString();
+		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
+		return ResponseEntity.badRequest().body(erros);		
+	}
+	
+	@ExceptionHandler(BookExistException.class)
+	public ResponseEntity<Object> handBookExist(BookExistException ex){
+		mensagemUsuario = menssageSourse.getMessage("book.existe", null, LocaleContextHolder.getLocale());
 		mensagemDesenvolvedor = ex.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return ResponseEntity.badRequest().body(erros);		
