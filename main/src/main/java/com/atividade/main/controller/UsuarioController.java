@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -51,24 +53,25 @@ public class UsuarioController {
 //	metodo de deletar
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(long id) {
-		usuarioService.delete(id);
+	public void delete(@PathVariable long codigo) {
+		usuarioService.delete(codigo);
 	}
 
-
-	public Usuario findById(long id) {
-		return usuarioService.findById(id);
+	@GetMapping("/{codigo}")
+	public Usuario UsuariofindById(long codigo) {
+		Usuario usuario=usuarioService.findById(codigo);
+		return usuario;
 	}
-
+	@GetMapping("/buscabyname/{nome}")
 	public Usuario getUsuarioPorNome(String nome) {
 		return usuarioService.getUsuarioPorNome(nome);
 	}
-
+	@GetMapping
 	public Page<Usuario> getListaOrdenadaAsedente(Pageable page) {
 		return usuarioService.getListaOrdenadaAsedente(page);
 	}
-	
-	public Usuario getUsuarioPorEmail(String email) {
+	@GetMapping(params = "buscabyemail/{email}")
+	public Usuario getUsuarioPorEmail(@PathVariable String email) {
 		return usuarioService.getUserPorEmail(email);
 	}
 	

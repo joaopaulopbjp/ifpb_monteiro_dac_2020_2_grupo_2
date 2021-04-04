@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.atividade.main.model.Usuario;
 import com.atividade.main.repository.UsuarioRepository;
+import com.atividade.main.service.exception.UsuarioExistException;
 
 @Service
 public class UsuarioService {
@@ -20,6 +21,10 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 	
 	public Usuario save(Usuario usuario) {
+		if(isUsuarioExist(usuario.getCPF())) {
+			throw new UsuarioExistException();
+		}
+		
 		return usuarioRepository.save(usuario);
 	}
 
@@ -28,8 +33,8 @@ public class UsuarioService {
 		if(usuarioSalvo==null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		BeanUtils.copyProperties(usuario, usuarioSalvo,"usuarioID");
-		usuarioRepository.save(usuario);
+		BeanUtils.copyProperties(usuario, usuarioSalvo,"userID");
+		usuarioRepository.save(usuarioSalvo);
 		return usuarioSalvo;	
 		
 	}
@@ -42,7 +47,12 @@ public class UsuarioService {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 		return usuario.get();
 	}
-
+	
+	public boolean isUsuarioExist(String cpf) {
+		Usuario usuario=usuarioRepository.findUsuarioByCPF(cpf);
+		return usuario == null ? false : true;
+ 	}
+	
 	public Usuario getUsuarioPorNome(String nome) {
 		return usuarioRepository.findUsuarioByNome(nome);
 	}

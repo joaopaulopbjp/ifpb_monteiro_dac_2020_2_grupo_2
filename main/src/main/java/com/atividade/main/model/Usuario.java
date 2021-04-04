@@ -26,29 +26,32 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userID;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String nome;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String email;
 	
-	@Column(nullable = false)
+	
 	private String celular;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String CPF;
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Size(max=1)
+	
 	private Sexo sexo;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String senha;
 	
-	@Column(nullable = false)
-	private String papel;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "USER_PAPEL")
+	private UserPapel userPapel;
 	
+	@NotNull
 	@OneToMany
 	@JoinColumn(name="endID")
 	private List<Endereco> enderecos;
