@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 @Entity
@@ -16,7 +18,7 @@ public class Pagamento {
 	@Column(name="pagamentoid")
 	private long pagamentoId;
 	
-	@Column(nullable = false)	
+	@NotNull	
 	private String descricao;
 	
 	

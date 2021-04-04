@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.atividade.main.model.Editora;
 import com.atividade.main.model.Pagamento;
 import com.atividade.main.repository.PagamentoRepository;
+import com.atividade.main.service.exception.PagamentoExistException;
 
 
 
@@ -19,8 +21,11 @@ public class PagamentoService {
 	private PagamentoRepository pagamentoRepository;
 	
 	
-	public Pagamento save(Pagamento Pagamento) {
-		return pagamentoRepository.save(Pagamento);
+	public Pagamento save(Pagamento pagamento) {
+		if(isPagamentoExist(pagamento.getDescricao())) {
+			throw new PagamentoExistException();
+		}
+		return pagamentoRepository.save(pagamento);
 	}
 	
 	
@@ -30,7 +35,7 @@ public class PagamentoService {
 			throw new EmptyResultDataAccessException(1);
 		}
 		BeanUtils.copyProperties(pagamento, pagamentoSalvo,"pagamentoId");
-		pagamentoRepository.save(pagamento);
+		pagamentoRepository.save(pagamentoSalvo);
 		return pagamentoSalvo;
 	}
 	
@@ -42,6 +47,11 @@ public class PagamentoService {
 		Optional<Pagamento> Pagamento=pagamentoRepository.findById(id);
 		return Pagamento.get();
 	}
-
+	
+	public boolean isPagamentoExist(String descricao) {
+		Pagamento pagamento=pagamentoRepository.findPagamentoByDescricao(descricao);
+		return pagamento == null ? false : true;
+		
+	}
 	
 }

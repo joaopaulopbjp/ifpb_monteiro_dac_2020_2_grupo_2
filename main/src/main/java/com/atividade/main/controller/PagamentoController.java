@@ -1,5 +1,7 @@
 package com.atividade.main.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -8,6 +10,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Pagamento;
+import com.atividade.main.repository.PagamentoRepository;
 import com.atividade.main.service.PagamentoService;
 
 @RestController
@@ -26,6 +30,9 @@ public class PagamentoController {
 
 	@Autowired
 	private PagamentoService pagamentoService; 
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -49,14 +56,19 @@ public class PagamentoController {
 //	metodo de deletar
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(long id) {
-		pagamentoService.delete(id);
+	public void delete(@PathVariable long codigo) {
+		pagamentoService.delete(codigo);
 	}
 	
-
+	@GetMapping("/{codigo}")
 	public Pagamento findById(long id) {
 		return pagamentoService.PagamentofindById(id);
 	}
-
+	@GetMapping
+	public List<Pagamento> getPagamentoList(){
+		return pagamentoRepository.findAll();
+		
+	}
+	
 	
 }
