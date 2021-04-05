@@ -6,14 +6,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
-import com.atividade.main.model.Autor;
+import com.atividade.Book_;
 import com.atividade.main.model.Book;
-import com.atividade.main.model.Book_;
 import com.atividade.main.model.Categoria;
-import com.atividade.main.model.Categoria_;
 import com.atividade.main.model.Editora;
 import com.atividade.main.model.Estoque;
-import com.atividade.main.model.Estoque_;
 
 import lombok.Data;
 

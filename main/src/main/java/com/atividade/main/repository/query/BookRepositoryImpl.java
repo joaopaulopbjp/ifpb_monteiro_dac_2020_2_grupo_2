@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.FetchType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -17,15 +15,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import com.atividade.main.model.Autor;
-import com.atividade.main.model.Autor_;
+import com.atividade.Book_;
+import com.atividade.Categoria_;
+import com.atividade.Editora_;
+import com.atividade.Estoque_;
 import com.atividade.main.model.Book;
-import com.atividade.main.model.Book_;
-import com.atividade.main.model.Categoria_;
-import com.atividade.main.model.Editora_;
-import com.atividade.main.model.Estoque_;
-import com.atividade.main.repository.dto.AutorDTO;
-import com.atividade.main.repository.dto.BookDTO;
 import com.atividade.main.repository.dto.BookResumo;
 import com.atividade.main.repository.filter.BookFilter;
 
@@ -84,7 +78,7 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 		}if(filter.getAnoPublicacao()!=null) {
 			predicates.add(builder.equal(root.get(Book_.anoPublicacao),filter.getAnoPublicacao()));
 		}if(filter.getPriceDe()!=0 && filter.getPriceAte()!=0) {
-			predicates.add(builder.between(root.get(Book_.price), filter.getPriceDe(), filter.getPriceAte()));
+			predicates.add(builder.between(root.get(Book_.PRICE), filter.getPriceDe(), filter.getPriceAte()));
 		}if(filter.getEditora()!=null) {
 			predicates.add(builder.equal(root.get(Book_.editora), filter.getEditora()));
 		}

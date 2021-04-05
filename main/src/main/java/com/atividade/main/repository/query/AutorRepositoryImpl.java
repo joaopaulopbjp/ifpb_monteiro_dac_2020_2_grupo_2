@@ -15,8 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import com.atividade.Autor_;
 import com.atividade.main.model.Autor;
-import com.atividade.main.model.Autor_;
 import com.atividade.main.repository.filter.AutorFilter;
 
 public class AutorRepositoryImpl  implements AutorRepositoryQuery{

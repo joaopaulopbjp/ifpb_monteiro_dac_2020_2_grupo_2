@@ -62,8 +62,7 @@ public class Book {
 	@JoinColumn(name = "EDITORAID")
 	private Editora editora;
 
-	@OneToOne
-	@JoinColumn(name = "ESTOQUE")
+	@OneToOne(mappedBy = "livroid")
 	private Estoque estoque;
 
 	@OneToMany(mappedBy = "bookId")
