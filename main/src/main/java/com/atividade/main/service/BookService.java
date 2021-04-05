@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.atividade.main.model.Book;
 import com.atividade.main.repository.BookRepository;
+import com.atividade.main.repository.dto.BookDTO;
+import com.atividade.main.repository.dto.BookResumo;
 import com.atividade.main.repository.filter.BookFilter;
 import com.atividade.main.service.exception.BookExistException;
 
@@ -21,11 +23,12 @@ public class BookService {
 	@Autowired
 	private BookRepository bookRepository;
 
-	public Book save(Book book) {
+	public BookDTO save(Book book) {
 		if(isBookExist(book.getISBN())) {
 			throw new BookExistException();
 		}
-		return bookRepository.save(book);
+		BookDTO dto = new BookDTO(bookRepository.save(book));
+		return dto;
 	}
 	
 	public Book update(Long codigo, Book book) {
@@ -62,15 +65,17 @@ public class BookService {
 		return bookRepository.findBookByTitulo(nome);
 	}
 	
-	public Page<Book> findListBookOrdenadaTituloComOuSemEstoque(Pageable page){
+	public Page<BookResumo> findListBookOrdenadaTituloComOuSemEstoque(Pageable page){
         return bookRepository.findListBookOrdenadaTituloComOuSemEstoque(page);
 	}
 	
 //	consultar os 5 livros mais baratos disponíveis no estoque;
-	public List<Book> findListaCincoMaisBaratos(){
+	public List<BookResumo> findListaCincoMaisBaratos(){
+		//Page<Book> lista = bookRepository.findAll(PageRequest.of(0,5,Sort.Direction.DESC, Book_.PRICE));
         return bookRepository.filterCincoBaratos();
 	}
-	public Page<Book> getListaBookAllPaginada(BookFilter filter ,Pageable page){
-        return bookRepository.filter(filter , page);
+	public Page<BookDTO> getListaBookAllPaginada(BookFilter filter ,Pageable page){
+		
+        return bookRepository.filter(filter , page).map(e-> new BookDTO(e));
 	}
 }

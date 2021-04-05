@@ -1,5 +1,6 @@
 package com.atividade.main.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -36,7 +37,7 @@ public class Book {
 	private String descricao;
 
 	@NotNull
-	private double price;
+	private BigDecimal price;
 
 	@NotNull
 	private String ISBN;
@@ -61,15 +62,17 @@ public class Book {
 	@JoinColumn(name = "EDITORAID")
 	private Editora editora;
 
-	@OneToOne(mappedBy = "book")
+	@OneToOne
+	@JoinColumn(name = "ESTOQUE")
 	private Estoque estoque;
 
 	@OneToMany(mappedBy = "bookId")
 	private List<BookPedido> listaPedido;
 	
 
-	@ManyToMany(fetch=FetchType.EAGER, cascade = { CascadeType.MERGE })
-	@JoinTable(name = "LIVROAUTOR", joinColumns = @JoinColumn(name = "LIVROID"), inverseJoinColumns = @JoinColumn(name = "AUTORID"))
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE})
+	@JoinTable(name = "LIVROAUTOR", joinColumns = @JoinColumn(name = "LIVROID"), 
+	inverseJoinColumns = @JoinColumn(name = "AUTORID"))
 	private List<Autor> listAutor;
 
 }

@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,7 @@ public class Autor {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="autorid")
+	@Column(name="AUTORID")
 	private Long autorId;
 	
 	@NotNull
@@ -47,7 +46,7 @@ public class Autor {
 	@Column(name="DATANASCIMENTO")
 	private Date dtNascimento;
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "listAutor")
+	@ManyToMany(mappedBy = "listAutor")
 	private List<Book>listLivro;
 
 	

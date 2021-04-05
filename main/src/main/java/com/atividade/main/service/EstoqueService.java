@@ -55,9 +55,4 @@ public class EstoqueService {
 	public Page<Estoque> getListaCincoMaisBaratos(Pageable page){
         return estoqueRepository.findAll(page);
 	}
-	
-	public Estoque findEstoqueByBook(Book book) {
-		return estoqueRepository.findEstoqueByBook(book);
-	}
-	
 }

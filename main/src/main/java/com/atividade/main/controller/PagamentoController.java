@@ -61,8 +61,8 @@ public class PagamentoController {
 	}
 	
 	@GetMapping("/{codigo}")
-	public Pagamento findById(long id) {
-		return pagamentoService.PagamentofindById(id);
+	public Pagamento findById(@PathVariable Long codigo) {
+		return pagamentoService.PagamentofindById(codigo);
 	}
 	@GetMapping
 	public List<Pagamento> getPagamentoList(){

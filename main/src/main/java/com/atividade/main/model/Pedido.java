@@ -1,6 +1,7 @@
 package com.atividade.main.model;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +40,8 @@ public class Pedido {
 	private Usuario user;
 
 	@Column(nullable = false)
-	private double total;
+	private BigDecimal total;
+	
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="DATACRIACAO")
@@ -77,7 +79,7 @@ public class Pedido {
 		if (this.dataFechamento != null) {
 			EstoqueService estoqueService = new EstoqueService();
 			for (int i=0;i<this.listaPedido.size();i++) {
-				Estoque estoque = estoqueService.findEstoqueByBook(this.listaPedido.get(i).getBookId());	
+				Estoque estoque = this.listaPedido.get(i).getBookId().getEstoque();	
 				estoque.setQuantidade(estoque.getQuantidade() - this.listaPedido.get(i).getQuantidadeVendida());
 				estoqueService.save(estoque);
 			}

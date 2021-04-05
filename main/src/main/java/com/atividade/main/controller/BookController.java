@@ -23,33 +23,32 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Book;
+import com.atividade.main.repository.dto.BookDTO;
+import com.atividade.main.repository.dto.BookResumo;
 import com.atividade.main.repository.filter.BookFilter;
 import com.atividade.main.service.BookService;
 
-
 @RestController
 @RequestMapping("/book")
-public class BookController{
-	
-	
+public class BookController {
+
 	@Autowired
-	private BookService bookService; 
-	
+	private BookService bookService;
+
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
-	
 //	metodo de salvar book
-	
+
 	@PostMapping
-	public ResponseEntity<Book> save( @RequestBody @Valid Book book, HttpServletResponse response) {
-		Book bookSalvo = bookService.save(book);
+	public ResponseEntity<BookDTO> save(@RequestBody @Valid Book book, HttpServletResponse response) {
+		BookDTO bookSalvo = bookService.save(book);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, bookSalvo.getLivroId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(bookSalvo);
 	}
 
 //	metodo de atualizar entidade
-	
+
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Book> update(@PathVariable Long codigo, @RequestBody Book book) {
 		Book bookSalvo = bookService.update(codigo, book);
@@ -57,30 +56,31 @@ public class BookController{
 	}
 
 //	metodo de deletar
-	
+
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long codigo) {
 		bookService.delete(codigo);
 	}
-	
-	@GetMapping("/cincomaisbaratos")
-	public List<Book> getListaCincoMaisBaratos(){
-        return bookService.findListaCincoMaisBaratos();
+
+	@GetMapping(params = "baratos")
+	public List<BookResumo> getListaCincoMaisBaratos() {
+		System.err.println("Aqui estou");
+		return bookService.findListaCincoMaisBaratos();
 	}
-	
+
 //	consultar todos os livros (em estoque e sem estoque tb) ordenados de forma ascendente pelo título de forma paginada 
-	//(defina um tamanho fixo para a página - ex.: 5 livros). O usuário pode informar a página que deseja consultar.
-	@GetMapping("/tudo")
-	public Page<Book> getAllBookList(Pageable page){
-        return bookService.findListBookOrdenadaTituloComOuSemEstoque(page);
+	// (defina um tamanho fixo para a página - ex.: 5 livros). O usuário pode
+	// informar a página que deseja consultar.
+	@GetMapping(params = "tudo")
+	public Page<BookResumo> findListBookOrdenadaTituloComOuSemEstoque(Pageable page) {
+		return bookService.findListBookOrdenadaTituloComOuSemEstoque(page);
 	}
-	
-	//	retorna uma lista de livro com filtro
+
+	// retorna uma lista de livro com filtro
 	@GetMapping
-	public Page<Book> getListaBookAllPaginada(BookFilter filter, Pageable page){
-        return bookService.getListaBookAllPaginada(filter, page);
+	public Page<BookDTO> getListaBookAllPaginada(BookFilter filter, Pageable page) {
+		return bookService.getListaBookAllPaginada(filter, page);
 	}
-		
 
 }

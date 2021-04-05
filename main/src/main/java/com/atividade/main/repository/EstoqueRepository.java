@@ -11,6 +11,5 @@ import com.atividade.main.model.Estoque;
 @Repository
 public interface EstoqueRepository extends JpaRepository<Estoque, Long>{ 
 
-	public Estoque findEstoqueByBook(Book book);
 			
 }

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FetchType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -15,8 +17,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import com.atividade.main.model.Autor;
+import com.atividade.main.model.Autor_;
 import com.atividade.main.model.Book;
 import com.atividade.main.model.Book_;
+import com.atividade.main.model.Categoria_;
+import com.atividade.main.model.Editora_;
+import com.atividade.main.model.Estoque_;
+import com.atividade.main.repository.dto.AutorDTO;
+import com.atividade.main.repository.dto.BookDTO;
+import com.atividade.main.repository.dto.BookResumo;
 import com.atividade.main.repository.filter.BookFilter;
 
 public class BookRepositoryImpl  implements BookRepositoryQuery{
@@ -30,11 +40,12 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 		CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
 		Root<Book> root = criteria.from(Book.class);
 		Predicate[] predicates = criarRestricoes(filter,builder, root );
-		root.fetch(Book_.LIST_AUTOR);
-		root.fetch(Book_.CATEGORIA);
-		root.fetch(Book_.EDITORA);
-		root.fetch(Book_.ESTOQUE);
 		
+		  root.fetch(Book_.LIST_AUTOR); 
+		  root.fetch(Book_.CATEGORIA);
+		  root.fetch(Book_.EDITORA); 
+		  root.fetch(Book_.ESTOQUE);
+		 
 		criteria.where(predicates);
 		TypedQuery<Book> query = manager.createQuery(criteria);
 		adicionarPaginacao(query,page);
@@ -52,7 +63,7 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 	}
 
 
-	private void adicionarPaginacao(TypedQuery<Book> query, Pageable page) {
+	private void adicionarPaginacao(TypedQuery<?> query, Pageable page) {
 		int paginaAtual =  page.getPageNumber();
 		int totalRegistroPage = page.getPageSize();
 		int primeiroResgistroPage = paginaAtual * totalRegistroPage;
@@ -83,31 +94,54 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 
 
 	@Override
-	public List<Book> filterCincoBaratos() {
+	public List<BookResumo> filterCincoBaratos() {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
+		CriteriaQuery<BookResumo> criteria = builder.createQuery(BookResumo.class);
 		Root<Book> root = criteria.from(Book.class);
-		root.fetch(Book_.LIST_AUTOR);
-		root.fetch(Book_.CATEGORIA);
-		root.fetch(Book_.EDITORA);
-	    root.fetch(Book_.ESTOQUE);
-		criteria.orderBy(builder.desc(root.get(Book_.PRICE)));
-		TypedQuery<Book> query = manager.createQuery(criteria).setMaxResults(5);
+	    criteria.select(builder.construct(BookResumo.class
+	    		,root.get(Book_.livroId)
+	    		,root.get(Book_.titulo) 
+	    		,root.get(Book_.descricao) 
+	    		,root.get(Book_. price) 
+	    		,root.get(Book_.ISBN) 
+	    		,root.get(Book_.capa) 
+	    		,root.get(Book_.edicao) 
+	    		,root.get(Book_.anoPublicacao)
+	    
+	    		,root.get(Book_.categoria).get(Categoria_.descricao) 
+	    		,root.get(Book_.editora).get(Editora_.nome)
+	    		,root.get(Book_.estoque).get(Estoque_.quantidade)));
+	    
+		criteria.orderBy(builder.desc(root.get(Book_.price)));
+		TypedQuery<BookResumo> query = manager.createQuery(criteria).setMaxResults(5);
 		return query.getResultList();
 	}
 
 
+
 	@Override
-	public Page<Book> findListBookOrdenadaTituloComOuSemEstoque(Pageable page) {
+	public Page<BookResumo> findListBookOrdenadaTituloComOuSemEstoque(Pageable page) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Book> criteria = builder.createQuery(Book.class);
+		CriteriaQuery<BookResumo> criteria = builder.createQuery(BookResumo.class);
 		Root<Book> root = criteria.from(Book.class);
-		root.fetch(Book_.LIST_AUTOR);
-		root.fetch(Book_.CATEGORIA);
-		root.fetch(Book_.EDITORA);
-		TypedQuery<Book> query = manager.createQuery(criteria);
+		 criteria.select(builder.construct(BookResumo.class
+		    		,root.get(Book_.livroId)
+		    		,root.get(Book_.titulo) 
+		    		,root.get(Book_.descricao) 
+		    		,root.get(Book_. price) 
+		    		,root.get(Book_.ISBN) 
+		    		,root.get(Book_.capa) 
+		    		,root.get(Book_.edicao) 
+		    		,root.get(Book_.anoPublicacao)
+		    		,root.get(Book_.categoria).get(Categoria_.descricao) 
+		    		,root.get(Book_.editora).get(Editora_.nome)
+		    		,root.get(Book_.estoque).get(Estoque_.quantidade)));    
+			
+		 criteria.orderBy(builder.desc(root.get(Book_.titulo)));
+		TypedQuery<BookResumo> query = manager.createQuery(criteria).setMaxResults(5);
 		adicionarPaginacao(query,page);
-		return new PageImpl<>(query.getResultList(), page,query.getResultList().size());
+		return new PageImpl<>(query.getResultList(), page, query.getMaxResults());
 	}
+	
 
 }
