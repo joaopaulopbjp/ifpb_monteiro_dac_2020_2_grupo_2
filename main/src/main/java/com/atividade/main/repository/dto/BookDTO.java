@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 
-import com.atividade.Book_;
 import com.atividade.main.model.Book;
+import com.atividade.main.model.Book_;
 import com.atividade.main.model.Categoria;
 import com.atividade.main.model.Editora;
 import com.atividade.main.model.Estoque;

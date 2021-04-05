@@ -15,11 +15,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import com.atividade.Book_;
-import com.atividade.Categoria_;
-import com.atividade.Editora_;
-import com.atividade.Estoque_;
 import com.atividade.main.model.Book;
+import com.atividade.main.model.Book_;
+import com.atividade.main.model.Categoria_;
+import com.atividade.main.model.Editora_;
+import com.atividade.main.model.Estoque_;
 import com.atividade.main.repository.dto.BookResumo;
 import com.atividade.main.repository.filter.BookFilter;
 
