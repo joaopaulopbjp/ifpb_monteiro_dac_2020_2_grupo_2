@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+boby{
+margin: 0;
+font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif, “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”;
+
+color:#292828;
+}
+
+label{
+ font-weight: lighter;
+}
+
+@media (min-width: 1200px){
+.container{
+  width: 1170px;
+  margin: 0 auto;
+}
+}
