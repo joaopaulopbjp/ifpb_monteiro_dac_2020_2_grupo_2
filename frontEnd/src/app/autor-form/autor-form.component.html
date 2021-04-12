@@ -1,11 +1,10 @@
 <div class="ui-g">
   <div class="p-col-12 p-md-6 p-lg-3p">
-   <h1 style="display: block">Cadastro do Livro </h1>
+   <h1 style="display: block">Cadastro de autores </h1>
   </div>
 </div>
 <p-toast></p-toast>
-<!-----------------------------------Button de novo / e deletar mutiplos------------------------------------->
-<div class="card">
+<div class="card p-col-12 p-md-6 p-lg-3p">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"  (click)="openNew()"></button>
@@ -13,40 +12,32 @@
         </ng-template>
     </p-toolbar>
 
-        <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
     <p-table #dt [value]="products" [rows]="10" [paginator]="true" [responsive]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-
-        <!-------------------------Titulo da tabela de livro------------------------------->
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Gerenciar produtos</h5>
+                <h5 class="p-m-0">Gerenciar Autores</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text"  placeholder="Pesquisar..."/>
                 </span>
             </div>
         </ng-template>
-
-<!----------------------------------Cabeçalho da tabela------------------------------------->
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="Titulo">Titulo <p-sortIcon field="titulo"></p-sortIcon></th>
-                <th>Image</th>
-                <th pSortableColumn="Preco">Preco <p-sortIcon field="preco"></p-sortIcon></th>
-                <th pSortableColumn="categoria">Categoria <p-sortIcon field="categoria"></p-sortIcon></th>
-                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                <th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon></th>
+                <th pSortableColumn="codigo">Codigo <p-sortIcon field="codigo"></p-sortIcon></th>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="preco"></p-sortIcon></th>
+                <th pSortableColumn="sexo">Sexo <p-sortIcon field="categoria"></p-sortIcon></th>
+                <th pSortableColumn="rating">Nacionalidade <p-sortIcon field="rating"></p-sortIcon></th>
+                <th pSortableColumn="quantidade">Data Nascimento <p-sortIcon field="quantidade"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
-
-<!-------------------------Body da Tabela----------------------------------------------->
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-autor>
             <tr>
                 <td>
                     <p-tableCheckbox [value]="autor"></p-tableCheckbox>
@@ -70,7 +61,6 @@
     </p-table>
 </div>
 
-<!-------------------------Tela de Dialog do livro------------------------------->
 <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="p-field">
@@ -105,6 +95,6 @@
         <button pButton pRipple label="Salavar" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
     </ng-template>
 </p-dialog>
-<!-------------------------Fim da tela Tela de Dialog do livro------------------------------->
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+

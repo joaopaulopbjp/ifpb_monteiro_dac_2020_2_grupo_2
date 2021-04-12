@@ -38,6 +38,7 @@ import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { RodapeBarComponent } from './rodape-bar/rodape-bar.component';
 import { CaroselComponent } from './carosel/carosel.component';
 import { LoginComponent } from './login/login.component';
+import { AutorFormComponent } from './autor-form/autor-form.component';
 
 
 
@@ -50,6 +51,7 @@ import { LoginComponent } from './login/login.component';
     RodapeBarComponent,
     CaroselComponent,
     LoginComponent,
+    AutorFormComponent,
   ],
   imports: [
     CarouselModule,

@@ -32,8 +32,8 @@ export class LivroFormComponent implements OnInit {
 
   deleteSelectedProducts() {
       this.confirmationService.confirm({
-          message: 'Are you sure you want to delete the selected products?',
-          header: 'Confirm',
+          message: 'Tem certeza que deseja excluir os produtos selecionados?',
+          header: 'Confirme',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
               this.products = this.products.filter(val => !this.selectedProducts.includes(val));
@@ -44,14 +44,14 @@ export class LivroFormComponent implements OnInit {
   }
 
   editProduct() {
-     // this.product = {...product};
+      //this.product = {...product};
       this.productDialog = true;
   }
 
   deleteProduct() {
       this.confirmationService.confirm({
-          message: 'Are you sure you want to delete '  + '?',
-          header: 'Confirm',
+          message: 'Tem certeza de que deseja excluir'  + '?',
+          header: 'Confirme',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
               //this.products = this.products.filter();
