@@ -37,6 +37,7 @@ import {CarouselModule} from 'primeng/carousel';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { RodapeBarComponent } from './rodape-bar/rodape-bar.component';
 import { CaroselComponent } from './carosel/carosel.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -48,6 +49,7 @@ import { CaroselComponent } from './carosel/carosel.component';
     MenuBarComponent,
     RodapeBarComponent,
     CaroselComponent,
+    LoginComponent,
   ],
   imports: [
     CarouselModule,

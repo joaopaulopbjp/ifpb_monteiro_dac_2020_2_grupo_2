@@ -1,9 +1,9 @@
 
 @import url(https://fonts.googleapis.com/css?family=Varela+Round);
 
+*{top: 40%;}
 
 .div-slider{
-margin-top: 5%;
 width: 70%;
 height: 20%;
 text-align: center;
@@ -31,7 +31,6 @@ text-align: center;
 .slide-container { display: block; }
 
 .slide {
-    top: 0;
     opacity: 0;
     width: 980px;
     height: 370px;
@@ -46,6 +45,7 @@ text-align: center;
 .slide img {
     width: 100%;
     height: 100%;
+
 }
 
 .nav label {
@@ -105,6 +105,12 @@ input:checked + .slide-container .nav label { display: block; }
 .img{
   max-height: 100%;
   max-width: 100%;
+}
+.pq-img{
+  margin-top: -17%;
+  margin-left: 74%;
+  padding: 3px;
+  max-width: auto;
 }
 
 .nav-dots .nav-dot:hover {
