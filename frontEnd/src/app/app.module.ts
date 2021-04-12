@@ -30,14 +30,28 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TooltipModule } from 'primeng/tooltip';
+import {DividerModule} from 'primeng/divider';
+import {BadgeModule} from 'primeng/badge';
+import {CarouselModule} from 'primeng/carousel';
+import { MenuBarComponent } from './menu-bar/menu-bar.component';
+import { RodapeBarComponent } from './rodape-bar/rodape-bar.component';
+import { CaroselComponent } from './carosel/carosel.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LivroCardComponent,
     LivroFormComponent,
+    MenuBarComponent,
+    RodapeBarComponent,
+    CaroselComponent,
   ],
   imports: [
+    CarouselModule,
+    BadgeModule,
     BrowserModule,
     AppRoutingModule,
     AvatarModule,
@@ -65,6 +79,8 @@ ToastModule,
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
+    TooltipModule,
+    DividerModule,
     RouterModule.forRoot([
     {path: '', component: AppComponent}
 
