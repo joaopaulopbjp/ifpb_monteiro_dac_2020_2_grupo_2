@@ -1,76 +1,117 @@
+import { AutorService } from './../autor.service';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-autor-form',
   templateUrl: './autor-form.component.html',
   styleUrls: ['./autor-form.component.css']
 })
+
+
 export class AutorFormComponent implements OnInit {
+
+  options: any[];
 
   autorDialog = false;
 
   autores = [];
 
-  autor = {};
+  autor = {nome: '', sexo: '', nacionalidade: '', dtNascimento: new Date() };
 
-  selectedAutor = [];
+  dataNasc: Date;
+
+  selectedAutors = [];
 
   submitted = false;
 
 
+  constructor(
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private autorService: AutorService
 
+    ) {
 
+    this.dataNasc = new Date();
+    this.options = [{ label: 'Masculino', value: 'M' }, { label: 'Feminino', value: 'F' }];
+  }
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+   this.listAutores();
   }
 
   openNew() {
-    this.autor = {};
+    this.autor = {nome: '', sexo: '', nacionalidade: '', dtNascimento: new Date()};
     this.submitted = false;
     this.autorDialog = true;
-}
+  }
 
-deleteSelectedProducts() {
-  this.confirmationService.confirm({
+  listAutores() {
+    this.autorService.listAutores().then(autores => {
+      this.autores = autores;
+    });
+  }
+
+
+  deleteSelected() {
+    this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir os produtos selecionados?',
       header: 'Confirme',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         //  this.autor = this.autor.filter(val => !this.selectedAutor.includes(val));
-         // this.selectedProducts = null;
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+        // this.selectedProducts = null;
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
       }
-  });
-}
-
-editProduct() {
-  //this.product = {...product};
-  this.autorDialog = true;
-}
-
-
-saveProduct() {
-  this.submitted = true;
-
-  /*if (this.product.name.trim()) {
-      if (this.product.id) {
-          this.products[this.findIndexById(this.product.id)] = this.product;
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-      }
-      else {
-          this.product.id = this.createId();
-          this.product.image = 'product-placeholder.svg';
-          this.products.push(this.product);
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
-      }
-
-      this.products = [...this.products];
-      this.productDialog = false;
-      /+this.product = {};
-      */
+    });
   }
+
+
+  delete(id: number, nome: string) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir autor(a) ' + nome + '?',
+      header: 'Confirme',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.autorService.delete(id)
+          .then(() => {
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Autor Deletado com sucesso', life: 3000 });
+            this.listAutores();
+          });
+
+      }
+    });
+  }
+
+
+  update(autor: any) {
+    this.autor = {...autor};
+    this.autorDialog = true;
+    
+     /* .then(() => {
+        //this.product = {...product};
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Autor Atualizado com sucesso', life: 3000 });
+
+      });*/
+
+  }
+
+
+  save(autor: any) {
+    this.submitted = true;
+    this.autorService.salvar(autor)
+      .then(autorSalvo => {
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Autor Cadastrado com sucesso', life: 3000 });
+        this.autorDialog = false;
+        this.listAutores();
+      });
+  }
+
+  hideDialog() {
+    this.autorDialog = false;
+    this.submitted = false;
+}
 }
 

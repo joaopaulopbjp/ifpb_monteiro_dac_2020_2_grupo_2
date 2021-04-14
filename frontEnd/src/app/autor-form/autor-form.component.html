@@ -1,100 +1,105 @@
 <div class="ui-g">
   <div class="p-col-12 p-md-6 p-lg-3p">
-   <h1 style="display: block">Cadastro de autores </h1>
+    <h1 style="display: block">Cadastro de Autores </h1>
   </div>
 </div>
 <p-toast></p-toast>
 <div class="card p-col-12 p-md-6 p-lg-3p">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"  (click)="openNew()"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()"></button>
-        </ng-template>
-    </p-toolbar>
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
+        (click)="openNew()"></button>
+      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+        (click)="deleteSelected()" [disabled]="!selectedAutors || !selectedAutors.length"></button>
+    </ng-template>
+  </p-toolbar>
 
-    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [responsive]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
-        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Gerenciar Autores</h5>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text"  placeholder="Pesquisar..."/>
-                </span>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th pSortableColumn="codigo">Codigo <p-sortIcon field="codigo"></p-sortIcon></th>
-                <th pSortableColumn="nome">Nome <p-sortIcon field="preco"></p-sortIcon></th>
-                <th pSortableColumn="sexo">Sexo <p-sortIcon field="categoria"></p-sortIcon></th>
-                <th pSortableColumn="rating">Nacionalidade <p-sortIcon field="rating"></p-sortIcon></th>
-                <th pSortableColumn="quantidade">Data Nascimento <p-sortIcon field="quantidade"></p-sortIcon></th>
-                <th></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-autor>
-            <tr>
-                <td>
-                    <p-tableCheckbox [value]="autor"></p-tableCheckbox>
-                </td>
-                <td>{{product.name}}</td>
-                <td>{{product.price | currency:'USD'}}</td>
-                <td>{{product.category}}</td>
-                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
-                <td>
-                    <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct()"></button>
-                    <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" class="p-button-rounded p-button-warning" (click)="deleteProduct()"></button>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                Total de produtos {{products ? products.length : 0 }}.
-            </div>
-        </ng-template>
-    </p-table>
+  <p-table #dt [value]="autores" [rows]="10" [paginator]="true" [responsive]="true"
+    [globalFilterFields]="['autorId','nome','sexo','nacionalidade', 'dataNascimento']" [(selection)]="selectedAutors"
+    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Gerenciar Autores</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" placeholder="Pesquisar..." style="width: 500px;" />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="autorId">Codigo <p-sortIcon field="autorId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+        </th>
+        <th pSortableColumn="sexo">Sexo <p-sortIcon field="sexo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="nacionalidade">Nacionalidade <p-sortIcon field="nacionalidade"></p-sortIcon>
+        </th>
+        <th pSortableColumn="dtNascimento">Data Nascimento <p-sortIcon field="dtNascimento"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-autor>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="autor"></p-tableCheckbox>
+        </td>
+        <td>{{autor.autorId}}</td>
+        <td>{{autor.nome}}</td>
+        <td>{{autor.sexo}}</td>
+        <td>{{autor.nacionalidade}}</td>
+        <td>{{autor.dtNascimento | date:'dd/MM/yyyy'}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+            class="p-button-rounded p-button-success p-mr-2" (click)="update(autor)"></button>
+          <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+            class="p-button-rounded p-button-warning" (click)="delete(autor.autorId, autor.nome)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        Total de autores {{autores ? autores.length : 0 }}.
+      </div>
+    </ng-template>
+  </p-table>
 </div>
+<!------------------------------------Inicio da tela modelo Dialog------------------------------------------------>
+<p-dialog [(visible)]="autorDialog" [style]="{width: '450px'}" header="Detalhes de autor" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="nome">Nome <span style="color: red;">*</span></label>
+      <input type="text" pInputText id="nome" required autofocus [(ngModel)]=autor.nome/>
+    </div>
 
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <div class="p-field">
-            <label for="name">Titulo</label>
-            <input type="text" pInputText id="name" required autofocus />
-            <small class="p-invalid" >Titulo é obrigatorio.</small>
-        </div>
-        <div class="p-field">
-            <label for="description">Descrição</label>
-            <textarea id="description" pInputTextarea required rows="3" cols="20"></textarea>
-        </div>
+    <div class="p-field">
+      <h5>Sexo</h5>
+      <p-selectButton [options]="options"  optionLabel="label" optionValue="value" [(ngModel)]=autor.sexo>
+      </p-selectButton>
+    </div>
 
-        <div class="p-field" style="width: 200px">
-            <label class="p-mb-3">Categoria</label>
-            <p-dropdown  [virtualScroll]="true" ></p-dropdown>
-        </div>
+    <div class="p-field" style="width: 200px">
+      <label class="p-mb-3">Nacionalidade</label>
+     <input type="text" pInputText  id="nacionalidade" [(ngModel)]=autor.nacionalidade/>
+    </div>
 
-        <div class="p-formgrid p-grid" style="width: 100px">
-            <div class="p-field p-col">
-                <label for="price">Preço</label>
-                <p-inputNumber id="price"  mode="currency" currency="USD" locale="en-US" ></p-inputNumber>
-            </div>
-            <div class="p-field p-col">
-                <label for="quantity">Quantidade</label>
-                <p-inputNumber id="quantity"></p-inputNumber>
-            </div>
-        </div>
-    </ng-template>
+      <div class="p-field p-col-12 p-md-4">
+        <label for="icon">Data de Nascimento</label>
+        <p-calendar [(ngModel)]="dataNasc" [showIcon]="true" inputId="icon"></p-calendar>
+      </div>
+  </ng-template>
 
-    <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancela" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Salavar" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
-    </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancela" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="save(autor)"></button>
+  </ng-template>
 </p-dialog>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
-
