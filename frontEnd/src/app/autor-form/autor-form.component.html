@@ -23,7 +23,7 @@
         <h5 class="p-m-0">Gerenciar Autores</h5>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" placeholder="Pesquisar..." style="width: 500px;" />
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisar..." style="width: 500px;" />
         </span>
       </div>
     </ng-template>

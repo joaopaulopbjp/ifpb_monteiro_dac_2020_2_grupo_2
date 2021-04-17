@@ -96,6 +96,6 @@ import { AutorService } from './autor.service';
     ])
   ],
   bootstrap: [AppComponent],
-  providers: [MessageService, ConfirmationService, AutorService]
+  providers: [MessageService, ConfirmationService, AutorService, LivroService]
 })
 export class AppModule { }

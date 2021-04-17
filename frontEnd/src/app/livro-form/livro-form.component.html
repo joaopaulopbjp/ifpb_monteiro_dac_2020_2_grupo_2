@@ -1,109 +1,125 @@
 <div class="ui-g">
   <div class="p-col-12 p-md-6 p-lg-3p">
-   <h1 style="display: block">Cadastro do Livro </h1>
+    <h1 style="display: block">Cadastro do Livro </h1>
   </div>
 </div>
 <p-toast></p-toast>
+
 <!-----------------------------------Button de novo / e deletar mutiplos------------------------------------->
 <div class="card">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"  (click)="openNew()"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()"></button>
-        </ng-template>
-    </p-toolbar>
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
+        (click)="openNew()"></button>
+      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+        (click)="deleteSelected()"></button>
+    </ng-template>
+  </p-toolbar>
 
-        <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
-    <p-table #dt [value]="products" [rows]="10" [paginator]="true" [responsive]="true" [globalFilterFields]="['name','country.name','representative.name','status']"
-        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+  <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
+  <p-table #dt [value]="products" [rows]="5" [paginator]="true" [responsive]="true"
+    [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
+    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true">
 
-        <!-------------------------Titulo da tabela de livro------------------------------->
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Gerenciar produtos</h5>
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text"  placeholder="Pesquisar..."/>
-                </span>
-            </div>
-        </ng-template>
+    <!-------------------------Titulo da tabela de livro------------------------------->
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Gerenciar Livros</h5>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" placeholder="Pesquisar..." />
+        </span>
+      </div>
+    </ng-template>
 
-<!----------------------------------Cabeçalho da tabela------------------------------------->
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="width: 3rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                </th>
-                <th pSortableColumn="Titulo">Titulo <p-sortIcon field="titulo"></p-sortIcon></th>
-                <th>Image</th>
-                <th pSortableColumn="Preco">Preco <p-sortIcon field="preco"></p-sortIcon></th>
-                <th pSortableColumn="categoria">Categoria <p-sortIcon field="categoria"></p-sortIcon></th>
-                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                <th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon></th>
-                <th></th>
-            </tr>
-        </ng-template>
+    <!----------------------------------Cabeçalho da tabela------------------------------------->
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="Titulo">Titulo <p-sortIcon field="titulo"></p-sortIcon>
+        </th>
+        <th>Image</th>
+        <th pSortableColumn="Preco">Preco <p-sortIcon field="preco"></p-sortIcon>
+        </th>
+        <th pSortableColumn="categoria">Categoria <p-sortIcon field="categoria"></p-sortIcon>
+        </th>
+        <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon>
+        </th>
+        <th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
 
-<!-------------------------Body da Tabela----------------------------------------------->
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td>
-                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
-                </td>
-                <td>{{product.name}}</td>
-                <td>{{product.price | currency:'USD'}}</td>
-                <td>{{product.category}}</td>
-                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td><span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span></td>
-                <td>
-                    <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct()"></button>
-                    <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top" class="p-button-rounded p-button-warning" (click)="deleteProduct()"></button>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                Total de produtos {{products ? products.length : 0 }}.
-            </div>
-        </ng-template>
-    </p-table>
+    <!-------------------------Body da Tabela----------------------------------------------->
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="product"></p-tableCheckbox>
+        </td>
+        <td>{{product.name}}</td>
+        <td>{{product.price | currency:'USD'}}</td>
+        <td>{{product.category}}</td>
+        <td>
+          <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+        </td>
+        <td><span
+            [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
+        </td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+            class="p-button-rounded p-button-success p-mr-2" (click)="editProduct()"></button>
+          <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+            class="p-button-rounded p-button-warning" (click)="deleteProduct()"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        Total de produtos {{products ? products.length : 0 }}.
+      </div>
+    </ng-template>
+  </p-table>
 </div>
 
 <!-------------------------Tela de Dialog do livro------------------------------->
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <div class="p-field">
-            <label for="name">Titulo</label>
-            <input type="text" pInputText id="name" required autofocus />
-            <small class="p-invalid" >Titulo é obrigatorio.</small>
-        </div>
-        <div class="p-field">
-            <label for="description">Descrição</label>
-            <textarea id="description" pInputTextarea required rows="3" cols="20"></textarea>
-        </div>
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Titulo</label>
+      <input type="text" pInputText id="name" required autofocus />
+      <small class="p-invalid">Titulo é obrigatorio.</small>
+    </div>
+    <div class="p-field">
+      <label for="description">Descrição</label>
+      <textarea id="description" pInputTextarea required rows="3" cols="20"></textarea>
+    </div>
 
-        <div class="p-field" style="width: 200px">
-            <label class="p-mb-3">Categoria</label>
-            <p-dropdown  [virtualScroll]="true" ></p-dropdown>
-        </div>
+    <div class="p-field" style="width: 200px">
+      <label class="p-mb-3">Categoria</label>
+      <p-dropdown [virtualScroll]="true"></p-dropdown>
+    </div>
 
-        <div class="p-formgrid p-grid" style="width: 100px">
-            <div class="p-field p-col">
-                <label for="price">Preço</label>
-                <p-inputNumber id="price"  mode="currency" currency="USD" locale="en-US" ></p-inputNumber>
-            </div>
-            <div class="p-field p-col">
-                <label for="quantity">Quantidade</label>
-                <p-inputNumber id="quantity"></p-inputNumber>
-            </div>
-        </div>
-    </ng-template>
+    <div class="p-formgrid p-grid" style="width: 100px">
+      <div class="p-field p-col">
+        <label for="price">Preço</label>
+        <p-inputNumber id="price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+      </div>
+      <div class="p-field p-col">
+        <label for="quantity">Quantidade</label>
+        <p-inputNumber id="quantity"></p-inputNumber>
+      </div>
+    </div>
+  </ng-template>
 
-    <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancela" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Salavar" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
-    </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancela" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Salavar" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+  </ng-template>
 </p-dialog>
 <!-------------------------Fim da tela Tela de Dialog do livro------------------------------->
 
