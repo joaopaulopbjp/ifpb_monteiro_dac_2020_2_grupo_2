@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.atividade.main.model.Pedido;
 import com.atividade.main.repository.PedidoRepository;
+import com.atividade.main.repository.dto.PedidoDTO;
+import com.atividade.main.repository.filter.PedidoFilter;
 
 
 @Service
@@ -43,8 +45,8 @@ public class PedidoService {
 	}
 	
 	
-	public Page<Pedido> getListaOrdenadaAsedente(Pageable page){
-        return pedidoRepository.findAll(page);
+	public Page<PedidoDTO> getListaOrdenadaAsedente(PedidoFilter pedidoFilter,Pageable page){
+        return pedidoRepository.filter(pedidoFilter, page).map(e->new PedidoDTO(e));
 	}
 	
 

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Pedido;
+import com.atividade.main.repository.dto.PedidoDTO;
+import com.atividade.main.repository.filter.PedidoFilter;
 import com.atividade.main.service.PedidoService;
 
 
@@ -52,17 +54,17 @@ public class PedidoController {
 //	metodo de deletar
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void excluir(long id) {
-		pedidoService.excluir(id);
+	public void excluir(@PathVariable Long codigo) {
+		pedidoService.excluir(codigo);
 	}
-
+	@GetMapping("/{codigo}")
 	public Pedido findById(long id) {
 		return pedidoService.findById(id);
 	}
 	
-	@GetMapping("/lista")
-	public Page<Pedido> getListaOrdenadaAsedente(Pageable page) {
-		return pedidoService.getListaOrdenadaAsedente(page);
+	@GetMapping
+	public Page<PedidoDTO> getListaOrdenadaAsedente(PedidoFilter pedidoFilter ,Pageable page) {
+		return pedidoService.getListaOrdenadaAsedente(pedidoFilter, page);
 	}
 
 }
