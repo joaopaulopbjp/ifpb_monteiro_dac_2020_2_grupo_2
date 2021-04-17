@@ -1,3 +1,4 @@
+import { LivroService } from './livro.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +42,7 @@ import { LoginComponent } from './login/login.component';
 import { AutorFormComponent } from './autor-form/autor-form.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { AutorService } from './autor.service';
+import { EnderecoFormComponent } from './endereco-form/endereco-form.component';
 
 
 
@@ -54,6 +56,7 @@ import { AutorService } from './autor.service';
     CaroselComponent,
     LoginComponent,
     AutorFormComponent,
+    EnderecoFormComponent,
   ],
   imports: [
     HttpClientModule,
