@@ -35,6 +35,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { BadgeModule } from 'primeng/badge';
 import { CarouselModule } from 'primeng/carousel';
+import {DataViewModule} from 'primeng/dataview';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
@@ -46,6 +47,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { AutorService } from './autor.service';
 import { EnderecoFormComponent } from './endereco-form/endereco-form.component';
 import { CategoriaFormComponent } from './categoria-form/categoria-form.component';
+import { CategoriaService } from './categoria.service';
+import { EnderecoService } from './endereco.service';
 
 
 
@@ -63,6 +66,7 @@ import { CategoriaFormComponent } from './categoria-form/categoria-form.componen
     CategoriaFormComponent,
   ],
   imports: [
+    DataViewModule,
     MessagesModule,
     MessageModule,
     HttpClientModule,
@@ -105,6 +109,6 @@ import { CategoriaFormComponent } from './categoria-form/categoria-form.componen
     ])
   ],
   bootstrap: [AppComponent],
-  providers: [MessageService, ConfirmationService, AutorService, LivroService]
+  providers: [MessageService, ConfirmationService, AutorService, LivroService, CategoriaService, EnderecoService]
 })
 export class AppModule { }

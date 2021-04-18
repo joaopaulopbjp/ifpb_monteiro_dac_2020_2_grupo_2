@@ -99,7 +99,7 @@ color:aliceblue;
 
 .cart{
   position:fixed;
-  margin-top: -38%;
+  margin-top: 0%;
   margin-left: 88%;
   max-width: 25%;
   align-content: flex-end;

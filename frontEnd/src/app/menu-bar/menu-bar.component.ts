@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuBarComponent implements OnInit {
 
-  constructor() { }
+  quantCarrinho: number
+
+  livros: [];
+
+  constructor() {
+    this.quantCarrinho = 0;
+    this.livros = [];
+  }
 
   ngOnInit(): void {
+    this.quantCarrinho = 0;
   }
 
 }
