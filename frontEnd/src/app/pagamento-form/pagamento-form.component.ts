@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { AutorService } from '../autor.service';
 
+
 @Component({
   selector: 'app-pagamento-form',
   templateUrl: './pagamento-form.component.html',
