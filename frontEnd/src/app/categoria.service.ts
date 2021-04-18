@@ -5,22 +5,22 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class LivroService {
+export class CategoriaService {
 
   readonly apiURL: string;
 
   constructor(private http: HttpClient, private messageService: MessageService,) {
-    this.apiURL = 'http://localhost:8080/book';
+    this.apiURL = 'http://localhost:8080/categoria';
   }
 
   listAll(): Promise<any> {
-    return this.http.get<any>(`${this.apiURL}?tudo`)
+    return this.http.get<any>(`${this.apiURL}`)
       .toPromise()
       .then(response => response.content);
   }
 
-  salvar(livro: any): Promise<any> {
-    return this.http.post<any>(`${this.apiURL}`, livro)
+  salvar(categoria: any): Promise<any> {
+    return this.http.post<any>(`${this.apiURL}`, categoria)
       .toPromise()
       .then(response => response.content)
 
@@ -32,12 +32,12 @@ export class LivroService {
       .then(() => null);
   }
 
-  update(livro: any): Promise<any> {
-    return this.http.put<any>(`${this.apiURL}/${livro.id}`, livro)
+  update(categoria: any): Promise<any> {
+    return this.http.put<any>(`${this.apiURL}/${categoria.id}`, categoria)
       .toPromise()
       .then(response => response.content)
       .catch(erro => {
-        return Promise.reject(`Erro ao alterar autor ${livro.id}.`);
+        return Promise.reject(`Erro ao alterar categoria ${categoria.id}.`);
       });
   }
 

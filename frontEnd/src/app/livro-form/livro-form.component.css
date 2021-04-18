@@ -3,7 +3,7 @@
 }
 :host ::ng-deep .p-progressbar {
   height: 0.5rem;
-  background-color: #D8DADC;
+  background-color: #4d4e4e;
 }
 :host ::ng-deep .p-progressbar .p-progressbar-value {
   background-color: #607D8B;
@@ -66,4 +66,22 @@
     margin-top: 0.5rem;
   }
 }
+.pricecss{
+  max-width: 200px;
+}
 
+.titulo{
+  width: 200px;
+  
+}
+
+.selectedInput{
+  margin-bottom: 15px;
+}
+
+div{
+  margin-bottom: 15px;
+}
+small{
+  color: red;
+}

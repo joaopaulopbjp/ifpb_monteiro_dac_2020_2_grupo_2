@@ -35,6 +35,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { BadgeModule } from 'primeng/badge';
 import { CarouselModule } from 'primeng/carousel';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { RodapeBarComponent } from './rodape-bar/rodape-bar.component';
 import { CaroselComponent } from './carosel/carosel.component';
@@ -43,6 +45,7 @@ import { AutorFormComponent } from './autor-form/autor-form.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { AutorService } from './autor.service';
 import { EnderecoFormComponent } from './endereco-form/endereco-form.component';
+import { CategoriaFormComponent } from './categoria-form/categoria-form.component';
 
 
 
@@ -57,8 +60,11 @@ import { EnderecoFormComponent } from './endereco-form/endereco-form.component';
     LoginComponent,
     AutorFormComponent,
     EnderecoFormComponent,
+    CategoriaFormComponent,
   ],
   imports: [
+    MessagesModule,
+    MessageModule,
     HttpClientModule,
     SelectButtonModule,
     CarouselModule,

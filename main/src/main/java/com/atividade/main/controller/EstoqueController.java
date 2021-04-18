@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,9 +60,11 @@ public class EstoqueController {
 		return estoqueService.findById(id);
 	}
 	
+	@GetMapping
 	public Page<Estoque> getListaOrdenadaAsedente(Pageable page){
         return estoqueService.getListaOrdenadaAsedente(page);
 	}
+	
 	
 //	consultar os 5 livros mais baratos disponíveis no estoque;
 	public Page<Estoque> getListaCincoMaisBaratos(Pageable page){

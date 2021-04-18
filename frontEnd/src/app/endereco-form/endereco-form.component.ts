@@ -13,8 +13,8 @@ export class EnderecoFormComponent implements OnInit {
 
   enderecos = [];
 
-  endereco = {endID:'', cep: '', rua: '', numero: "", bairro: "", cidade: "", UF: "",
-  complemento:"", pontoReferencia: ""};
+  endereco = {endID: '', cep: '', rua: '', numero: '', bairro: '', cidade: '', UF: '',
+  complemento: '', pontoReferencia: '', userID: ''};
 
   selectedEnderecos = [];
 
@@ -26,16 +26,18 @@ export class EnderecoFormComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private enderecoService: EnderecoService
 
-    ) {
+  ) {
   }
 
   ngOnInit() {
-   this.listEnderecos();
+    this.listEnderecos();
   }
 
   openNew() {
-    this.endereco = { endID:'', cep: '', rua: '', numero: "", bairro: "", cidade: "", UF: "",
-     complemento:"", pontoReferencia: ""};
+    this.endereco = {
+      endID: '', cep: '', rua: '', numero: '', bairro: '', cidade: '', UF: '',
+    complemento: '', pontoReferencia: '', userID: ''
+    };
     this.submitted = false;
     this.telaDialog = true;
   }
@@ -53,8 +55,8 @@ export class EnderecoFormComponent implements OnInit {
       header: 'Confirme',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-      //    this.endereco = this.endereco.filter(val => !this.selectedEnderecos.includes(val));
-      //   this.selectedProducts = null;
+        //    this.endereco = this.endereco.filter(val => !this.selectedEnderecos.includes(val));
+        //   this.selectedProducts = null;
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
       }
     });
@@ -79,14 +81,14 @@ export class EnderecoFormComponent implements OnInit {
 
 
   update(endereco: any) {
-    this.endereco = {...endereco};
+    this.endereco = { ...endereco };
     this.telaDialog = true;
 
-     /* .then(() => {
-        //this.product = {...product};
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Autor Atualizado com sucesso', life: 3000 });
+    /* .then(() => {
+       //this.product = {...product};
+       this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Autor Atualizado com sucesso', life: 3000 });
 
-      });*/
+     });*/
 
   }
 
@@ -104,6 +106,6 @@ export class EnderecoFormComponent implements OnInit {
   hideDialog() {
     this.telaDialog = false;
     this.submitted = false;
-}
+  }
 }
 

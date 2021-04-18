@@ -43,4 +43,10 @@ export class AutorService {
       });
   }
 
+  listaNomesAutor(): Promise<any> {
+    return this.http.get<any>(`${this.apiURL}/listaNomes`)
+    .toPromise()
+    .then(response => response.content);
+  }
+
 }

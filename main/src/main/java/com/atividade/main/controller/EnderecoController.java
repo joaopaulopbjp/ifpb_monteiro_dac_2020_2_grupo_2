@@ -5,6 +5,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Endereco;
+import com.atividade.main.repository.EnderecoRepository;
 import com.atividade.main.service.EnderecoService;
 
 @RestController
@@ -27,6 +30,9 @@ public class EnderecoController {
 	
 	@Autowired
 	private EnderecoService enderecoService; 
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 
 	@Autowired
@@ -62,7 +68,9 @@ public class EnderecoController {
 		return enderecoService.findById(id);
 	}
 
-//	public Endereco getEnderecoPorCepRuaCidade(cep, rua, cidade) {
-//		return enderecoService.getEnderecoPorNome(cep, rua, cidade);
-//	}
+	@GetMapping
+	public Page<Endereco>listaAll(Pageable page){
+		return enderecoRepository.findAll(page);
+		
+	}
 }

@@ -89,7 +89,6 @@ export class AutorFormComponent implements OnInit {
   update(autor: any) {
     this.autor = {...autor};
     this.autorDialog = true;
-    
      /* .then(() => {
         //this.product = {...product};
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Autor Atualizado com sucesso', life: 3000 });

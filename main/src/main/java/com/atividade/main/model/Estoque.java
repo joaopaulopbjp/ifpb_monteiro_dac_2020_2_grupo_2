@@ -18,7 +18,6 @@ public class Estoque {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long estoqueid;
 	
-	@NotNull
 	@OneToOne
 	@JoinColumn(name = "LIVROID")
 	private Book livroid;

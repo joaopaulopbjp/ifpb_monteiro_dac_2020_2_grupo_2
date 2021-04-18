@@ -5,24 +5,24 @@
 </div>
 <p-toast></p-toast>
 
+
 <!-----------------------------------Button de novo / e deletar mutiplos------------------------------------->
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
     <ng-template pTemplate="left">
       <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
         (click)="openNew()"></button>
-      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
-        (click)="deleteSelected()"></button>
+      <button pButton pRipple label="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"></button>
     </ng-template>
   </p-toolbar>
 
   <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
-  <p-table #dt [value]="products" [rows]="5" [paginator]="true" [responsive]="true"
-    [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
-    [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [showCurrentPageReport]="true">
+  <p-table #dt [value]="products" [rows]="5" [paginator]="true" [responsive]="true" [globalFilterFields]="['livroId',
+    'titulo','descricao','price','ISBN','edicao','anoPublicacao','categoria','editora','estoque']"
+    [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
-    <!-------------------------Titulo da tabela de livro------------------------------->
+    <!-------------------------Titulo da tabela------------------------------->
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
         <h5 class="p-m-0">Gerenciar Livros</h5>
@@ -39,16 +39,26 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="Titulo">Titulo <p-sortIcon field="titulo"></p-sortIcon>
+        <th pSortableColumn="livroId">Id <p-sortIcon field="livroId"></p-sortIcon>
         </th>
-        <th>Image</th>
-        <th pSortableColumn="Preco">Preco <p-sortIcon field="preco"></p-sortIcon>
+        <th>Capa</th>
+        <th pSortableColumn="titulo" class="titulo">Titulo <p-sortIcon field="titulo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="descricao">Descricao <p-sortIcon field="descricao"></p-sortIcon>
+        </th>
+        <th pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon>
+        </th>
+        <th pSortableColumn="edicao">Edição <p-sortIcon field="edicao"></p-sortIcon>
+        </th>
+        <th pSortableColumn="anoPublicacao">Ano de publicação <p-sortIcon field="anoPublicacao"></p-sortIcon>
         </th>
         <th pSortableColumn="categoria">Categoria <p-sortIcon field="categoria"></p-sortIcon>
         </th>
-        <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon>
+        <th pSortableColumn="editora">Editora<p-sortIcon field="editora"></p-sortIcon>
         </th>
-        <th pSortableColumn="quantidade">Quantidade <p-sortIcon field="quantidade"></p-sortIcon>
+        <th pSortableColumn="estoque">Estoque <p-sortIcon field="estoque"></p-sortIcon>
+        </th>
+        <th pSortableColumn="ISBN">ISBN<p-sortIcon field="ISBN"></p-sortIcon>
         </th>
         <th></th>
       </tr>
@@ -60,20 +70,22 @@
         <td>
           <p-tableCheckbox [value]="product"></p-tableCheckbox>
         </td>
-        <td>{{product.name}}</td>
-        <td>{{product.price | currency:'USD'}}</td>
-        <td>{{product.category}}</td>
-        <td>
-          <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-        </td>
-        <td><span
-            [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
-        </td>
+        <td>{{product.livroId}}</td>
+        <td><img [src]="product.capa" [alt]="product.capa" width="100" class="p-shadow-4" /></td>
+        <td><h4>{{product.titulo}}</h4></td>
+        <td>{{product.descricao}}</td>
+        <td>{{product.price | currency:'R$'}}</td>
+        <td>{{product.edicao}}</td>
+        <td>{{product.anoPublicacao}}</td>
+        <td>{{product.categoria}}</td>
+        <td>{{product.editora}}</td>
+        <td>{{product.estoque}}</td>
+        <td>{{product.ISBN}}</td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
-            class="p-button-rounded p-button-success p-mr-2" (click)="editProduct()"></button>
+            class="p-button-rounded p-button-success p-mr-2" (click)="update(product)"></button>
           <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
-            class="p-button-rounded p-button-warning" (click)="deleteProduct()"></button>
+            class="p-button-rounded p-button-warning" (click)="delete(product.livroId, product.titulo)"></button>
         </td>
       </tr>
     </ng-template>
@@ -86,40 +98,91 @@
 </div>
 
 <!-------------------------Tela de Dialog do livro------------------------------->
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+<p-dialog [(visible)]="telaDialog" [style]="{width: '480px'}" header="Detalhes do Livro" [modal]="true"
   styleClass="p-fluid">
+
   <ng-template pTemplate="content">
+
     <div class="p-field">
-      <label for="name">Titulo</label>
-      <input type="text" pInputText id="name" required autofocus />
-      <small class="p-invalid">Titulo é obrigatorio.</small>
-    </div>
-    <div class="p-field">
-      <label for="description">Descrição</label>
-      <textarea id="description" pInputTextarea required rows="3" cols="20"></textarea>
+      <label for="name">Titulo <span style="color: red;">*</span></label>
+      <input type="text" pInputText id="name" required autofocus [(ngModel)]=product.titulo />
+      <small class="p-invalid" *ngIf="submitted && !product.titulo">Titulo é obrigatorio.</small>
     </div>
 
-    <div class="p-field" style="width: 200px">
-      <label class="p-mb-3">Categoria</label>
-      <p-dropdown [virtualScroll]="true"></p-dropdown>
+
+    <div class="p-field" >
+      <label for="description">Descrição <span style="color: red;">*</span></label>
+      <textarea id="description" pInputTextarea required rows="3" cols="20" aria-required="true"
+        [(ngModel)]=product.descricao></textarea>
+      <small class="p-invalid" *ngIf="submitted && !product.descricao">Descricao é obrigatorio.</small>
     </div>
 
-    <div class="p-formgrid p-grid" style="width: 100px">
-      <div class="p-field p-col">
-        <label for="price">Preço</label>
-        <p-inputNumber id="price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+    <div class="p-field">
+      <label for="name">Link da Capa <span style="color: red;">*</span></label>
+      <input type="text" pInputText id="name" required autofocus [(ngModel)]=product.capa />
+      <small class="p-invalid" *ngIf="submitted && !product.capa">Capa é obrigatorio.</small>
+    </div>
+
+    <div>
+      <label for="name">Autores <span style="color: red;">*</span></label>
+      <p-multiSelect class="selectedInput" [options]="autors" [(ngModel)]="selectedAutores"
+        defaultLabel="Selecione os autores" optionLabel="name">
+      </p-multiSelect>
+      <small class="p-invalid" *ngIf="submitted && !product.autors">Autor é obrigatorio.</small>
+    </div>
+
+    <div class="p-col-12 p-md-4">
+      <label for="edicao">Preço <span style="color: red;">*</span></label>
+      <div class="p-inputgroup pricecss">
+        <span class="p-inputgroup-addon">R$</span>
+        <p-inputNumber [(ngModel)]="product.price" inputId="product.price" [minFractionDigits]="2">
+        </p-inputNumber>
+        <span class="p-inputgroup-addon">.00</span>
       </div>
-      <div class="p-field p-col">
-        <label for="quantity">Quantidade</label>
-        <p-inputNumber id="quantity"></p-inputNumber>
-      </div>
+      <small class="p-invalid" *ngIf="submitted && !product.price">Preço é obrigatorio.</small>
+    </div>
+
+    <div class="p-field pricecss">
+      <label for="edicao">Edição <span style="color: red;">*</span></label>
+      <input type="text" pInputText id="edicao" required autofocus [(ngModel)]=product.edicao />
+      <small class="p-invalid" *ngIf="submitted && !product.edicao">Edicao é obrigatorio.</small>
+    </div>
+
+    <div class="p-field pricecss">
+      <label for="edicao">Ano de Publicação <span style="color: red;">*</span></label>
+      <input type="text" pInputText id="ano" required autofocus [(ngModel)]=product.anoPublicacao />
+      <small class="p-invalid" *ngIf="submitted && !product.anoPublicacao">Ano de publicação é obrigatorio.</small>
+    </div>
+
+    <div class="p-field">
+
+
+      <label for="categoria">Categoria <span style="color: red;">*</span></label>
+      <p-dropdown class="selectedInput" [options]="categorias" [(ngModel)]="categorias"
+        placeholder="Selecione a categoria" [virtualScroll]="true" [itemSize]="31" [filter]="false">
+      </p-dropdown>
+      <small class="p-invalid" *ngIf="submitted && !product.categoria">Cateoria é obrigatorio.</small>
+    </div>
+
+    <div class="p-field">
+      <label for="editora">Editora<span style="color: red;">*</span></label>
+      <p-dropdown [options]="editoras" [(ngModel)]="editoras" placeholder="Selecione uma editora" [virtualScroll]="true"
+        [itemSize]="31" [filter]="false"></p-dropdown>
+        <small class="p-invalid" *ngIf="submitted && !product.editora">Editora é obrigatorio.</small>
+    </div>
+
+    <div class="p-field p-col pricecss">
+      <label for="estoque">Estoque<span style="color: red;">*</span></label>
+      <p-inputNumber id="estoque"  [(ngModel)]=product.estoque></p-inputNumber>
+      <small class="p-invalid" *ngIf="submitted && !product.estoque">Estoque é obrigatorio.</small>
     </div>
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancela" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Salavar" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="save(product)"></button>
   </ng-template>
+
 </p-dialog>
 <!-------------------------Fim da tela Tela de Dialog do livro------------------------------->
 

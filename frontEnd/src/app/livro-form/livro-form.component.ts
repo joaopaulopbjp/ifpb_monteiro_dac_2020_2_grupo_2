@@ -1,4 +1,5 @@
-import { LivroserviceService } from '../livro.service';
+import { AutorService } from './../autor.service';
+import { LivroService } from './../livro.service';
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 
@@ -10,11 +11,33 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 
 
 export class LivroFormComponent implements OnInit {
-  productDialog = false;
+  telaDialog = false;
 
   products = [];
 
-  product = {};
+  autors = [];
+
+  categorias = [];
+
+  editoras = [];
+
+  selectedAutores = [];
+
+  product = {
+    livroId: '',
+    titulo: '',
+    descricao: '',
+    price: '',
+    ISBN: '',
+    capa: '',
+    edicao: '',
+    ano: '',
+    anoPublicacao: '',
+    categoria: '',
+    editora: '',
+    estoque: 0,
+    autors: [{ autorId: '' }]
+  };
 
   selectedProducts = [];
 
@@ -23,17 +46,19 @@ export class LivroFormComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private livroservice: LivrosService) {
+    private livroService: LivroService,
+    private autorService: AutorService) {
 
-     }
+  }
   ngOnInit() {
     //this.productService.getProducts().then();
+    this.listAll();
 
   }
 
   openNew() {
     this.product = {
-      livroId: 0,
+      livroId: '',
       titulo: '',
       descricao: '',
       price: '',
@@ -44,68 +69,82 @@ export class LivroFormComponent implements OnInit {
       anoPublicacao: '',
       categoria: '',
       editora: '',
-      estoque: 0
+      estoque: 0,
+      autors: [{ autorId: '' }]
     };
+    this.listaNomesAutor();
     this.submitted = false;
-    this.productDialog = true;
+    this.telaDialog = true;
   }
 
-  // tslint:disable-next-line: typedef
-  deleteSelectedProducts() {
+  listAll() {
+    this.livroService.listAll().then(livros => {
+      this.products = livros;
+    });
+  }
+
+  deleteSelected() {
     this.confirmationService.confirm({
       message: 'Tem certeza que deseja excluir os produtos selecionados?',
       header: 'Confirme',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-        // this.selectedProducts = null;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+        this.selectedProducts = [];
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Livros deletados em massa', life: 3000 });
       }
     });
   }
 
   // tslint:disable-next-line: typedef
-  editProduct() {
-    //this.product = {...product};
-    this.productDialog = true;
+  update(product: any) {
+    this.product = { ...product };
+    this.telaDialog = true;
   }
 
-  deleteProduct() {
+  delete(id: number, nome: string) {
     this.confirmationService.confirm({
-      message: 'Tem certeza de que deseja excluir' + '?',
+      message: 'Tem certeza de que deseja excluir' + nome + '?',
       header: 'Confirme',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        //this.products = this.products.filter();
-        this.product = {};
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+        this.livroService.delete(id)
+          .then(() => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: 'Livro' + nome + 'Deletado com sucesso',
+              life: 3000
+            });
+            this.listAll();
+          });
+
       }
     });
   }
 
   hideDialog() {
-    this.productDialog = false;
+    this.telaDialog = false;
     this.submitted = false;
   }
 
-  saveProduct() {
+  save(prodoct: any) {
     this.submitted = true;
-
-    /*if (this.product.name.trim()) {
-        if (this.product.id) {
-            this.products[this.findIndexById(this.product.id)] = this.product;
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+    this.livroService.salvar(prodoct)
+      .then(autorSalvo => {
+        if (prodoct.id === '') {
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Livro Cadastrado com sucesso', life: 3000 });
+        } else {
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Livro Atualizado com sucesso', life: 3000 });
         }
-        else {
-            this.product.id = this.createId();
-            this.product.image = 'product-placeholder.svg';
-            this.products.push(this.product);
-            this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
-        }
+        this.hideDialog();
+        this.listAll();
+      });
+  }
 
-        this.products = [...this.products];
-        this.productDialog = false;
-        /+this.product = {};
-        */
+listaNomesAutor() {
+  this.autorService.listAutores().then(autores => {
+    this.autors = autores;
+  });
   }
 }
