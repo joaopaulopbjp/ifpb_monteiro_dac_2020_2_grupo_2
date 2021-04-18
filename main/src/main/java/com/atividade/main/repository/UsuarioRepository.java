@@ -2,18 +2,17 @@ package com.atividade.main.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.atividade.main.model.Endereco;
 import com.atividade.main.model.Usuario;
+import com.atividade.main.repository.query.UsuarioRepositoryQuery;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
-	
-	
-
-	
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>, UsuarioRepositoryQuery{
 	
 
 //	Buscar por nome do Usuario
@@ -28,6 +27,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 //	Buscar por email
 	public Usuario findUsuarioByEmail(String email);
 	
-	
+//	Buscar enderecos de usuario
+	public Page<Endereco> findUsuarioByEnderecos(Usuario usuario, Pageable page);
+		
 
 }

@@ -2,6 +2,7 @@ package com.atividade.main.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -51,12 +52,11 @@ public class Usuario {
 	@Column(name = "USER_PAPEL")
 	private UserPapel userPapel;
 	
-	@NotNull
-	@OneToMany
-	@JoinColumn(name="endID")
+//	@NotNull
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.MERGE)
 	private List<Endereco> enderecos;
 	
-	@PrePersist
+	//@PrePersist
 	private void inclusao() {
 		Email email = new Email();
 		email.sendEmail(this.email, "Oi, "+this.nome+" Bem vindo a CJL Livraria online!"
@@ -64,7 +64,7 @@ public class Usuario {
 						+ "Email:"+this.email+"\n"
 								+ "Senha:"+this.senha);
 	}
-	@PreUpdate
+//	@PreUpdate
 	private void atulizacao() {
 		Email email = new Email();
 		String end = null;

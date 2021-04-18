@@ -1,5 +1,6 @@
 package com.atividade.main.service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -10,8 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.atividade.main.model.Endereco;
 import com.atividade.main.model.Usuario;
 import com.atividade.main.repository.UsuarioRepository;
+import com.atividade.main.repository.dto.UsuarioDTO;
 import com.atividade.main.service.exception.UsuarioExistException;
 
 @Service
@@ -57,8 +60,8 @@ public class UsuarioService {
 		return usuarioRepository.findUsuarioByNome(nome);
 	}
 
-	public Page<Usuario> getListaOrdenadaAsedente(Pageable page) {
-		return usuarioRepository.findAll(page);
+	public List<UsuarioDTO> getListaOrdenadaAsedente() {
+		return usuarioRepository.filter();
 	}
 
 	public Usuario getUserPorEmail(String email) {
@@ -69,6 +72,12 @@ public class UsuarioService {
 //	 enviar uma notificação para finalização do pedido*
 	public void sendEmailNotficacao(long id) {
 //		Luan ficou de fazer
+		
+	}
+	
+	public Page<Endereco> buscarListaEnderecos(Usuario usuario, Pageable page) {
+		return usuarioRepository.findUsuarioByEnderecos(usuario, page);
+		
 		
 	}
 

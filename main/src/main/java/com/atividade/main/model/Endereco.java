@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -16,31 +19,33 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long endID;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String cep;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String rua;
 	
-	@Column(nullable = false)
+	@NotNull
 	private int numero;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String bairro;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String cidade;
 	
-	@Column(nullable = false, length = 2)
+	@Column(length = 2)
 	private String UF;
 	
-	@Column(nullable = false)
+	@NotNull
 	private String complemento;
 	
-	@Column(nullable = false, name ="PONTOREFERENCIA")
+	@Column(name ="PONTOREFERENCIA")
 	private String pontoReferencia;
 	
-	
+	@ManyToOne
+	@JoinColumn(name="USERID")
+	private Usuario usuario;
 	
 	
 	
