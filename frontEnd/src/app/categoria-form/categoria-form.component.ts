@@ -11,21 +11,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./categoria-form.component.css']
 })
 
-// tslint:disable-next-line: component-class-suffix
-class Categoria {
-  id: number;
-  descricao: string;
-
-  constructor() {
-    this.id = 0;
-    this.descricao = '';
-  }
-}
-
-
 export class CategoriaFormComponent implements OnInit {
 
-  categoria = new Categoria();
+  categoria = { categoriaId: '', descricao: '' };
 
   telaDialog = false;
 
@@ -51,7 +39,7 @@ export class CategoriaFormComponent implements OnInit {
   }
 
   openNew() {
-    this.categoria = new Categoria();
+    this.categoria = { categoriaId: '', descricao: '' };
     this.submitted = false;
     this.telaDialog = true;
   }
@@ -77,9 +65,9 @@ export class CategoriaFormComponent implements OnInit {
   }
 
 
-  delete(id: number) {
+  delete(id: number, nome: string) {
     this.confirmationService.confirm({
-      message: 'Tem certeza que deseja excluir categoria ?',
+      message: 'Tem certeza que deseja excluir categoria ' + nome + '?',
       header: 'Confirme',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -99,7 +87,6 @@ export class CategoriaFormComponent implements OnInit {
     this.telaDialog = true;
 
   }
-
 
   save(categoria: any) {
     this.submitted = true;
