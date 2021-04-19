@@ -69,10 +69,9 @@ export class PagamentoFormComponent implements OnInit {
       accept: () => {
         this.pagamentoService.delete(id)
           .then(() => {
-            this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Pagamento deletado com sucesso', life: 3000 });
+            this.messageService.add({ severity: 'warning', summary: 'Pagamento', detail: 'Deletado com sucesso', life: 3000 });
             this.listAll();
           });
-
       }
     });
   }
@@ -88,9 +87,9 @@ export class PagamentoFormComponent implements OnInit {
     this.pagamentoService.salvar(pagamento)
       .then(pagamentoSalvo => {
         if (pagamento.pagamentoId === '') {
-          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Pagamento Cadastrado com sucesso', life: 3000 });
+          this.messageService.add({ severity: 'success', summary: 'Pagamento', detail: ' Cadastrado com sucesso', life: 3000 });
         } else {
-          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Pagamento Atualizado com sucesso', life: 3000 });
+          this.messageService.add({ severity: 'success', summary: 'Pagamento', detail: 'Atualizado com sucesso', life: 3000 });
         }
         this.hideDialog();
         this.listAll();

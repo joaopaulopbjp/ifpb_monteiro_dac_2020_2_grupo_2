@@ -70,7 +70,7 @@
 </div>
 
 <!-------------------------Tela de Dialog do livro------------------------------->
-<p-dialog [(visible)]="telaDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+<p-dialog [(visible)]="telaDialog" [style]="{width: '450px'}" header="Tela de pagamentos" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
     <div class="p-field">
@@ -81,7 +81,9 @@
   </ng-template>
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Cancela" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="save(pagamento)"></button>
+    <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="save(pagamento)"
+
+    [disabled]="pagamento.descricao === ''"></button>
   </ng-template>
 </p-dialog>
 <!-------------------------Fim da tela Tela de Dialog do livro------------------------------->
