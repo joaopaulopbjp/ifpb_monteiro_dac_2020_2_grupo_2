@@ -1,6 +1,6 @@
-import { PagamentosService } from './../pagamentos.service';
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { PagamentoService } from '../pagamento.service';
 
 
 
@@ -15,7 +15,7 @@ export class PagamentoFormComponent implements OnInit {
 
   pagamentos = [];
 
-  pagamento = {pagamentoId : 0, descricao : ''};
+  pagamento = {pagamentoId : '', descricao : ''};
 
   selectedpagamentos = [];
 
@@ -24,18 +24,18 @@ export class PagamentoFormComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private pagamentoService: PagamentosService) {
+    private pagamentoService: PagamentoService) {
 
 
   }
 
 
-  ngOnInit(): void {
-    this.listAll()
+  ngOnInit(){
+    this.listAll();
   }
 
   openNew() {
-    this.pagamento = {pagamentoId : 0, descricao : ''};
+    this.pagamento = {pagamentoId : '', descricao : ''};
     this.submitted = false;
     this.telaDialog = true;
   }
@@ -43,7 +43,6 @@ export class PagamentoFormComponent implements OnInit {
   listAll() {
     this.pagamentoService.listAll().then(pagamentos => {
       this.pagamentos = pagamentos;
-      console.log(pagamentos)
     });
   }
 

@@ -1,16 +1,16 @@
-import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoriaService {
 
+export class PagamentoService {
   readonly apiURL: string;
 
   constructor(private http: HttpClient, private messageService: MessageService) {
-    this.apiURL = 'http://localhost:8080/categoria';
+    this.apiURL = 'http://localhost:8080/pagamento';
   }
 
   listAll(): Promise<any> {

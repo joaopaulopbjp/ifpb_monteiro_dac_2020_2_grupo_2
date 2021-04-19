@@ -1,4 +1,3 @@
-import { PagamentosService } from './pagamentos.service';
 import { PagamentoFormComponent } from './pagamento-form/pagamento-form.component';
 import { LivroService } from './livro.service';
 import { NgModule } from '@angular/core';
@@ -53,6 +52,7 @@ import { CategoriaService } from './categoria.service';
 import { EnderecoService } from './endereco.service';
 import {PanelModule} from 'primeng/panel';
 import {RippleModule} from 'primeng/ripple';
+import { PagamentoService } from './pagamento.service';
 
 
 
@@ -116,6 +116,6 @@ import {RippleModule} from 'primeng/ripple';
     ])
   ],
   bootstrap: [AppComponent],
-  providers: [MessageService, ConfirmationService, AutorService, LivroService, CategoriaService, EnderecoService, PagamentosService]
+  providers: [MessageService, ConfirmationService, AutorService, LivroService, CategoriaService, EnderecoService, PagamentoService]
 })
 export class AppModule { }
