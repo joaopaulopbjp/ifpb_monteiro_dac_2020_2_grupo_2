@@ -7,6 +7,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -65,8 +67,8 @@ public class PagamentoController {
 		return pagamentoService.PagamentofindById(codigo);
 	}
 	@GetMapping
-	public List<Pagamento> getPagamentoList(){
-		return pagamentoRepository.findAll();
+	public Page<Pagamento> getPagamentoList(Pageable page){
+		return pagamentoRepository.findAll(page);
 		
 	}
 	
