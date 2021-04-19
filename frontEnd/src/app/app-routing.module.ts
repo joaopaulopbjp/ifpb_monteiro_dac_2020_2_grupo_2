@@ -1,3 +1,4 @@
+import { PortalAdminComponent } from './portal-admin/portal-admin.component';
 import { CategoriaFormComponent } from './categoria-form/categoria-form.component';
 import { PagamentoFormComponent } from './pagamento-form/pagamento-form.component';
 import { CaroselComponent } from './carosel/carosel.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'livro' , component: LivroCardComponent},
   {path: 'pagamento' , component: PagamentoFormComponent},
   {path: 'categoria' , component: CategoriaFormComponent},
+  {path: 'admin' , component: PortalAdminComponent},
 ];
 
 @NgModule({

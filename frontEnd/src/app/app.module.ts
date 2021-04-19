@@ -54,6 +54,9 @@ import {PanelModule} from 'primeng/panel';
 import {RippleModule} from 'primeng/ripple';
 import { PagamentoService } from './pagamento.service';
 import {InputMaskModule} from 'primeng/inputmask';
+import { MenuAdminComponent } from './menu-admin/menu-admin.component';
+import { PortalAdminComponent } from './portal-admin/portal-admin.component';
+import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 
 
 
@@ -69,7 +72,10 @@ import {InputMaskModule} from 'primeng/inputmask';
     AutorFormComponent,
     EnderecoFormComponent,
     CategoriaFormComponent,
-    PagamentoFormComponent
+    PagamentoFormComponent,
+    MenuAdminComponent,
+    PortalAdminComponent,
+    FooterAdminComponent
   ],
   imports: [
     RippleModule,
