@@ -18,7 +18,7 @@
 
   <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
   <p-table #dt [value]="pagamentos" [rows]="10" [paginator]="true" [responsive]="true"
-    [globalFilterFields]="['descrição']" [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+    [globalFilterFields]="['pagamentoId','descricao']" [(selection)]="selectedpagamentos" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
     <!-------------------------Titulo da tabela de pagamentos------------------------------->
@@ -38,7 +38,7 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
         </th>
-        <th pSortableColumn="pagamentoId">Id <p-sortIcon field="pagamentoId"></p-sortIcon>
+        <th pSortableColumn="pagamentoId">Código<p-sortIcon field="pagamentoId"></p-sortIcon>
         </th>
         <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon>
         <th></th>
@@ -51,11 +51,11 @@
         <td>
           <p-tableCheckbox [value]="pagamento"></p-tableCheckbox>
         </td>
-        <td>{{pagamento.Id}}</td>
+        <td>{{pagamento.pagamentoId}}</td>
         <td>{{pagamento.descricao}}</td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
-            class="p-button-rounded p-button-success p-mr-2" (click)="editProduct()"></button>
+            class="p-button-rounded p-button-success p-mr-2" (click)="update(pagamento)"></button>
           <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
             class="p-button-rounded p-button-warning" (click)="delete(pagamento.Id, pagamento.descricao)"></button>
         </td>
@@ -63,45 +63,25 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        Total de produtos {{products ? products.length : 0 }}.
+        Total de pagamentos {{pagamentos ? pagamentos.length : 0 }}.
       </div>
     </ng-template>
   </p-table>
 </div>
 
 <!-------------------------Tela de Dialog do livro------------------------------->
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+<p-dialog [(visible)]="telaDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
     <div class="p-field">
-      <label for="name">Titulo</label>
-      <input type="text" pInputText id="name" required autofocus />
-      <small class="p-invalid">Titulo é obrigatorio.</small>
-    </div>
-    <div class="p-field">
-      <label for="description">Descrição</label>
-      <textarea id="description" pInputTextarea required rows="3" cols="20"></textarea>
-    </div>
-
-    <div class="p-field" style="width: 200px">
-      <label class="p-mb-3">Categoria</label>
-      <p-dropdown [virtualScroll]="true"></p-dropdown>
-    </div>
-
-    <div class="p-formgrid p-grid" style="width: 100px">
-      <div class="p-field p-col">
-        <label for="price">Preço</label>
-        <p-inputNumber id="price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
-      </div>
-      <div class="p-field p-col">
-        <label for="quantity">Quantidade</label>
-        <p-inputNumber id="quantity"></p-inputNumber>
-      </div>
+      <label for="name">Tipo de pagamento</label>
+      <input type="text" autocomplete="false" pInputText id="name" required autofocus [(ngModel)]=pagamento.descricao/>
+      <small class="p-invalid" *ngIf="submitted && !pagamento.descricao">Tipo do pagamento é obrigatorio.</small>
     </div>
   </ng-template>
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Cancela" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Salavar" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+    <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="save(pagamento)"></button>
   </ng-template>
 </p-dialog>
 <!-------------------------Fim da tela Tela de Dialog do livro------------------------------->

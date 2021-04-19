@@ -1,3 +1,5 @@
+import { PagamentosService } from './pagamentos.service';
+import { PagamentoFormComponent } from './pagamento-form/pagamento-form.component';
 import { LivroService } from './livro.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -64,6 +66,7 @@ import { EnderecoService } from './endereco.service';
     AutorFormComponent,
     EnderecoFormComponent,
     CategoriaFormComponent,
+    PagamentoFormComponent
   ],
   imports: [
     DataViewModule,
@@ -109,6 +112,6 @@ import { EnderecoService } from './endereco.service';
     ])
   ],
   bootstrap: [AppComponent],
-  providers: [MessageService, ConfirmationService, AutorService, LivroService, CategoriaService, EnderecoService]
+  providers: [MessageService, ConfirmationService, AutorService, LivroService, CategoriaService, EnderecoService, PagamentosService]
 })
 export class AppModule { }

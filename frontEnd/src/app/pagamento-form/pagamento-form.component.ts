@@ -1,7 +1,7 @@
 import { PagamentosService } from './../pagamentos.service';
 import { Component, OnInit } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { AutorService } from '../autor.service';
+
 
 
 @Component({
@@ -15,7 +15,7 @@ export class PagamentoFormComponent implements OnInit {
 
   pagamentos = [];
 
-  pagamento = {};
+  pagamento = {pagamentoId : 0, descricao : ''};
 
   selectedpagamentos = [];
 
@@ -42,7 +42,8 @@ export class PagamentoFormComponent implements OnInit {
 
   listAll() {
     this.pagamentoService.listAll().then(pagamentos => {
-      this.pagamento = pagamentos;
+      this.pagamentos = pagamentos;
+      console.log(pagamentos)
     });
   }
 
@@ -53,8 +54,8 @@ export class PagamentoFormComponent implements OnInit {
       header: 'Confirme',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.pagamentos = this.pagamentos.filter(val => !this.selectedpagamentos.includes(val));
-        this.pagamentos = [];
+       // this.pagamentos = this.pagamentos.filter(val => !this.selectedpagamentos.includes(val));
+       // this.pagamentos = [];
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Pagamento Deleted', life: 3000 });
       }
     });
@@ -88,9 +89,9 @@ export class PagamentoFormComponent implements OnInit {
     this.pagamentoService.salvar(pagamento)
       .then(pagamentoSalvo => {
         if (pagamento.pagamentoId === '') {
-          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Livro Cadastrado com sucesso', life: 3000 });
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Pagamento Cadastrado com sucesso', life: 3000 });
         } else {
-          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Livro Atualizado com sucesso', life: 3000 });
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Pagamento Atualizado com sucesso', life: 3000 });
         }
         this.hideDialog();
         this.listAll();
