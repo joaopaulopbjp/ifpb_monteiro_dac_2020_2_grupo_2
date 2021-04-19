@@ -1,5 +1,6 @@
 :host ::ng-deep .p-dropdown {
-  width: 14rem;
+  margin-right: 2rem;
+  width: 20rem;
   font-weight: normal;
 }
 :host ::ng-deep .product-name {
@@ -47,17 +48,21 @@
 :host ::ng-deep .product-list-item .p-button {
   margin-bottom: 0.5rem;
 }
+
+/*  começo do grid e produtos */
 :host ::ng-deep .product-grid-item {
   margin: 0.5em;
   border: 1px solid #dee2e6;
+  /* max-width: 25%; */
 }
 :host ::ng-deep .product-grid-item .product-grid-item-top, :host ::ng-deep .product-grid-item .product-grid-item-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 :host ::ng-deep .product-grid-item img {
-  width: 75%;
+  width: 50%;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   margin: 2rem 0;
 }
@@ -74,6 +79,7 @@
   border-radius: 4px;
   margin-bottom: 2rem;
 }
+
 @media screen and (max-width: 576px) {
   :host ::ng-deep .product-list-item {
     flex-direction: column;
@@ -101,3 +107,4 @@
     width: 100%;
   }
 }
+

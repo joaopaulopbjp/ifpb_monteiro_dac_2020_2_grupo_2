@@ -51,6 +51,8 @@ import { EnderecoFormComponent } from './endereco-form/endereco-form.component';
 import { CategoriaFormComponent } from './categoria-form/categoria-form.component';
 import { CategoriaService } from './categoria.service';
 import { EnderecoService } from './endereco.service';
+import {PanelModule} from 'primeng/panel';
+import {RippleModule} from 'primeng/ripple';
 
 
 
@@ -69,6 +71,8 @@ import { EnderecoService } from './endereco.service';
     PagamentoFormComponent
   ],
   imports: [
+    RippleModule,
+    PanelModule,
     DataViewModule,
     MessagesModule,
     MessageModule,

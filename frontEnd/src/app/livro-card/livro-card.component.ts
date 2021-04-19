@@ -21,14 +21,17 @@ export class LivroCardComponent implements OnInit {
     ISBN: '',
     capa: '',
     edicao: '',
-    ano: '',
     anoPublicacao: '',
     categoria: '',
     editora: '',
     estoque: 0,
   };
 
-  products: [];
+  products: [any];
+
+  listCarrinho: [any];
+
+  totalCarrinho: number;
 
   sortOptions = [{ label: 'Preço alto para baixo', value: '!price' },
   { label: 'Preço baixo para alto', value: 'price' }];
@@ -39,9 +42,11 @@ export class LivroCardComponent implements OnInit {
 
 
   constructor(private productService: LivroService, private primengConfig: PrimeNGConfig) {
-    this.products = [];
+    this.products = [this.product];
+    this.listCarrinho = [{}];
     this.sortField = '';
-    this.sortOrder = 0;
+    this.sortOrder = 5;
+    this.totalCarrinho = 0;
 
   }
 
@@ -69,4 +74,14 @@ export class LivroCardComponent implements OnInit {
       this.sortField = value;
     }
   }
+
+  addCarrino(product: any) {
+    this.product = { ...product };
+    this.listCarrinho.push(product);
+    console.log(this.listCarrinho);
+    this.totalCarrinho + this.product.price;
+    console.log(this.totalCarrinho + this.product.price);
+  }
+
+
 }

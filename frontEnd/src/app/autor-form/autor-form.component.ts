@@ -1,7 +1,6 @@
 import { AutorService } from './../autor.service';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-autor-form',

@@ -17,7 +17,11 @@ export class MenuBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.quantCarrinho = 0;
+    this.quantCarrinho = this.livros.length;
+  }
+
+  addCarinho(livro: any){
+       this.livros.push();
   }
 
 }
