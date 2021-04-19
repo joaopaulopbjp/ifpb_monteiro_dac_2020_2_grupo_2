@@ -53,6 +53,7 @@ import { EnderecoService } from './endereco.service';
 import {PanelModule} from 'primeng/panel';
 import {RippleModule} from 'primeng/ripple';
 import { PagamentoService } from './pagamento.service';
+import {InputMaskModule} from 'primeng/inputmask';
 
 
 
@@ -72,6 +73,7 @@ import { PagamentoService } from './pagamento.service';
   ],
   imports: [
     RippleModule,
+    InputMaskModule,
     PanelModule,
     DataViewModule,
     MessagesModule,
