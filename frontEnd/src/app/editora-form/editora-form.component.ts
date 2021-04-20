@@ -13,10 +13,12 @@ export class EditoraFormComponent implements OnInit {
 
   submitted = false;
 
-  editora = { editoraId: "", nome: "", cep: "", rua: "", numero: "",
-   bairro: "", cidade: "", cnpj: "", uf: ""};
+  editora = { editoraId: '', nome: '', cep: '', rua: '', numero: '',
+   bairro: '', cidade: '', cnpj: '', uf: ''};
 
   editoras = [];
+
+  selectEditoras = [];
 
   constructor(
 
@@ -35,6 +37,8 @@ export class EditoraFormComponent implements OnInit {
   openNew() {
     this.submitted = false;
     this.telaDialog = true;
+    this.editora = { editoraId: '', nome: '', cep: '', rua: '', numero: '',
+   bairro: '', cidade: '', cnpj: '', uf: ''};
   }
 
   listAll() {
@@ -67,9 +71,9 @@ export class EditoraFormComponent implements OnInit {
         this.editoraService.delete(id)
           .then(() => {
             this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Editora Deletado com sucesso', life: 3000 });
-            this.listAll;
-          });
 
+          });
+          this.listAll();
       }
     });
   }
@@ -83,12 +87,24 @@ export class EditoraFormComponent implements OnInit {
 
   save(editora: any) {
     this.submitted = true;
-    this.editoraService.salvar(editora)
+
+    if (this.editora.editoraId === '') {
+      this.editoraService.salvar(editora)
       .then(editoraSalvo => {
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Editora Cadastrado com sucesso', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Editora', detail: 'Cadastrado com sucesso', life: 3000 });
         this.telaDialog = false;
         this.listAll();
       });
+    }
+    else{
+      this.editoraService.update(editora)
+      .then(editoraSalvo => {
+        this.messageService.add({ severity: 'success', summary: 'Editora', detail: 'Atualizado com sucesso', life: 3000 });
+        this.telaDialog = false;
+        this.listAll();
+      });
+    }
+
   }
 
   hideDialog() {

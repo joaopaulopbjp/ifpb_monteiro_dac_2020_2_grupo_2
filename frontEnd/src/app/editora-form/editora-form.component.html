@@ -7,35 +7,39 @@
 
 
 <!-----------------------------------Button de novo / e deletar mutiplos------------------------------------->
-<div class="card">
-  <p-toolbar styleClass="p-mb-4">
-    <ng-template pTemplate="left">
-      <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
-        (click)="openNew()"></button>
-      <button pButton pRipple label="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"></button>
-    </ng-template>
-  </p-toolbar>
+<div class="card" style="margin-top: 1%;" >
+
 
   <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
-  <p-table #dt [value]="editoras" [rows]="5" [paginator]="true" [responsive]="true" [globalFilterFields]="['editoraId', 'nome']"
-    [(selection)]="selectedEditoras" [rowHover]="true" dataKey="id"
+  <p-table #dt [value]="editoras" [rows]="5" [paginator]="true" [responsive]="true"
+    [globalFilterFields]="['editoraId', 'nome']" [(selection)]="selectEditoras" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
     <!-------------------------Titulo da tabela------------------------------->
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
         <h5 class="p-m-0">Gerenciar de Editora</h5>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Pesquisar..." />
-        </span>
+        <br>
+        <p-toolbar styleClass="p-mb-4">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text"
+              placeholder="Pesquisar..." />
+          </span>
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
+              (click)="openNew()"></button>
+            <button pButton pRipple label="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"></button>
+          </ng-template>
+        </p-toolbar>
+
       </div>
     </ng-template>
 
     <!----------------------------------Cabeçalho da tabela------------------------------------->
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="editoraId">Id <p-sortIcon field="editoraId"></p-sortIcon>
+        <th pSortableColumn="editoraId">Codigo <p-sortIcon field="editoraId"></p-sortIcon>
         </th>
         <th pSortableColumn="nome" class="titulo">Nome<p-sortIcon field="nome"></p-sortIcon>
         </th>
@@ -46,7 +50,9 @@
     <ng-template pTemplate="body" let-editora>
       <tr>
         <td>{{editora.editoraId}}</td>
-        <td><h4>{{editora.nome}}</h4></td>
+        <td>
+          <h4>{{editora.nome}}</h4>
+        </td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
             class="p-button-rounded p-button-success p-mr-2" (click)="update(editora)"></button>
@@ -74,51 +80,50 @@
 
     <div class="p-field">
       <label for="name">Nome <span style="color: red;">*</span></label>
-      <input type="text" pInputText id="name" required autofocus [(ngModel)]=editora.nome />
+      <input type="text" pInputText id="Nome" required autofocus [(ngModel)]=editora.nome />
       <small class="p-invalid" *ngIf="submitted && !editora.nome">Nome é obrigatorio.</small>
     </div>
 
     <div class="p-field">
-      <label for="cnpj">CNPJ <span style="color: red;">*</span></label>
-      <input type="text" pInputText id="name" required autofocus [(ngModel)]=editora.cnpj />
-      <small class="p-invalid" *ngIf="submitted && !editora.cnpj">CNPJ é obrigatorio.</small>
+      <label for="cnpj">cnpj <span style="color: red;">*</span></label>
+      <input type="text" pInputText id="cnpj" required autofocus [(ngModel)]=editora.cnpj />
+      <small class="p-invalid" *ngIf="submitted && !editora.cnpj">cnpj é obrigatorio.</small>
     </div>
 
     <div class="p-field">
       <label for="cep">CEP <span style="color: red;">*</span></label>
-      <input type="text" pInputText id="name" required autofocus [(ngModel)]=editora.cep />
+      <input type="text" pInputText id="CEP" required autofocus [(ngModel)]=editora.cep />
       <small class="p-invalid" *ngIf="submitted && !editora.cep">CEP é obrigatorio.</small>
     </div>
 
     <div class="p-field">
       <label for="rua">Rua <span style="color: red;">*</span></label>
-      <input type="text" pInputText id="name" required autofocus [(ngModel)]=editora.rua />
+      <input type="text" pInputText id="Rua" required autofocus [(ngModel)]=editora.rua />
       <small class="p-invalid" *ngIf="submitted && !editora.rua">Rua é obrigatorio.</small>
     </div>
 
     <div class="p-field">
       <label for="numero">Numero <span style="color: red;">*</span></label>
-      <p-inputMask [(ngModel)]="editora.numero" mask="99-9999-9999" slotChar=" "></p-inputMask>
-      <input type="text" pInputText id="name" required autofocus [(ngModel)]=editora.numero />
+      <input type="number" pInputText id="Numero" autofocus [(ngModel)]=editora.numero />
       <small class="p-invalid" *ngIf="submitted && !editora.numero">Numero é obrigatorio.</small>
     </div>
 
     <div class="p-field">
       <label for="bairro">Bairro <span style="color: red;">*</span></label>
-      <input type="text" pInputText id="name" required autofocus [(ngModel)]=editora.bairro />
+      <input type="text" pInputText id="Bairro" required autofocus [(ngModel)]=editora.bairro />
       <small class="p-invalid" *ngIf="submitted && !editora.bairro">Bairro é obrigatorio.</small>
     </div>
 
     <div class="p-field">
       <label for="cidade">Cidade <span style="color: red;">*</span></label>
-      <input type="text" pInputText id="name" required autofocus [(ngModel)]=editora.cidade />
+      <input type="text" pInputText id="Cidade" required autofocus [(ngModel)]=editora.cidade />
       <small class="p-invalid" *ngIf="submitted && !editora.cidade">Cidade é obrigatorio.</small>
     </div>
 
     <div class="p-field p-col-12 p-md-4">
-      <label for="icon">UF<span style="color: red;">*</span></label>
-      <input type="text" pInputText id="uf" required autofocus [(ngModel)]=endereco.uf />
-      <small class="p-invalid" *ngIf="submitted && !editora.uf">UF é obrigatório.</small>
+      <label for="icon">uf<span style="color: red;">*</span></label>
+      <input type="text" pInputText id="UF" required autofocus [(ngModel)]=editora.uf />
+      <small class="p-invalid" *ngIf="submitted && !editora.uf">uf é obrigatório.</small>
     </div>
 
   </ng-template>

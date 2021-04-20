@@ -1,3 +1,4 @@
+import { EditoraFormComponent } from './editora-form/editora-form.component';
 import { PagamentoFormComponent } from './pagamento-form/pagamento-form.component';
 import { LivroService } from './livro.service';
 import { NgModule } from '@angular/core';
@@ -36,9 +37,9 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
 import { BadgeModule } from 'primeng/badge';
 import { CarouselModule } from 'primeng/carousel';
-import {DataViewModule} from 'primeng/dataview';
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
+import { DataViewModule } from 'primeng/dataview';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { RodapeBarComponent } from './rodape-bar/rodape-bar.component';
 import { CaroselComponent } from './carosel/carosel.component';
@@ -50,13 +51,14 @@ import { EnderecoFormComponent } from './endereco-form/endereco-form.component';
 import { CategoriaFormComponent } from './categoria-form/categoria-form.component';
 import { CategoriaService } from './categoria.service';
 import { EnderecoService } from './endereco.service';
-import {PanelModule} from 'primeng/panel';
-import {RippleModule} from 'primeng/ripple';
+import { PanelModule } from 'primeng/panel';
+import { RippleModule } from 'primeng/ripple';
 import { PagamentoService } from './pagamento.service';
-import {InputMaskModule} from 'primeng/inputmask';
+import { InputMaskModule } from 'primeng/inputmask';
 import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { PortalAdminComponent } from './portal-admin/portal-admin.component';
 import { FooterAdminComponent } from './footer-admin/footer-admin.component';
+import { EditoraService } from './editora.service';
 
 
 
@@ -75,7 +77,8 @@ import { FooterAdminComponent } from './footer-admin/footer-admin.component';
     PagamentoFormComponent,
     MenuAdminComponent,
     PortalAdminComponent,
-    FooterAdminComponent
+    FooterAdminComponent,
+    EditoraFormComponent
   ],
   imports: [
     RippleModule,
@@ -118,12 +121,21 @@ import { FooterAdminComponent } from './footer-admin/footer-admin.component';
     TooltipModule,
     DividerModule,
     RouterModule.forRoot([
-      { path: '', component: AppComponent }
+      { path: '', component: AppComponent },
+      { path: 'autor', component: AutorFormComponent },
+      { path: 'home', component: LivroCardComponent },
+      { path: 'livro', component: LivroCardComponent },
+      { path: 'pagamento', component: PagamentoFormComponent },
+      { path: 'categoria', component: CategoriaFormComponent },
+      { path: 'admin', component: PortalAdminComponent },
+      { path: 'editora', component: EditoraFormComponent},
+
 
 
     ])
   ],
   bootstrap: [AppComponent],
-  providers: [MessageService, ConfirmationService, AutorService, LivroService, CategoriaService, EnderecoService, PagamentoService]
+  providers: [MessageService, ConfirmationService, AutorService, LivroService,
+    CategoriaService, EnderecoService, PagamentoService, EditoraService]
 })
 export class AppModule { }

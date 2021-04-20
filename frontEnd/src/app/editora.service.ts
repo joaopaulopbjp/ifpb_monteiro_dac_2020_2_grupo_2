@@ -32,12 +32,9 @@ export class EditoraService {
   }
 
   update(editora: any): Promise<any> {
-    return this.http.put<any>(`${this.apiURL}/${editora.id}`, editora)
+    return this.http.put<any>(`${this.apiURL}/${editora.editoraId}`, editora)
       .toPromise()
-      .then(response => response.content)
-      .catch(erro => {
-        return Promise.reject(`Erro ao alterar editora ${editora.id}.`);
-      });
+      .then(response => response.content);
   }
 
 
