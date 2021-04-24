@@ -1,3 +1,4 @@
+import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { EditoraFormComponent } from './editora-form/editora-form.component';
 import { PagamentoFormComponent } from './pagamento-form/pagamento-form.component';
 import { LivroService } from './livro.service';
@@ -59,7 +60,7 @@ import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { PortalAdminComponent } from './portal-admin/portal-admin.component';
 import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 import { EditoraService } from './editora.service';
-import {TabMenuModule} from 'primeng/tabmenu';
+import { TabMenuModule } from 'primeng/tabmenu';
 import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
 
 
@@ -82,6 +83,7 @@ import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.compo
     FooterAdminComponent,
     EditoraFormComponent,
     DetalheProdutoComponent,
+    CheckoutFormComponent,
 
   ],
   imports: [
@@ -125,6 +127,7 @@ import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.compo
     InputTextareaModule,
     TooltipModule,
     DividerModule,
+
     RouterModule.forRoot([
       { path: '', component: AppComponent },
       { path: 'autor', component: AutorFormComponent },
@@ -133,8 +136,10 @@ import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.compo
       { path: 'pagamento', component: PagamentoFormComponent },
       { path: 'categoria', component: CategoriaFormComponent },
       { path: 'admin', component: PortalAdminComponent },
-      { path: 'editora', component: EditoraFormComponent},
-      { path: 'detalhe-produto', component: DetalheProdutoComponent},
+      { path: 'editora', component: EditoraFormComponent },
+      { path: 'detalhe-produto', component: DetalheProdutoComponent },
+      { path: 'check', component: CheckoutFormComponent },
+
 
 
 

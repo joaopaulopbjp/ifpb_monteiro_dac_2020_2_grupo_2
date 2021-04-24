@@ -1,0 +1,50 @@
+<div class="card ui-g" style="display: inline-block;">
+  <div class="card">
+
+    <div pTemplate="content">
+
+      <div class="p-field" style="width: 200px">
+        <label class="p-mb-3">Cep <span style="color: red;">*</span> </label>
+        <input type="text" pInputText id="cep" required autofocus [(ngModel)]=endereco.cep />
+        <small class="p-invalid" *ngIf="submitted && !endereco.cep">CEP é obrigatório.</small>
+      </div>
+
+      <div class="p-field">
+        <label for="rua">Rua <span style="color: red;">*</span></label>
+        <input type="text" pInputText id="Rua" required autofocus [(ngModel)]=endereco.rua />
+        <small class="p-invalid" *ngIf="submitted && !endereco.rua">Rua é obrigatório.</small>
+      </div>
+
+      <div class="p-field">
+        <label for="numero">Numero <span style="color: red;">*</span></label>
+        <p-inputNumber id="numero" [(ngModel)]=endereco.numero></p-inputNumber>
+        <small class="p-invalid" *ngIf="submitted && !endereco.numero">Numero é obrigatório.</small>
+      </div>
+
+      <div class="p-field p-col-12 p-md-4">
+        <label for="icon">Bairro <span style="color: red;">*</span></label>
+        <input type="text" pInputText id="bairro" required autofocus [(ngModel)]=endereco.bairro />
+        <small class="p-invalid" *ngIf="submitted && !endereco.bairro">Bairro é obrigatório.</small>
+      </div>
+
+      <div class="p-field p-col-12 p-md-4">
+        <label for="icon">Cidade <span style="color: red;">*</span></label>
+        <input type="text" pInputText id="cidade" required autofocus [(ngModel)]=endereco.cidade />
+        <small class="p-invalid" *ngIf="submitted && !endereco.cidade">Cidade é obrigatório.</small>
+      </div>
+
+      <div class="p-field p-col-12 p-md-4">
+        <label for="icon">UF<span style="color: red;">*</span></label>
+        <input type="text" pInputText id="UF" required autofocus [(ngModel)]=endereco.UF />
+        <small class="p-invalid" *ngIf="submitted && !endereco.UF">Estado é obrigatório.</small>
+      </div>
+
+      <div class="p-field p-col-12 p-md-4">
+        <label for="icon">Ponto de Referencia<span style="color: red;">*</span></label>
+        <input type="text" pInputText id="pontoReferencia" required autofocus [(ngModel)]=endereco.pontoReferencia />
+        <small class="p-invalid" *ngIf="submitted && !endereco.pontoReferencia">Ponto de refência é obrigatório.</small>
+      </div>
+
+    </div>
+  </div>
+</div>
