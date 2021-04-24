@@ -1,0 +1,31 @@
+<div class="card ui-g" style="margin-top:12%">
+
+  <div class="p-col-12 p-md-6 p-lg-3 detalhe-capa">
+    <img class="detalhe-capa" [src]="produto.capa" [alt]="produto.capa" />
+    <p-toolbar>
+      <div class="detalhe">
+        <h2>
+          {{produto.titulo}}
+        </h2>
+        <div>
+          <h5>Edição: {{produto.edicao}} | Editora: {{produto.editora}} | Ano de Publicação: {{produto.anoPublicacao}} | Autor: {{produto.autores}}</h5>
+        </div>
+        <span class="price">{{produto.price | currency: 'R$'}}</span>
+      </div>
+      <div class="p-field p-col-12 p-md-3">
+        <label for="minmax-buttons">Quantidade</label>
+        <p-inputNumber [(ngModel)]="quantidade" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0"
+          [max]="100">
+        </p-inputNumber>
+      </div>
+    </p-toolbar>
+  </div>
+</div>
+<div class="card">
+  <h2>Descrição do produto</h2>
+  <span>
+    {{produto.descricao}}
+  </span>
+</div>
+<app-menu-bar></app-menu-bar>
+<app-rodape-bar></app-rodape-bar>

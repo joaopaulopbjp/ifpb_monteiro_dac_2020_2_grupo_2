@@ -1,0 +1,27 @@
+.card {
+  padding: 2rem;
+  box-shadow: 0 8px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+
+.capa-detalhe{
+  display: inline-block;
+}
+
+.detalhe{
+  max-width: 200%;
+  margin-bottom: -20px;
+}
+img{
+  max-height: auto;
+  max-width: 40%;
+
+}
+
+.price{
+  color: brown;
+  font-size: 30px;
+  font-style: unset;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
