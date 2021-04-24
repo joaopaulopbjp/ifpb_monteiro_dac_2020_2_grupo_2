@@ -22,6 +22,6 @@ img{
 .price{
   color: brown;
   font-size: 30px;
-  font-style: unset;
+  font-style: initial;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }

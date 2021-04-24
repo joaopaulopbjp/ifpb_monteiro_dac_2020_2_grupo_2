@@ -12,6 +12,7 @@
         </div>
         <span class="price">{{produto.price | currency: 'R$'}}</span>
       </div>
+      <p-button icon="pi pi-shopping-cart" label="Comprar"></p-button>
       <div class="p-field p-col-12 p-md-3">
         <label for="minmax-buttons">Quantidade</label>
         <p-inputNumber [(ngModel)]="quantidade" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0"
