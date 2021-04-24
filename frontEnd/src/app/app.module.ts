@@ -137,6 +137,7 @@ import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.compo
       { path: 'detalhe-produto', component: DetalheProdutoComponent},
 
 
+
     ])
   ],
   bootstrap: [AppComponent],
