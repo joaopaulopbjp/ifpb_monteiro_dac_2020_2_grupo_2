@@ -11,12 +11,7 @@ import { LivroCardComponent } from './livro-card/livro-card.component';
 
 
 const routes: Routes = [
-  {path: 'autor' , component: AutorFormComponent},
-  {path: 'home' , component: LivroCardComponent},
-  {path: 'livro' , component: LivroCardComponent},
-  {path: 'pagamento' , component: PagamentoFormComponent},
-  {path: 'categoria' , component: CategoriaFormComponent},
-  {path: 'admin' , component: PortalAdminComponent},
+
 ];
 
 @NgModule({

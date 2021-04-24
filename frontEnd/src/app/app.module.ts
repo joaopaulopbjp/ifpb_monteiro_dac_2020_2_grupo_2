@@ -59,6 +59,7 @@ import { MenuAdminComponent } from './menu-admin/menu-admin.component';
 import { PortalAdminComponent } from './portal-admin/portal-admin.component';
 import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 import { EditoraService } from './editora.service';
+import {TabMenuModule} from 'primeng/tabmenu';
 
 
 
@@ -78,9 +79,11 @@ import { EditoraService } from './editora.service';
     MenuAdminComponent,
     PortalAdminComponent,
     FooterAdminComponent,
-    EditoraFormComponent
+    EditoraFormComponent,
+
   ],
   imports: [
+    TabMenuModule,
     RippleModule,
     InputMaskModule,
     PanelModule,

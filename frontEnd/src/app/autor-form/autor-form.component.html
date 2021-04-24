@@ -1,4 +1,3 @@
-<app-menu-bar></app-menu-bar>
 <div class="ui-g">
   <div class="p-col-12 p-md-6 p-lg-3p">
     <h1 style="display: block">Cadastro de Autores </h1>
@@ -6,27 +5,28 @@
 </div>
 <p-toast></p-toast>
 <!-- ---------------------------------------------------- -->
-<div class="card p-col-12 p-md-6 p-lg-3p">
-  <p-toolbar styleClass="p-mb-4">
-    <ng-template pTemplate="left">
-      <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
-        (click)="openNew()"></button>
-      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
-        (click)="deleteSelected()" [disabled]="!selectedAutors || !selectedAutors.length"></button>
-    </ng-template>
-  </p-toolbar>
-
+<div class="card p-col-12 p-md-6 p-lg-3p" style="margin-top: 1%;">
   <p-table #dt [value]="autores" [rows]="10" [paginator]="true" [responsive]="true"
     [globalFilterFields]="['autorId','nome','sexo','nacionalidade', 'dataNascimento']" [(selection)]="selectedAutors"
     [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
-        <h5 class="p-m-0">Gerenciar Autores</h5>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" placeholder="Pesquisar..." style="width: 500px;" />
-        </span>
+        <br>
+        <h4 class="p-m-0">Gerenciar Autores</h4>
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
+              (click)="openNew()"></button>
+            <button pButton pRipple label="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"
+              [disabled]="!selectedAutors || !selectedAutors.length"></button>
+          </ng-template>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" placeholder="Pesquisar..." style="width: 500px;" />
+          </span>
+        </p-toolbar>
+
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -72,30 +72,32 @@
     </ng-template>
   </p-table>
 </div>
+<app-menu-admin></app-menu-admin>
+<app-footer-admin></app-footer-admin>
 <!------------------------------------Inicio da tela modelo Dialog------------------------------------------------>
 <p-dialog [(visible)]="autorDialog" [style]="{width: '450px'}" header="Detalhes de autor" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
     <div class="p-field">
       <label for="nome">Nome <span style="color: red;">*</span></label>
-      <input type="text" pInputText id="nome" required autofocus [(ngModel)]=autor.nome/>
+      <input type="text" pInputText id="nome" required autofocus [(ngModel)]=autor.nome />
     </div>
 
     <div class="p-field">
       <h5>Sexo</h5>
-      <p-selectButton [options]="options"  optionLabel="label" optionValue="value" [(ngModel)]=autor.sexo>
+      <p-selectButton [options]="options" optionLabel="label" optionValue="value" [(ngModel)]=autor.sexo>
       </p-selectButton>
     </div>
 
     <div class="p-field" style="width: 200px">
       <label class="p-mb-3">Nacionalidade</label>
-     <input type="text" pInputText  id="nacionalidade" [(ngModel)]=autor.nacionalidade/>
+      <input type="text" pInputText id="nacionalidade" [(ngModel)]=autor.nacionalidade />
     </div>
 
-      <div class="p-field p-col-12 p-md-4">
-        <label for="icon">Data de Nascimento</label>
-        <p-calendar [(ngModel)]="dataNasc" [showIcon]="true" inputId="icon"></p-calendar>
-      </div>
+    <div class="p-field p-col-12 p-md-4">
+      <label for="icon">Data de Nascimento</label>
+      <p-calendar [(ngModel)]="dataNasc" [showIcon]="true" inputId="icon"></p-calendar>
+    </div>
   </ng-template>
 
   <ng-template pTemplate="footer">
