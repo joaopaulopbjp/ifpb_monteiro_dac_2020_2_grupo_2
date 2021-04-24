@@ -60,6 +60,7 @@ import { PortalAdminComponent } from './portal-admin/portal-admin.component';
 import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 import { EditoraService } from './editora.service';
 import {TabMenuModule} from 'primeng/tabmenu';
+import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
 
 
 
@@ -80,6 +81,7 @@ import {TabMenuModule} from 'primeng/tabmenu';
     PortalAdminComponent,
     FooterAdminComponent,
     EditoraFormComponent,
+    DetalheProdutoComponent,
 
   ],
   imports: [
@@ -132,7 +134,7 @@ import {TabMenuModule} from 'primeng/tabmenu';
       { path: 'categoria', component: CategoriaFormComponent },
       { path: 'admin', component: PortalAdminComponent },
       { path: 'editora', component: EditoraFormComponent},
-
+      { path: 'detalhe-produto', component: DetalheProdutoComponent},
 
 
     ])
