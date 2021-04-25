@@ -129,7 +129,7 @@
 
     <div>
       <label for="name">Autores <span style="color: red;">*</span></label>
-      <p-multiSelect class="selectedInput" [options]="autors" [(ngModel)]="selectedAutores"
+      <p-multiSelect class="selectedInput" [options]="autores" [(ngModel)]="selectedAutores"
         defaultLabel="Selecione os autores" optionLabel="name">
       </p-multiSelect>
       <small class="p-invalid" *ngIf="submitted && !product.autors">Autor é obrigatorio.</small>

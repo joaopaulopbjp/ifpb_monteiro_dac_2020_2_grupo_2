@@ -22,7 +22,7 @@ export class MenuAdminComponent implements OnInit {
     this.items = [
       { label: 'Home', icon: 'pi pi-fw pi-home', url: 'admin'},
       { label: 'Autor', icon: 'pi pi-user-plus', url: 'autor' },
-      { label: 'Pedido', icon: 'pi pi-folder-open', url: 'pedido' },
+      { label: 'Pedido', icon: 'pi pi-folder-open', url: 'pedido-geral' },
       { label: 'Estoque', icon: 'pi pi-inbox', url: 'livro' },
       { label: 'Categoria', icon: 'pi pi-tags', url: 'categoria' },
       { label: 'Endereço', icon: 'pi pi-map', url: 'endereco' },

@@ -36,8 +36,10 @@ export class LivroFormComponent implements OnInit {
     categoria: '',
     editora: '',
     estoque: 0,
-    autors: [{ autorId: '' }]
+    autors: [{ autorId: '', nome: '' }]
   };
+
+  autores = [];
 
   selectedProducts = [];
 
@@ -70,7 +72,7 @@ export class LivroFormComponent implements OnInit {
       categoria: '',
       editora: '',
       estoque: 0,
-      autors: [{ autorId: '' }]
+      autors: [{ autorId: '', nome: '' }]
     };
     this.listaNomesAutor();
     this.submitted = false;
@@ -133,9 +135,9 @@ export class LivroFormComponent implements OnInit {
     this.livroService.salvar(prodoct)
       .then(autorSalvo => {
         if (prodoct.id === '') {
-          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Livro Cadastrado com sucesso', life: 3000 });
+          this.messageService.add({ severity: 'success', summary: 'Livro', detail: 'Livro Cadastrado com sucesso', life: 3000 });
         } else {
-          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Livro Atualizado com sucesso', life: 3000 });
+          this.messageService.add({ severity: 'success', summary: 'Livro', detail: 'Livro Atualizado com sucesso', life: 3000 });
         }
         this.hideDialog();
         this.listAll();
@@ -144,7 +146,7 @@ export class LivroFormComponent implements OnInit {
 
 listaNomesAutor() {
   this.autorService.listAutores().then(autores => {
-    this.autors = autores;
+    this.autores = autores;
   });
   }
 }

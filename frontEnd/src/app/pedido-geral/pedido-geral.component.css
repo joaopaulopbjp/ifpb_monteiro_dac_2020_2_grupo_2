@@ -78,6 +78,14 @@
 .selectedInput{
   margin-bottom: 15px;
 }
+.p-column-1{
+  width: 9%;
+}
+
+.p-column-2{
+  width: 30%;
+}
+
 
 div{
   margin-bottom: 15px;

@@ -10,20 +10,19 @@
 <div class="card">
 
   <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
-  <p-table #dt [value]="products" [rows]="5" [paginator]="true" [responsive]="true" [globalFilterFields]="['livroId',
-    'titulo','descricao','price','ISBN','edicao','anoPublicacao','categoria','editora','estoque']"
-    [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+  <p-table #dt [value]="pedidos" [rows]="5" [paginator]="true" [responsive]="true" [globalFilterFields]="['pedidoID',
+    'user','pagamento','total','dataCriacao','dataFechamento','anoPublicacao','status']" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
     <!-------------------------Titulo da tabela------------------------------->
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
         <br>
-        <h3 class="p-m-0">Gerenciar pedidos</h3>
+        <h3 class="p-m-0">Gerenciamento de pedidos</h3>
         <p-toolbar styleClass="p-mb-4">
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input pInputText type="text" placeholder="Pesquisar..." style="width: 500px;"/>
+            <input pInputText type="text" placeholder="Pesquisar..." style="width: 500px;" />
           </span>
         </p-toolbar>
       </div>
@@ -32,53 +31,33 @@
     <!----------------------------------Cabeçalho da tabela------------------------------------->
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="livroId">Id <p-sortIcon field="livroId"></p-sortIcon>
-        </th>
-        <th>Capa</th>
-        <th pSortableColumn="titulo" class="titulo">Titulo <p-sortIcon field="titulo"></p-sortIcon>
-        </th>
-        <th pSortableColumn="descricao">Descricao <p-sortIcon field="descricao"></p-sortIcon>
-        </th>
-        <th pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon>
-        </th>
-        <th pSortableColumn="edicao">Edição <p-sortIcon field="edicao"></p-sortIcon>
-        </th>
-        <th pSortableColumn="anoPublicacao">Ano de publicação <p-sortIcon field="anoPublicacao"></p-sortIcon>
-        </th>
-        <th pSortableColumn="categoria">Categoria <p-sortIcon field="categoria"></p-sortIcon>
-        </th>
-        <th pSortableColumn="editora">Editora<p-sortIcon field="editora"></p-sortIcon>
-        </th>
-        <th pSortableColumn="estoque">Estoque <p-sortIcon field="estoque"></p-sortIcon>
-        </th>
-        <th pSortableColumn="ISBN">ISBN<p-sortIcon field="ISBN"></p-sortIcon>
-        </th>
-        <th></th>
+        <th class="p-column-1" pSortableColumn="pedidoID">Codigo <p-sortIcon field="pedidoID"></p-sortIcon></th>
+        <th class="p-column-2" pSortableColumn="user" class="titulo">Cliente <p-sortIcon field="user"></p-sortIcon></th>
+        <th pSortableColumn="pagamento">Pagamento <p-sortIcon field="pagamento"></p-sortIcon></th>
+        <th pSortableColumn="total">Total <p-sortIcon field="total"></p-sortIcon></th>
+        <th pSortableColumn="dataCriacao">Data do pedido <p-sortIcon field="dataCriacao"></p-sortIcon></th>
+        <th pSortableColumn="dataFechamento">Data Fechamento <p-sortIcon field="dataFechamento"></p-sortIcon></th>
+        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
       </tr>
     </ng-template>
 
     <!-------------------------Body da Tabela----------------------------------------------->
-    <ng-template pTemplate="body" let-product>
+    <ng-template pTemplate="body" let-pedido>
       <tr>
+        <td>{{pedido.pedidoID}}</td>
+        <td><img [src]="pedido.capa" [alt]="pedido.capa" width="100" class="p-shadow-4" /></td>
         <td>
-          <p-tableCheckbox [value]="product"></p-tableCheckbox>
+          <h4>{{pedido.pagamento}}</h4>
         </td>
-        <td>{{product.livroId}}</td>
-        <td><img [src]="product.capa" [alt]="product.capa" width="100" class="p-shadow-4" /></td>
-        <td><h4>{{product.titulo}}</h4></td>
-        <td>{{product.descricao}}</td>
-        <td>{{product.price | currency:'R$'}}</td>
-        <td>{{product.edicao}}</td>
-        <td>{{product.anoPublicacao}}</td>
-        <td>{{product.categoria}}</td>
-        <td>{{product.editora}}</td>
-        <td>{{product.estoque}}</td>
-        <td>{{product.ISBN}}</td>
+        <td>{{pedido.total | currency:'R$'}}</td>
+        <td>{{pedido.dataCriacao}}</td>
+        <td>{{pedido.dataFechamento}}</td>
+        <td>{{pedido.status}}</td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        Total de produtos {{products ? products.length : 0 }}.
+        Total de pedidos {{pedidos? pedidos.length : 0 }}.
       </div>
     </ng-template>
   </p-table>
@@ -88,4 +67,3 @@
 <app-menu-admin></app-menu-admin>
 <app-footer-admin></app-footer-admin>
 <!-------------------------Tela de Dialog do livro------------------------------->
-

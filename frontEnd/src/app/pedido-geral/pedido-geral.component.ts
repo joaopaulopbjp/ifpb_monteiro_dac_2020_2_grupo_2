@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PedidoGeralComponent implements OnInit {
 
-  pedido = { pedidoId: '', cliente: '', pagamento: '', total: 0, dataAbertura: '', dataFechamento: '' };
+  pedido = { pedidoID: '', cliente: '', pagamento: '', total: 0, dataCriacao: '', dataFechamento: '', status: '' };
   pedidos = [];
   boleto = 0;
   playpal = 0;
