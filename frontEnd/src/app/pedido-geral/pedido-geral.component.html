@@ -1,0 +1,91 @@
+<div class="ui-g">
+  <div class="p-col-12 p-md-6 p-lg-3p">
+    <h1 style="display: block">Cadastro do Livro </h1>
+  </div>
+</div>
+<p-toast></p-toast>
+
+
+<!-----------------------------------Button de novo / e deletar mutiplos------------------------------------->
+<div class="card">
+
+  <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
+  <p-table #dt [value]="products" [rows]="5" [paginator]="true" [responsive]="true" [globalFilterFields]="['livroId',
+    'titulo','descricao','price','ISBN','edicao','anoPublicacao','categoria','editora','estoque']"
+    [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+    <!-------------------------Titulo da tabela------------------------------->
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <br>
+        <h3 class="p-m-0">Gerenciar pedidos</h3>
+        <p-toolbar styleClass="p-mb-4">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" placeholder="Pesquisar..." style="width: 500px;"/>
+          </span>
+        </p-toolbar>
+      </div>
+    </ng-template>
+
+    <!----------------------------------Cabeçalho da tabela------------------------------------->
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="livroId">Id <p-sortIcon field="livroId"></p-sortIcon>
+        </th>
+        <th>Capa</th>
+        <th pSortableColumn="titulo" class="titulo">Titulo <p-sortIcon field="titulo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="descricao">Descricao <p-sortIcon field="descricao"></p-sortIcon>
+        </th>
+        <th pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon>
+        </th>
+        <th pSortableColumn="edicao">Edição <p-sortIcon field="edicao"></p-sortIcon>
+        </th>
+        <th pSortableColumn="anoPublicacao">Ano de publicação <p-sortIcon field="anoPublicacao"></p-sortIcon>
+        </th>
+        <th pSortableColumn="categoria">Categoria <p-sortIcon field="categoria"></p-sortIcon>
+        </th>
+        <th pSortableColumn="editora">Editora<p-sortIcon field="editora"></p-sortIcon>
+        </th>
+        <th pSortableColumn="estoque">Estoque <p-sortIcon field="estoque"></p-sortIcon>
+        </th>
+        <th pSortableColumn="ISBN">ISBN<p-sortIcon field="ISBN"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+
+    <!-------------------------Body da Tabela----------------------------------------------->
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="product"></p-tableCheckbox>
+        </td>
+        <td>{{product.livroId}}</td>
+        <td><img [src]="product.capa" [alt]="product.capa" width="100" class="p-shadow-4" /></td>
+        <td><h4>{{product.titulo}}</h4></td>
+        <td>{{product.descricao}}</td>
+        <td>{{product.price | currency:'R$'}}</td>
+        <td>{{product.edicao}}</td>
+        <td>{{product.anoPublicacao}}</td>
+        <td>{{product.categoria}}</td>
+        <td>{{product.editora}}</td>
+        <td>{{product.estoque}}</td>
+        <td>{{product.ISBN}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        Total de produtos {{products ? products.length : 0 }}.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-------------------------------- menu e rodape---------------------- -->
+<app-menu-admin></app-menu-admin>
+<app-footer-admin></app-footer-admin>
+<!-------------------------Tela de Dialog do livro------------------------------->
+

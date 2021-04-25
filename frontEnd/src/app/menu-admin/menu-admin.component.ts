@@ -9,8 +9,8 @@ import { MenuItem } from 'primeng/api';
 export class MenuAdminComponent implements OnInit {
 
   items: MenuItem[];
-  rota = '/autor';
   activeItem: MenuItem;
+
   constructor() {
     this.items = [];
     this.activeItem = {};
@@ -20,30 +20,21 @@ export class MenuAdminComponent implements OnInit {
 
   ngOnInit() {
     this.items = [
-      { label: 'Home', icon: 'pi pi-fw pi-home' },
-      { label: 'Autor', icon: 'pi pi-user-plus' },
-      { label: 'Pedido', icon: 'pi pi-folder-open' },
-      { label: 'Livro', icon: 'pi pi-book' },
-      { label: 'Estoque', icon: 'pi pi-inbox' },
-      { label: 'Categoria', icon: 'pi pi-tags' },
-      { label: 'Endereço', icon: 'pi pi-map' },
-      { label: 'Pagamento', icon: 'pi pi-money-bill' },
-      { label: 'Settings', icon: 'pi pi-fw pi-cog' },
+      { label: 'Home', icon: 'pi pi-fw pi-home', url: 'admin'},
+      { label: 'Autor', icon: 'pi pi-user-plus', url: 'autor' },
+      { label: 'Pedido', icon: 'pi pi-folder-open', url: 'pedido' },
+      { label: 'Estoque', icon: 'pi pi-inbox', url: 'livro' },
+      { label: 'Categoria', icon: 'pi pi-tags', url: 'categoria' },
+      { label: 'Endereço', icon: 'pi pi-map', url: 'endereco' },
+      { label: 'Editora', icon: 'pi pi-sitemap', url: 'editora' },
+      { label: 'Pagamento', icon: 'pi pi-money-bill', url: 'pagamento' },
+      { label: 'Configuração', icon: 'pi pi-fw pi-cog', url: 'admin' },
     ];
 
     this.activeItem = this.items[0];
   }
-  testRouts(): string {
-    if (this.activeItem.label === 'Home') {
-      this.rota = '/admin';
-      console.log(this.rota);
-    } else if (this.activeItem.label === 'Autor') {
-      this.rota = 'autor';
 
-    }
-    return this.rota;
+  setItem(item: MenuItem){
+    this.activeItem = item;
   }
-
-
-
 }

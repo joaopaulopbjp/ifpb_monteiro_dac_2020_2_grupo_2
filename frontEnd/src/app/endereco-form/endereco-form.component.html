@@ -7,26 +7,27 @@
 
 <!-------------------    Buton de novo / deletar multiplos      ------------------------>
 <div class="card p-col-12 p-md-6 p-lg-3p">
-  <p-toolbar styleClass="p-mb-4">
-    <ng-template pTemplate="left">
-      <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
-        (click)="openNew()"></button>
-      <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"
-        [disabled]="! selectedEnderecos || !selectedEnderecos.length"></button>
-    </ng-template>
-  </p-toolbar>
 
   <p-table #dt [value]="enderecos" [rows]="10" [paginator]="true" [responsive]="true" [globalFilterFields]="['endID', 'cep', 'rua', 'numero', 'bairro', 'cidade', 'UF',
     'complemento', 'pontoReferencia']" [(selection)]="selectedEnderecos" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
+      <br>
       <div class="p-d-flex p-ai-center p-jc-between">
-        <h5 class="p-m-0">Gerenciar endereco</h5>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" placeholder="Pesquisar..." style="width: 500px;" />
-          <!---(input)="dt.filterGlobal($event.target.value, 'contains')"-->>
-        </span>
+        <h3 class="p-m-0">Gerenciar endereco</h3>
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
+              (click)="openNew()"></button>
+            <button pButton pRipple label="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"
+              [disabled]="! selectedEnderecos || !selectedEnderecos.length"></button>
+          </ng-template>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" placeholder="Pesquisar..." style="width: 500px;" />
+            <!---(input)="dt.filterGlobal($event.target.value, 'contains')"-->
+          </span>
+        </p-toolbar>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -83,6 +84,10 @@
     </ng-template>
   </p-table>
 </div>
+
+<!-------------------------------- menu e rodape---------------------- -->
+<app-menu-admin></app-menu-admin>
+<app-footer-admin></app-footer-admin>
 <!------------------------------------Inicio da tela modelo Dialog------------------------------------------------>
 
 <p-dialog [(visible)]="telaDialog" [style]="{width: '450px'}" header="Detalhes de endereco" [modal]="true"

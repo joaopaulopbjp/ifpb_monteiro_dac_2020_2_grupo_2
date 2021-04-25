@@ -8,14 +8,6 @@
 
 <!-----------------------------------Button de novo / e deletar mutiplos------------------------------------->
 <div class="card">
-  <p-toolbar styleClass="p-mb-4">
-    <ng-template pTemplate="left">
-      <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
-        (click)="openNew()"></button>
-      <button pButton pRipple label="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"></button>
-    </ng-template>
-  </p-toolbar>
-
   <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
   <p-table #dt [value]="categorias" [rows]="5" [paginator]="true" [responsive]="true" [globalFilterFields]="['categoriaId', 'descricao']"
     [(selection)]="selectedCategorias" [rowHover]="true" dataKey="id"
@@ -24,11 +16,20 @@
     <!-------------------------Titulo da tabela------------------------------->
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
-        <h5 class="p-m-0">Gerenciar de categoria</h5>
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Pesquisar..." />
-        </span>
+        <br>
+        <h3 class="p-m-0">Gerenciar de categoria</h3>
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
+              (click)="openNew()"></button>
+            <button pButton pRipple label="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"></button>
+          </ng-template>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')" placeholder="Pesquisar..." />
+          </span>
+        </p-toolbar>
+
       </div>
     </ng-template>
 
@@ -63,6 +64,9 @@
   </p-table>
 </div>
 
+<!-------------------------------- menu e rodape---------------------- -->
+<app-menu-admin></app-menu-admin>
+<app-footer-admin></app-footer-admin>
 <!-------------------------Tela de Dialog do livro------------------------------->
 <p-dialog [(visible)]="telaDialog" [style]="{width: '480px'}" header="Detalhes do Categoria" [modal]="true"
   styleClass="p-fluid">

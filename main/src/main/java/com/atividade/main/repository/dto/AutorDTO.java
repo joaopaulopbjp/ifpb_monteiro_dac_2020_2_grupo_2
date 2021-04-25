@@ -28,7 +28,7 @@ public class AutorDTO {
 	private List<Book> listLivro;
 	
     public AutorDTO (Autor autor) {
-    	BeanUtils.copyProperties(autor, this, Autor_.LIST_LIVRO);
+    	BeanUtils.copyProperties(autor, Autor_.LIST_LIVRO);
     }
 
 }

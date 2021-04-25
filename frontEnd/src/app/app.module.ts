@@ -1,3 +1,4 @@
+import { PedidoService } from './pedido.service';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 import { EditoraFormComponent } from './editora-form/editora-form.component';
 import { PagamentoFormComponent } from './pagamento-form/pagamento-form.component';
@@ -62,6 +63,7 @@ import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 import { EditoraService } from './editora.service';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
+import { PedidoGeralComponent } from './pedido-geral/pedido-geral.component';
 
 
 
@@ -84,6 +86,7 @@ import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.compo
     EditoraFormComponent,
     DetalheProdutoComponent,
     CheckoutFormComponent,
+    PedidoGeralComponent,
 
   ],
   imports: [
@@ -129,16 +132,17 @@ import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.compo
     DividerModule,
 
     RouterModule.forRoot([
-      { path: '', component: AppComponent },
-      { path: 'autor', component: AutorFormComponent },
       { path: 'home', component: LivroCardComponent },
-      { path: 'livro', component: LivroCardComponent },
+      { path: 'autor', component: AutorFormComponent },
+      { path: 'livro', component: LivroFormComponent },
       { path: 'pagamento', component: PagamentoFormComponent },
       { path: 'categoria', component: CategoriaFormComponent },
+      { path: 'endereco', component: EnderecoFormComponent },
       { path: 'admin', component: PortalAdminComponent },
       { path: 'editora', component: EditoraFormComponent },
       { path: 'detalhe-produto', component: DetalheProdutoComponent },
       { path: 'check', component: CheckoutFormComponent },
+      { path: 'pedido-geral', component: PedidoGeralComponent},
 
 
 
@@ -147,6 +151,6 @@ import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.compo
   ],
   bootstrap: [AppComponent],
   providers: [MessageService, ConfirmationService, AutorService, LivroService,
-    CategoriaService, EnderecoService, PagamentoService, EditoraService]
+    CategoriaService, EnderecoService, PagamentoService, EditoraService, PedidoService]
 })
 export class AppModule { }
