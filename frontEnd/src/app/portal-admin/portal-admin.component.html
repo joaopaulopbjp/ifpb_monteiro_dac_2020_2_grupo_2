@@ -1,32 +1,38 @@
 <app-menu-admin></app-menu-admin>
 
 <div class="ui-g">
+
   <h2>Faturamentos da Loja online</h2>
+
   <div class="p-col-12 p-md-6 p-lg-3p card">
     <i class="pi pi-paypal"> PlayPal</i>
+    <p-divider></p-divider>
     <h1><span class="valor">{{playpal | currency:'R$'}}</span></h1>
- </div>
+  </div>
 
- <div class="p-col-12 p-md-6 p-lg-3p card">
-  <i class="pi pi-credit-card"> Cartão débito</i>
-  <h1><span class="valor">{{ctdebito | currency:'R$'}}</span></h1>
+  <div class="p-col-12 p-md-6 p-lg-3p card">
+    <i class="pi pi-credit-card"> Cartão débito</i>
+    <p-divider></p-divider>
+    <h1><span class="valor">{{ctdebito | currency:'R$'}}</span></h1>
+  </div>
 
-</div>
+  <div class="p-col-12 p-md-6 p-lg-3p card">
+    <i class="pi pi-credit-card"> Cartão de Crédito</i>
+    <p-divider></p-divider>
+    <h1><span class="valor">{{ctcredito | currency:'R$'}}</span></h1>
+  </div>
 
-<div class="p-col-12 p-md-6 p-lg-3p card">
-  <i class="pi pi-credit-card"> Cartão de Crédito</i>
-  <h1><span class="valor">{{ctcredito | currency:'R$'}}</span></h1>
-</div>
+  <div class="p-col-12 p-md-6 p-lg-3p card">
+    <i class="pi pi-money-bill"> Boleto</i>
+    <p-divider></p-divider>
+    <h1><span class="valor">{{boleto | currency:'R$'}}</span></h1>
+  </div>
 
-<div class="p-col-12 p-md-6 p-lg-3p card">
-  <i class="pi pi-money-bill"> Boleto</i>
-  <h1><span class="valor">{{boleto | currency:'R$'}}</span></h1>
-</div>
-
-<div class="p-col-12 p-md-6 p-lg-3p card">
-  <i class="pi pi-dollar"> Total Geral</i>
-  <h1><span class="valor">{{total | currency:'R$'}}</span></h1>
-</div>
+  <div class="p-col-12 p-md-6 p-lg-3p card">
+    <i class="pi pi-dollar"> Total Geral</i>
+    <p-divider></p-divider>
+    <h1><span class="valor">{{total | currency:'R$'}}</span></h1>
+  </div>
 
 
 
@@ -37,4 +43,3 @@
   </nav>
 </div>
 <app-footer-admin></app-footer-admin>
-

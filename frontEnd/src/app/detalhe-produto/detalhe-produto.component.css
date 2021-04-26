@@ -6,20 +6,21 @@
 }
 
 .capa-detalhe{
-  display: inline-block;
+  display: inline-flex;
 }
 
 .detalhe{
-  max-width: 200%;
-  margin-bottom: -20px;
+  display: inline-flex;
+  margin-left: 10%;
 }
+
 img{
   max-height: auto;
   max-width: 40%;
 
 }
 
-.price{
+.card .price{
   color: brown;
   font-size: 30px;
   font-style: initial;

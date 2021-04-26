@@ -1,4 +1,7 @@
+import { LivroService } from './../livro.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Livro } from '../livro';
 
 @Component({
   selector: 'app-detalhe-produto',
@@ -7,21 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetalheProdutoComponent implements OnInit {
 
-  produto = { titulo: 'Educação', price: '100.0',
-  autores : 'autor-test',
-  edicao : 'Português',
-  anoPublicacao: '2020',
-  editora : 'Avelino',
-  descricao : 'uguogogcuuhaouhcaoushc',
-  capa: 'https://images.tcdn.com.br/img/img_prod/492765/pre_venda_do_livro_a_menina_do_sorriso_roubado_209_1_20181001120353.jpg'
-}
+  livro: Livro;
+  quantidade = 1;
+  total = 0;
 
-  quantidade: number = 1;
-
-  constructor() { }
-
+  constructor(private router: Router, private livroService: LivroService) {
+    const rota = this.router.getCurrentNavigation();
+    this.livro = rota?.extras.state?.Livro;
+    console.log(this.livro);
+  }
 
   ngOnInit(): void {
+    if (!this.livro) {
+      this.livro = this.livroService.getLivro();
+    }
   }
+
+  finalizarPedido() {
+    this.total = this.quantidade * this.livro.price;
+    this.router.navigate(['/check', this.total]);
+  }
+
 
 }

@@ -1,6 +1,7 @@
 import { MessageService } from 'primeng/api';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Livro } from './livro';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,29 @@ export class LivroService {
 
   readonly urlEstoque: string;
 
+  private livro!: Livro;
+
   constructor(private http: HttpClient, private messageService: MessageService) {
     this.apiURL = 'http://localhost:8080/book';
-
     this.urlEstoque = 'http://localhost:8080/estoque';
+  }
+
+  setLivro(livro: Livro){
+    this.livro = livro;
+  }
+
+  getLivro(): Livro{
+    return this.livro;
   }
 
   listAll(): Promise<any> {
     return this.http.get<any>(`${this.apiURL}?tudo`)
+      .toPromise()
+      .then(response => response.content);
+  }
+
+  listCinco(): Promise<any> {
+    return this.http.get<any>(`${this.apiURL}?baratos`)
       .toPromise()
       .then(response => response.content);
   }

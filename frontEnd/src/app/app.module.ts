@@ -64,6 +64,7 @@ import { EditoraService } from './editora.service';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
 import { PedidoGeralComponent } from './pedido-geral/pedido-geral.component';
+import { MessagemCompraComponent } from './messagem-compra/messagem-compra.component';
 
 
 
@@ -87,6 +88,7 @@ import { PedidoGeralComponent } from './pedido-geral/pedido-geral.component';
     DetalheProdutoComponent,
     CheckoutFormComponent,
     PedidoGeralComponent,
+    MessagemCompraComponent,
 
   ],
   imports: [
@@ -132,21 +134,6 @@ import { PedidoGeralComponent } from './pedido-geral/pedido-geral.component';
     DividerModule,
 
     RouterModule.forRoot([
-      { path: 'home', component: LivroCardComponent },
-      { path: 'autor', component: AutorFormComponent },
-      { path: 'livro', component: LivroFormComponent },
-      { path: 'pagamento', component: PagamentoFormComponent },
-      { path: 'categoria', component: CategoriaFormComponent },
-      { path: 'endereco', component: EnderecoFormComponent },
-      { path: 'admin', component: PortalAdminComponent },
-      { path: 'editora', component: EditoraFormComponent },
-      { path: 'detalhe-produto', component: DetalheProdutoComponent },
-      { path: 'check', component: CheckoutFormComponent },
-      { path: 'pedido-geral', component: PedidoGeralComponent},
-
-
-
-
     ])
   ],
   bootstrap: [AppComponent],

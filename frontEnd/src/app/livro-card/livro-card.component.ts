@@ -1,6 +1,8 @@
 import { LivroService } from './../livro.service';
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Livro } from '../livro';
 
 @Component({
   selector: 'app-livro-card',
@@ -12,6 +14,8 @@ import { PrimeNGConfig } from 'primeng/api';
 
 
 export class LivroCardComponent implements OnInit {
+// tipo de consulta
+  tipo = 1;
 
   product = {
     livroId: '',
@@ -41,18 +45,29 @@ export class LivroCardComponent implements OnInit {
   sortField: string;
 
 
-  constructor(private productService: LivroService, private primengConfig: PrimeNGConfig) {
+  constructor(private productService: LivroService, private primengConfig: PrimeNGConfig,
+    private router: Router,
+    private route: ActivatedRoute) {
     this.products = [this.product];
     this.listCarrinho = [{}];
     this.sortField = '';
     this.sortOrder = 5;
     this.totalCarrinho = 0;
 
+
   }
 
   ngOnInit() {
-    this.productService.listAll()
+    this.route.params.subscribe(params => this.tipo = + params[ 'id' ]);
+
+    if(this.tipo === 2){
+      this.listaCinco();
+    }else{
+      this.productService.listAll()
       .then(data => this.products = data);
+    }
+
+
 
     this.sortOptions = [
       { label: 'Preço alto para baixo', value: '!price' },
@@ -75,12 +90,20 @@ export class LivroCardComponent implements OnInit {
     }
   }
 
-  addCarrino(product: any) {
-    this.product = { ...product };
-    this.listCarrinho.push(product);
-    console.log(this.listCarrinho);
-    this.totalCarrinho + this.product.price;
-    console.log(this.totalCarrinho + this.product.price);
+  listaCinco() {
+    this.productService.listCinco()
+      .then(data => this.products = data);
+  }
+
+  addCarrinho(product: Livro) {
+    this.router.navigateByUrl('/detalhe-produto');
+    this.productService.setLivro(product);
+    // console.log(product);
+    // this.product = { ...product };
+    // this.listCarrinho.push(product);
+    // console.log(this.listCarrinho);
+    // this.totalCarrinho + this.product.price;
+    // console.log(this.totalCarrinho + this.product.price);
   }
 
 

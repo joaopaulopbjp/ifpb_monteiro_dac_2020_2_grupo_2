@@ -39,7 +39,27 @@ public class BookResumo implements Serializable {
 		this.anoPublicacao = anoPublicacao;
 		this.categoria = categoria;
 		this.editora = editora;
-		this.estoque = estoque;
+		
+		if(estoque==null) {
+			this.estoque=0;
+		}else {
+			this.estoque = estoque;
+		}
+		
+
+	}
+	public BookResumo(Long livroId, String titulo, String descricao, BigDecimal price, String iSBN, String capa,
+			String edicao, String anoPublicacao, String categoria, String editora) {
+		this.livroId = livroId;
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.price = price;
+		ISBN = iSBN;
+		this.capa = capa;
+		this.edicao = edicao;
+		this.anoPublicacao = anoPublicacao;
+		this.categoria = categoria;
+		this.editora = editora;
 	}
 
 	public Long getLivroId() {

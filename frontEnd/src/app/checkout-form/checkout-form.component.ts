@@ -2,6 +2,7 @@ import { PagamentoService } from './../pagamento.service';
 import { PagamentosService } from './../pagamentos.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-form',
@@ -10,44 +11,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckoutFormComponent implements OnInit {
 
-
-
-
-
   telaDialog = false;
 
-  usuario ={cpf: '', nome: '', userID: ''}
+  usuario = { cpf: '', nome: '', userID: '' };
 
   checkouts = [];
 
-  checkout = {pagamentoId : '', descricao : ''};
+  checkout = { pagamentoId: '', descricao: '' };
 
-  endereco = {endID: '', cep: '', rua: '', numero: '', bairro: '', cidade: '', UF: '',
-  complemento: '', pontoReferencia: '', userID: ''};
+  endereco = {
+    endID: '', cep: '', rua: '', numero: '', bairro: '', cidade: '', UF: '',
+    complemento: '', pontoReferencia: '', userID: ''
+  };
 
   selectedpagamentos = null;
 
-  total =0;
+  total = 0;
 
   submitted = false;
 
-  formaDePagamento: any[] = [{name: 'Credito', key: 'C'},
-   {name: 'Debto', key: 'D'},
-   {name: 'Boleto', key: 'B'},
-   {name: 'Paypal', key: 'P'}];
+  formaDePagamento: any[] = [{ name: 'Credito', key: 'C' },
+  { name: 'Debto', key: 'D' },
+  { name: 'Boleto', key: 'B' },
+  { name: 'Paypal', key: 'P' }];
 
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private pagamentoService: PagamentoService,
+    private route: ActivatedRoute,
 
-    ) {
-
-
+  ) {
   }
 
-  ngOnInit(){
-    this.listAll();
+  ngOnInit() {
+    this.route.queryParams.subscribe(parametros => {
+      if (parametros['total']) {
+        console.log(parametros['total']);
+
+        this.total = +parametros['total'];
+      }
+    });
     this.selectedpagamentos = this.formaDePagamento[1];
   }
 
@@ -61,14 +65,14 @@ export class CheckoutFormComponent implements OnInit {
   // save(checkout: any) {
   //   this.submitted = true;
   //   this.checkoutService.salvar(checkout)
-      // .then(0 => {
-        // if (checkout.pagamentoId === '') {
-        //   this.messageService.add({ severity: 'success', summary: 'Pagamento', detail: ' Cadastrado com sucesso', life: 3000 });
-        // } else {
-        //   this.messageService.add({ severity: 'success', summary: 'Pagamento', detail: 'Atualizado com sucesso', life: 3000 });
-        // }
-        // this.hideDialog();
-        // this.listAll();
-      // });
+  // .then(0 => {
+  // if (checkout.pagamentoId === '') {
+  //   this.messageService.add({ severity: 'success', summary: 'Pagamento', detail: ' Cadastrado com sucesso', life: 3000 });
+  // } else {
+  //   this.messageService.add({ severity: 'success', summary: 'Pagamento', detail: 'Atualizado com sucesso', life: 3000 });
+  // }
+  // this.hideDialog();
+  // this.listAll();
+  // });
   // }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-bar',
@@ -11,7 +12,7 @@ export class MenuBarComponent implements OnInit {
 
   livros: [];
 
-  constructor() {
+  constructor(private router: Router,) {
     this.quantCarrinho = 0;
     this.livros = [];
   }
@@ -22,6 +23,9 @@ export class MenuBarComponent implements OnInit {
 
   addCarinho(livro: any){
        this.livros.push();
+  }
+  listar(id: number){
+     this.router.navigate(['/home', id]);
   }
 
 }

@@ -1,31 +1,47 @@
 <div class="card ui-g" style="margin-top:12%">
 
-  <div class="p-col-12 p-md-6 p-lg-3 detalhe-capa">
-    <img class="detalhe-capa" [src]="produto.capa" [alt]="produto.capa" />
-    <p-toolbar>
-      <div class="detalhe">
-        <h2>
-          {{produto.titulo}}
-        </h2>
+  <div class="p-col-12 p-md-6 p-lg-3 capa-detalhe">
+
+    <img  [src]="livro.capa" [alt]="livro.capa" />
+
+  <div class="p-col-12 p-md-6 p-lg-3 detalhe">
+    <p-toolbar >
+      <div>
+        <h2>{{livro.titulo}}</h2>
+        <p-divider></p-divider>
+
         <div>
-          <h5>Edição: {{produto.edicao}} | Editora: {{produto.editora}} | Ano de Publicação: {{produto.anoPublicacao}} | Autor: {{produto.autores}}</h5>
+          <h5>Edição: {{livro.edicao}} | Editora: {{livro.editora}} | Ano de Publicação: {{livro.anoPublicacao}} |
+            Autor: {{livro.autores}}</h5>
         </div>
-        <span class="price">{{produto.price | currency: 'R$'}}</span>
-      </div>
-      <p-button icon="pi pi-shopping-cart" label="Comprar"></p-button>
+        <p-divider></p-divider>
+
+        <span class="price">Preço: {{livro.price | currency: 'R$'}}</span>
+        <br><br><br><br>
       <div class="p-field p-col-12 p-md-3">
         <label for="minmax-buttons">Quantidade</label>
-        <p-inputNumber [(ngModel)]="quantidade" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0"
+        <p-inputNumber [(ngModel)]="quantidade" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="1"
           [max]="100">
         </p-inputNumber>
       </div>
+      <p-divider></p-divider>
+
+      <p-button icon="pi pi-shopping-cart" label="Comprar" (click)="finalizarPedido()"></p-button>
+
+      </div>
+
     </p-toolbar>
   </div>
+
 </div>
+
+</div>
+
+
 <div class="card">
-  <h2>Descrição do produto</h2>
+  <h2>Descrição do livro</h2>
   <span>
-    {{produto.descricao}}
+    {{livro.descricao}}
   </span>
 </div>
 <app-menu-bar></app-menu-bar>
