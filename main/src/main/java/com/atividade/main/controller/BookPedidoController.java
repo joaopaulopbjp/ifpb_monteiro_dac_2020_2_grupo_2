@@ -67,5 +67,5 @@ public class BookPedidoController {
 	public Page<BookPedido> getListaCincoMaisBaratos(Pageable page){
         return bookPedidoService.getListaOrdenadaAsedente(page);
 	}
-	
 }
+	

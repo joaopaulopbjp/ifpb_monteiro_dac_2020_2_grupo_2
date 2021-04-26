@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Editora;
+import com.atividade.main.repository.EditoraRepository;
+import com.atividade.main.repository.filter.EditoraFilter;
 import com.atividade.main.service.EditoraService;
 
 @RestController
@@ -30,6 +32,9 @@ public class EditoraController {
 	
 	@Autowired
 	private EditoraService editoraService;
+	
+	@Autowired
+	private EditoraRepository editoraRepository;
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -61,14 +66,25 @@ public class EditoraController {
 		Editora editora=editoraService.findById(codigo);
 		return editora;
 	}
-	@GetMapping("/buscabyname/{nome}")
-	public Editora getEditoraPorNome(String nome) {
+	@GetMapping("/buscanome/{nome}")
+	public Editora buscaBynome(@PathVariable String nome ){
 		return editoraService.getEditoraPorNome(nome);
+	}
+	
+	@GetMapping("/filtra/{nome}")
+	public Page<Editora> getEditoraPorNome(@PathVariable String nome ) {
+		return editoraRepository.buscaByNome(nome);
 	}	
 	
 	@GetMapping
 	public Page<Editora> getListaOrdenadaAsedente(Pageable page){
 		return editoraService.getListaOrdenadaAsedente(page);
-	}	
+	}
+	
+	@GetMapping("/lista-nomes")
+	public Page<EditoraFilter> listaNomes(Pageable page){
+		return editoraRepository.listaNomes(page);
+	}
+	
 
 }

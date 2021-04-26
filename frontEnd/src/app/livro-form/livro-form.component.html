@@ -108,8 +108,14 @@
   <ng-template pTemplate="content">
 
     <div class="p-field">
+      <label for="name">ISBN <span style="color: red;">*</span></label>
+      <p-inputNumber id="ISBN"  [(ngModel)]=product.isbn></p-inputNumber>
+      <small class="p-invalid" *ngIf="submitted && !product.titulo">ISBN é obrigatorio.</small>
+    </div>
+
+    <div class="p-field">
       <label for="name">Titulo <span style="color: red;">*</span></label>
-      <input type="text" pInputText id="name" required autofocus [(ngModel)]=product.titulo />
+      <input type="text" pInputText id="titulo" required autofocus [(ngModel)]=product.titulo />
       <small class="p-invalid" *ngIf="submitted && !product.titulo">Titulo é obrigatorio.</small>
     </div>
 
@@ -123,16 +129,16 @@
 
     <div class="p-field">
       <label for="name">Link da Capa <span style="color: red;">*</span></label>
-      <input type="text" pInputText id="name" required autofocus [(ngModel)]=product.capa />
+      <input type="text" pInputText id="capa" required autofocus [(ngModel)]=product.capa />
       <small class="p-invalid" *ngIf="submitted && !product.capa">Capa é obrigatorio.</small>
     </div>
 
     <div>
       <label for="name">Autores <span style="color: red;">*</span></label>
-      <p-multiSelect class="selectedInput" [options]="autores" [(ngModel)]="selectedAutores"
-        defaultLabel="Selecione os autores" optionLabel="name">
+      <p-multiSelect class="selectedInput" [options]="autores" [(ngModel)]="product.listAutor"
+        defaultLabel="Selecione os autores" optionLabel="nome">
       </p-multiSelect>
-      <small class="p-invalid" *ngIf="submitted && !product.autors">Autor é obrigatorio.</small>
+      <small class="p-invalid" *ngIf="submitted && !product.listAutor">Autor é obrigatorio.</small>
     </div>
 
     <div class="p-col-12 p-md-4">
@@ -162,23 +168,23 @@
 
 
       <label for="categoria">Categoria <span style="color: red;">*</span></label>
-      <p-dropdown class="selectedInput" [options]="categorias" [(ngModel)]="categorias"
-        placeholder="Selecione a categoria" [virtualScroll]="true" [itemSize]="31" [filter]="false">
+      <p-dropdown class="selectedInput" [options]="categorias" [(ngModel)]="product.categoria"
+        placeholder="Selecione a categoria" [virtualScroll]="true" [itemSize]="31" [filter]="false" optionLabel="descricao">
       </p-dropdown>
       <small class="p-invalid" *ngIf="submitted && !product.categoria">Cateoria é obrigatorio.</small>
     </div>
 
     <div class="p-field">
       <label for="editora">Editora<span style="color: red;">*</span></label>
-      <p-dropdown [options]="editoras" [(ngModel)]="editoras" placeholder="Selecione uma editora" [virtualScroll]="true"
-        [itemSize]="31" [filter]="false"></p-dropdown>
+      <p-dropdown [options]="editoras" [(ngModel)]="product.editora" placeholder="Selecione uma editora" optionLabel="nome" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
         <small class="p-invalid" *ngIf="submitted && !product.editora">Editora é obrigatorio.</small>
     </div>
-
+    <!-- daods de estoque ------------------------- -->
+    <p-divider>Dados de estoque</p-divider>
     <div class="p-field p-col pricecss">
       <label for="estoque">Estoque<span style="color: red;">*</span></label>
-      <p-inputNumber id="estoque"  [(ngModel)]=product.estoque></p-inputNumber>
-      <small class="p-invalid" *ngIf="submitted && !product.estoque">Estoque é obrigatorio.</small>
+      <p-inputNumber id="estoque"  [(ngModel)]=estoque.quantidade></p-inputNumber>
+      <small class="p-invalid" *ngIf="submitted && !estoque.quantidade">Estoque é obrigatorio.</small>
     </div>
   </ng-template>
 

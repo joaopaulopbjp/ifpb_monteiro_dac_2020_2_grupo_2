@@ -1,5 +1,5 @@
 import { MessageService } from 'primeng/api';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -7,10 +7,16 @@ import { Injectable } from '@angular/core';
 })
 export class LivroService {
 
+  erro = {mensagemUsuario: '', mensagem: ''};
+
   readonly apiURL: string;
 
-  constructor(private http: HttpClient, private messageService: MessageService,) {
+  readonly urlEstoque: string;
+
+  constructor(private http: HttpClient, private messageService: MessageService) {
     this.apiURL = 'http://localhost:8080/book';
+
+    this.urlEstoque = 'http://localhost:8080/estoque';
   }
 
   listAll(): Promise<any> {
@@ -19,10 +25,17 @@ export class LivroService {
       .then(response => response.content);
   }
 
-  salvar(livro: any): Promise<any> {
-    return this.http.post<any>(`${this.apiURL}`, livro)
+  salvar(product: any): Promise<any> {
+
+    return this.http.post<any>(`${this.apiURL}`, product)
       .toPromise()
       .then(response => response.content)
+      .catch((err: HttpErrorResponse) => {
+        this.messageService.add({ severity: 'error', summary: 'Erro ao salvar', detail: `${err.message}`, life: 10000 });
+        console.error('An error occurred:', err.error);
+      });
+
+
 
   }
 
@@ -39,6 +52,20 @@ export class LivroService {
       .catch(erro => {
         return Promise.reject(`Erro ao alterar autor ${livro.id}.`);
       });
+  }
+
+  salvarEstoque(estoque: any): Promise<any> {
+
+    return this.http.post<any>(`${this.urlEstoque}`, estoque)
+      .toPromise()
+      .then(response => response.content)
+      .catch((err: HttpErrorResponse) => {
+        this.messageService.add({ severity: 'error', summary: 'Erro ao salvar', detail: `${err.message}`, life: 10000 });
+        console.error('An error occurred:', err.error);
+      });
+
+
+
   }
 
 }

@@ -17,6 +17,12 @@ import org.springframework.data.domain.Pageable;
 
 import com.atividade.main.model.Autor;
 import com.atividade.main.model.Autor_;
+import com.atividade.main.model.Book_;
+import com.atividade.main.model.Categoria_;
+import com.atividade.main.model.Editora_;
+import com.atividade.main.model.Estoque_;
+import com.atividade.main.repository.dto.AutorDTO;
+import com.atividade.main.repository.dto.BookResumo;
 import com.atividade.main.repository.filter.AutorFilter;
 
 public class AutorRepositoryImpl  implements AutorRepositoryQuery{
@@ -29,12 +35,30 @@ public class AutorRepositoryImpl  implements AutorRepositoryQuery{
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Autor> criteria = builder.createQuery(Autor.class);
 		Root<Autor> root = criteria.from(Autor.class);
+		
 		Predicate[] predicates = criarRestricoes(autorFilter,builder, root );
 		criteria.where(predicates);
+		
 		TypedQuery<Autor> query = manager.createQuery(criteria);
 		adicionarPaginacao(query,page);
 		return new PageImpl<>(query.getResultList(), page,totalDeRegistro(autorFilter));
 	}
+	@Override
+	public Page<AutorDTO> listaAll(Pageable page) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<AutorDTO> criteria = builder.createQuery(AutorDTO.class);
+		Root<Autor> root = criteria.from(Autor.class);
+		criteria.select(builder.construct(AutorDTO.class
+	    		,root.get(Autor_.autorId)
+	    		,root.get(Autor_.nome)
+	    		,root.get(Autor_.sexo)  
+	    		,root.get(Autor_.nacionalidade) 
+	    		,root.get(Autor_.dtNascimento)));  
+		TypedQuery<AutorDTO> query = manager.createQuery(criteria);
+		return new PageImpl<>(query.getResultList(), page, page.getPageSize());
+	} 
+	
+	
 	
 
 	private Long totalDeRegistro(AutorFilter filter) {
@@ -47,7 +71,7 @@ public class AutorRepositoryImpl  implements AutorRepositoryQuery{
 	}
 
 
-	private void adicionarPaginacao(TypedQuery<Autor> query, Pageable page) {
+	private void adicionarPaginacao(TypedQuery<?> query, Pageable page) {
 		int paginaAtual =  page.getPageNumber();
 		int totalRegistroPage = page.getPageSize();
 		int primeiroResgistroPage = paginaAtual * totalRegistroPage;

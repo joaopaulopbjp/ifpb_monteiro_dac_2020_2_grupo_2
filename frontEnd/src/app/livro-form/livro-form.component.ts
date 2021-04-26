@@ -1,3 +1,5 @@
+import { EditoraService } from './../editora.service';
+import { CategoriaService } from './../categoria.service';
 import { AutorService } from './../autor.service';
 import { LivroService } from './../livro.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,31 +17,37 @@ export class LivroFormComponent implements OnInit {
 
   products = [];
 
-  autors = [];
-
   categorias = [];
 
   editoras = [];
 
-  selectedAutores = [];
+
+  editora = { editoraId: 0, nome: '' };
+
+  estoque = { livroId: 0, quantidade: 0 };
+
+  autor = { autorId: 0, nome: '' };
+
+  categoria = { categoriaId: 0, descricao: '' };
+
+  autores = [];
+
+  selectedAutores = [this.autor];
 
   product = {
-    livroId: '',
+    livroId: 0,
     titulo: '',
     descricao: '',
     price: '',
-    ISBN: '',
+    isbn: '',
     capa: '',
     edicao: '',
     ano: '',
     anoPublicacao: '',
-    categoria: '',
-    editora: '',
-    estoque: 0,
-    autors: [{ autorId: '', nome: '' }]
+    categoria: this.categoria,
+    editora: this.editora,
+    listAutor: [this.autor]
   };
-
-  autores = [];
 
   selectedProducts = [];
 
@@ -49,7 +57,9 @@ export class LivroFormComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private livroService: LivroService,
-    private autorService: AutorService) {
+    private autorService: AutorService,
+    private categoriaService: CategoriaService,
+    private editoraService: EditoraService) {
 
   }
   ngOnInit() {
@@ -59,22 +69,10 @@ export class LivroFormComponent implements OnInit {
   }
 
   openNew() {
-    this.product = {
-      livroId: '',
-      titulo: '',
-      descricao: '',
-      price: '',
-      ISBN: '',
-      capa: '',
-      edicao: '',
-      ano: '',
-      anoPublicacao: '',
-      categoria: '',
-      editora: '',
-      estoque: 0,
-      autors: [{ autorId: '', nome: '' }]
-    };
+    this.product = this.product;
     this.listaNomesAutor();
+    this.listaCategoria();
+    this.listaEditora();
     this.submitted = false;
     this.telaDialog = true;
   }
@@ -93,7 +91,6 @@ export class LivroFormComponent implements OnInit {
       accept: () => {
         this.products = this.products.filter(val => !this.selectedProducts.includes(val));
         this.selectedProducts = [];
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Livros deletados em massa', life: 3000 });
       }
     });
   }
@@ -130,23 +127,41 @@ export class LivroFormComponent implements OnInit {
     this.submitted = false;
   }
 
-  save(prodoct: any) {
+  save(product: any) {
     this.submitted = true;
-    this.livroService.salvar(prodoct)
-      .then(autorSalvo => {
-        if (prodoct.id === '') {
-          this.messageService.add({ severity: 'success', summary: 'Livro', detail: 'Livro Cadastrado com sucesso', life: 3000 });
-        } else {
-          this.messageService.add({ severity: 'success', summary: 'Livro', detail: 'Livro Atualizado com sucesso', life: 3000 });
-        }
+    this.livroService.salvar(product)
+      .then(productSalvo => {
+        this.product = { ...productSalvo };
+        this.estoque = {livroId: this.product.livroId, quantidade: this.estoque.quantidade};
+        this.livroService.salvarEstoque(Object.values(this.estoque));
         this.hideDialog();
         this.listAll();
       });
   }
 
-listaNomesAutor() {
-  this.autorService.listAutores().then(autores => {
-    this.autores = autores;
-  });
+  listaNomesAutor() {
+    this.autorService.listAutores().then(autores => {
+      this.autores = autores;
+    });
+  }
+
+  listaCategoria() {
+    this.categoriaService.listAll().then((result) => {
+      this.categorias = result;
+    }).catch((err) => {
+
+    });
+
+  }
+
+  listaEditora() {
+    this.editoraService.listaNomes().then((result) => {
+      this.editoras = result;
+    }).catch((err) => {
+
+    });
+
   }
 }
+
+

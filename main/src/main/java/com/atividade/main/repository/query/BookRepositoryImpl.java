@@ -101,7 +101,6 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 	    		,root.get(Book_.capa) 
 	    		,root.get(Book_.edicao) 
 	    		,root.get(Book_.anoPublicacao)
-	    
 	    		,root.get(Book_.categoria).get(Categoria_.descricao) 
 	    		,root.get(Book_.editora).get(Editora_.nome)
 	    		,root.get(Book_.estoque).get(Estoque_.quantidade)));

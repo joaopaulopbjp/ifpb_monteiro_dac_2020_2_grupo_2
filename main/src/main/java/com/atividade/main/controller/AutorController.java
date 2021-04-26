@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Autor;
-import com.atividade.main.repository.filter.AutorFilter;
+import com.atividade.main.repository.dto.AutorDTO;
 import com.atividade.main.service.AutorService;
 
 @RestController
@@ -70,8 +70,8 @@ public class AutorController {
 	}
 
 	@GetMapping
-	public Page<Autor> getListaOrdenadaAsedente(AutorFilter filter, Pageable page) {
-		return autorService.getListaOrdenadaAsedente(filter, page);
+	public Page<AutorDTO> getListaOrdenadaAsedente(Pageable page) {
+		return autorService.getListaOrdenadaAsedente(page);
 	}
 
 }

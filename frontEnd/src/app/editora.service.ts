@@ -37,5 +37,11 @@ export class EditoraService {
       .then(response => response.content);
   }
 
+  listaNomes(): Promise<any> {
+    return this.http.get<any>(`${this.apiURL}/lista-nomes`)
+      .toPromise()
+      .then(response => response.content);
+  }
+
 
 }
