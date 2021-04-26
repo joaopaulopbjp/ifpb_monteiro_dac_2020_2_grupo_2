@@ -10,7 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckoutFormComponent implements OnInit {
 
+
+
+
+
   telaDialog = false;
+
+  usuario ={cpf: '', nome: '', userID: ''}
 
   checkouts = [];
 
@@ -19,14 +25,22 @@ export class CheckoutFormComponent implements OnInit {
   endereco = {endID: '', cep: '', rua: '', numero: '', bairro: '', cidade: '', UF: '',
   complemento: '', pontoReferencia: '', userID: ''};
 
-  selectedpagamentos = [];
+  selectedpagamentos = null;
+
+  total =0;
 
   submitted = false;
+
+  formaDePagamento: any[] = [{name: 'Credito', key: 'C'},
+   {name: 'Debto', key: 'D'},
+   {name: 'Boleto', key: 'B'},
+   {name: 'Paypal', key: 'P'}];
 
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private pagamentoService: PagamentoService,
+
     ) {
 
 
@@ -34,6 +48,7 @@ export class CheckoutFormComponent implements OnInit {
 
   ngOnInit(){
     this.listAll();
+    this.selectedpagamentos = this.formaDePagamento[1];
   }
 
 
