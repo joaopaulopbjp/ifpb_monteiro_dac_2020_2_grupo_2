@@ -88,7 +88,7 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 
 
 	@Override
-	public List<BookResumo> filterCincoBaratos() {
+	public Page<BookResumo> filterCincoBaratos(Pageable page) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<BookResumo> criteria = builder.createQuery(BookResumo.class);
 		Root<Book> root = criteria.from(Book.class);
@@ -107,7 +107,7 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 	    
 		criteria.orderBy(builder.desc(root.get(Book_.price)));
 		TypedQuery<BookResumo> query = manager.createQuery(criteria).setMaxResults(5);
-		return query.getResultList();
+		return  new PageImpl<>(query.getResultList(), page, query.getMaxResults());
 	}
 
 

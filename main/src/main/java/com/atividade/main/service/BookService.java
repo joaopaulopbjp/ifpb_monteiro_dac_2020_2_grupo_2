@@ -70,9 +70,9 @@ public class BookService {
 	}
 	
 //	consultar os 5 livros mais baratos disponíveis no estoque;
-	public List<BookResumo> findListaCincoMaisBaratos(){
+	public Page<BookResumo> findListaCincoMaisBaratos(Pageable page){
 		//Page<Book> lista = bookRepository.findAll(PageRequest.of(0,5,Sort.Direction.DESC, Book_.PRICE));
-        return bookRepository.filterCincoBaratos();
+        return bookRepository.filterCincoBaratos(page);
 	}
 	public Page<BookDTO> getListaBookAllPaginada(BookFilter filter ,Pageable page){
 		

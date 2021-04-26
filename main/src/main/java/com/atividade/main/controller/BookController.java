@@ -64,9 +64,9 @@ public class BookController {
 	}
 
 	@GetMapping(params = "baratos")
-	public List<BookResumo> getListaCincoMaisBaratos() {
+	public Page<BookResumo> getListaCincoMaisBaratos(Pageable page) {
 		System.err.println("Aqui estou");
-		return bookService.findListaCincoMaisBaratos();
+		return bookService.findListaCincoMaisBaratos(page);
 	}
 
 //	consultar todos os livros (em estoque e sem estoque tb) ordenados de forma ascendente pelo título de forma paginada 

@@ -13,7 +13,7 @@ public interface BookRepositoryQuery {
 	
 	public Page<Book> filter(BookFilter bookFilter, Pageable page);
 	
-	public List<BookResumo> filterCincoBaratos();
+	public Page<BookResumo> filterCincoBaratos(Pageable page);
 	
 	public Page<BookResumo> findListBookOrdenadaTituloComOuSemEstoque(Pageable page);
 
