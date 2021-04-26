@@ -1,6 +1,7 @@
+import { element } from 'protractor';
 import { MessageService } from 'primeng/api';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { Livro } from './livro';
 
 @Injectable({

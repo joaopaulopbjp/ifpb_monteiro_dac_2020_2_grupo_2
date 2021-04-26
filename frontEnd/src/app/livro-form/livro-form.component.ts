@@ -2,7 +2,7 @@ import { EditoraService } from './../editora.service';
 import { CategoriaService } from './../categoria.service';
 import { AutorService } from './../autor.service';
 import { LivroService } from './../livro.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵisListLikeIterable } from '@angular/core';
 import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
@@ -24,7 +24,7 @@ export class LivroFormComponent implements OnInit {
 
   editora = { editoraId: 0, nome: '' };
 
-  estoque = { livroId: 0, quantidade: 0 };
+
 
   autor = { autorId: 0, nome: '' };
 
@@ -46,12 +46,14 @@ export class LivroFormComponent implements OnInit {
     anoPublicacao: '',
     categoria: this.categoria,
     editora: this.editora,
-    listAutor: [this.autor]
+    listAutor: []
   };
 
   selectedProducts = [];
 
   submitted = false;
+
+  estoque = { livroid: this.product , quantidade: 0 };
 
   constructor(
     private messageService: MessageService,
@@ -132,8 +134,10 @@ export class LivroFormComponent implements OnInit {
     this.livroService.salvar(product)
       .then(productSalvo => {
         this.product = { ...productSalvo };
-        this.estoque = {livroId: this.product.livroId, quantidade: this.estoque.quantidade};
-        this.livroService.salvarEstoque(Object.values(this.estoque));
+        console.log(productSalvo);
+
+        this.estoque = {livroid: this.product, quantidade: this.estoque.quantidade};
+        this.livroService.salvarEstoque(this.estoque);
         this.hideDialog();
         this.listAll();
       });
