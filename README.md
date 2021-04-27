@@ -7,7 +7,7 @@ Para execução do projeto siga os seguintes passos:
 Passo 01: Faça o clone do projeto em seu computador, link disponibilizado do GitHub: https://github.com/joaopaulopbjp/ifpb_monteiro_dac_2020_2_grupo_2
 
 
-Passo 02: Após você ter realizado o clone do projeto em seu computar abra o terminal de sua preferência dentro da pasta frontEnd ou realizando o caminha até a essa pasta, logo em seguida com o terminal aberto realize os seguintes comandos:   
+Passo 02: Após você ter realizado o clone do projeto em seu computador abra o terminal de sua preferência dentro da pasta frontEnd ou realizando o caminho até a essa pasta, logo em seguida com o terminal aberto realize os seguintes comandos:   
 
 
 	Comando 01: npm install -g @angular/cli  comando para instalação do angula.
