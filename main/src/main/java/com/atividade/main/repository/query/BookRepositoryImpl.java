@@ -127,10 +127,11 @@ public class BookRepositoryImpl  implements BookRepositoryQuery{
 		    		,root.get(Book_.edicao) 
 		    		,root.get(Book_.anoPublicacao)
 		    		,root.get(Book_.categoria).get(Categoria_.descricao) 
-		    		,root.get(Book_.editora).get(Editora_.nome)));    
+		    		,root.get(Book_.editora).get(Editora_.nome) 
+		            ,root.get(Book_.estoque).get(Estoque_.quantidade)));
 			
 		 criteria.orderBy(builder.desc(root.get(Book_.titulo)));
-		TypedQuery<BookResumo> query = manager.createQuery(criteria).setMaxResults(5);
+		TypedQuery<BookResumo> query = manager.createQuery(criteria);
 		adicionarPaginacao(query,page);
 		return new PageImpl<>(query.getResultList(), page, query.getMaxResults());
 	}

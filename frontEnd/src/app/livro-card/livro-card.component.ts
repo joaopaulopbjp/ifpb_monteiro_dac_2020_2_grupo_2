@@ -1,3 +1,4 @@
+import { PedidoService } from './../pedido.service';
 import { LivroService } from './../livro.service';
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
@@ -14,7 +15,7 @@ import { Livro } from '../livro';
 
 
 export class LivroCardComponent implements OnInit {
-// tipo de consulta
+  // tipo de consulta
   tipo = 1;
 
   product = {
@@ -46,8 +47,9 @@ export class LivroCardComponent implements OnInit {
 
 
   constructor(private productService: LivroService, private primengConfig: PrimeNGConfig,
-    private router: Router,
-    private route: ActivatedRoute) {
+              private router: Router,
+              private route: ActivatedRoute,
+              private pedidoService: PedidoService) {
     this.products = [this.product];
     this.listCarrinho = [{}];
     this.sortField = '';
@@ -58,13 +60,13 @@ export class LivroCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => this.tipo = + params[ 'id' ]);
+    this.route.params.subscribe(params => this.tipo = + params['id']);
 
-    if(this.tipo === 2){
+    if (this.tipo === 2) {
       this.listaCinco();
-    }else{
+    } else {
       this.productService.listAll()
-      .then(data => this.products = data);
+        .then(data => this.products = data);
     }
 
 
@@ -96,14 +98,15 @@ export class LivroCardComponent implements OnInit {
   }
 
   addCarrinho(product: Livro) {
+   this.pedidoService.addCarrinho(product);
+   
+  }
+
+
+  option(livro: Livro){
     this.router.navigateByUrl('/detalhe-produto');
-    this.productService.setLivro(product);
-    // console.log(product);
-    // this.product = { ...product };
-    // this.listCarrinho.push(product);
-    // console.log(this.listCarrinho);
-    // this.totalCarrinho + this.product.price;
-    // console.log(this.totalCarrinho + this.product.price);
+    this.productService.setLivro(livro);
+
   }
 
 

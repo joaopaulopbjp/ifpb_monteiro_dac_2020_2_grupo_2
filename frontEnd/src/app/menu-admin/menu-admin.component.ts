@@ -28,7 +28,7 @@ export class MenuAdminComponent implements OnInit {
       { label: 'Endereço', icon: 'pi pi-map', url: 'endereco' },
       { label: 'Editora', icon: 'pi pi-sitemap', url: 'editora' },
       { label: 'Pagamento', icon: 'pi pi-money-bill', url: 'pagamento' },
-      { label: 'Sair', icon: 'pi pi-sign-out', url: 'home' },
+      { label: 'Sair', icon: 'pi pi-sign-out', url: 'home/1' },
     ];
 
     this.activeItem = this.items[0];

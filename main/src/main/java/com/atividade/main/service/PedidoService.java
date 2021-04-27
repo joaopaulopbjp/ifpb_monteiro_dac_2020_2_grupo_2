@@ -9,45 +9,55 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.atividade.main.model.Pedido;
+import com.atividade.main.repository.EnderecoRepository;
 import com.atividade.main.repository.PedidoRepository;
 import com.atividade.main.repository.dto.PedidoDTO;
 import com.atividade.main.repository.filter.PedidoFilter;
 
-
 @Service
 public class PedidoService {
-	
+
 	@Autowired
 	private PedidoRepository pedidoRepository;
 
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+
 	public Pedido save(Pedido pedido) {
-		return pedidoRepository.save(pedido);
+
+		if (pedido.getEnderecoEntrega().getEndID() == 0) {
+			pedido.getEnderecoEntrega().setUsuario(pedido.getUser());
+			pedido.setEnderecoEntrega(enderecoRepository.save(pedido.getEnderecoEntrega()));
+		}
+		
+		Pedido ped = pedidoRepository.save(pedido);
+		
+		
+		return ped;
 	}
-	
+
 	public Pedido update(Long codigo, Pedido pedido) {
 		Pedido pedidoSalvo = pedidoRepository.findById(codigo).get();
-		if(pedidoSalvo==null) {
+		if (pedidoSalvo == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		BeanUtils.copyProperties(pedido, pedidoSalvo,"pedidoId");
+		BeanUtils.copyProperties(pedido, pedidoSalvo, "pedidoId");
 		pedidoRepository.save(pedido);
-		return pedidoSalvo;	
-		
+		return pedidoSalvo;
+
 	}
-	
+
 	public void excluir(long id) {
 		pedidoRepository.deleteById(id);
 	}
-	
+
 	public Pedido findById(long id) {
-		Optional<Pedido> pedido =pedidoRepository.findById(id);
+		Optional<Pedido> pedido = pedidoRepository.findById(id);
 		return pedido.get();
 	}
-	
-	
-	public Page<PedidoDTO> getListaOrdenadaAsedente(PedidoFilter pedidoFilter,Pageable page){
-        return pedidoRepository.filter(pedidoFilter, page).map(e->new PedidoDTO(e));
+
+	public Page<PedidoDTO> getListaOrdenadaAsedente(PedidoFilter pedidoFilter, Pageable page) {
+		return pedidoRepository.filter(pedidoFilter, page).map(e -> new PedidoDTO(e));
 	}
-	
 
 }

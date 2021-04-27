@@ -44,17 +44,19 @@ public class UsuarioRepositoryImpl  implements UsuarioRepositoryQuery{
 	}
 	
 
-	private Long totalDeRegistro(AutorFilter filter) {
+	@SuppressWarnings("unused")
+	private Long totalDeRegistro(Usuario filter) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
-		Root<Autor> root = criteria.from(Autor.class);
+		Root<Usuario> root = criteria.from(Usuario.class);
 		Predicate[] predicates = criarRestricoes(filter,builder, root );
 		criteria.where(predicates).multiselect(builder.count(root));
 		return manager.createQuery(criteria).getSingleResult();
 	}
 
 
-	private void adicionarPaginacao(TypedQuery<Autor> query, Pageable page) {
+	@SuppressWarnings("unused")
+	private void adicionarPaginacao(TypedQuery<?> query, Pageable page) {
 		int paginaAtual =  page.getPageNumber();
 		int totalRegistroPage = page.getPageSize();
 		int primeiroResgistroPage = paginaAtual * totalRegistroPage;
@@ -65,11 +67,11 @@ public class UsuarioRepositoryImpl  implements UsuarioRepositoryQuery{
 	}
 
 
-	private Predicate[] criarRestricoes(AutorFilter autorFilter, CriteriaBuilder builder, Root<Autor> root) {
+	private Predicate[] criarRestricoes(Usuario autorFilter, CriteriaBuilder builder, Root<Usuario> root) {
 		List<Predicate> predicates = new ArrayList<Predicate>();		
 	
 		if(autorFilter.getNome()!=null) {
-			predicates.add(builder.like(builder.lower(root.get(Autor_.nome)), "%"+autorFilter.getNome().toLowerCase()+"%"));
+			predicates.add(builder.like(builder.lower(root.get(Usuario_.NOME)), "%"+autorFilter.getNome().toLowerCase()+"%"));
 		}
 		
 		return predicates.toArray( new Predicate[predicates.size()]);

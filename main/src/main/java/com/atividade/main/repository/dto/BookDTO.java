@@ -1,5 +1,6 @@
 package com.atividade.main.repository.dto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ public class BookDTO {
 	private long livroId;
 	private String titulo;
 	private String descricao;
-	private double price;
+	private BigDecimal price;
 	private String ISBN;
 	private String capa;
 	private String edicao;
@@ -33,15 +34,16 @@ public class BookDTO {
 	
 	
     public BookDTO (Book book) {
-    	BeanUtils.copyProperties(book,this, Book_.LISTA_PEDIDO,Book_.LIST_AUTOR);
+    	BeanUtils.copyProperties(book, Book_.LISTA_PEDIDO,Book_.LIST_AUTOR);
     	this.autores = book.getListAutor().stream().map(e-> new AutorDTO(e)).collect(Collectors.toList());
     }
 
 	public BookDTO() {
 	}
 	
-	public Book convertBookDTOForBook(BookDTO dto) {
-		Book book=null;
+	public static Book convertBookDTOForBook(BookDTO dto) {
+		Book book = new Book();
+		book.setPrice(dto.getPrice());
 		BeanUtils.copyProperties(dto, book);
 		
 		return book;

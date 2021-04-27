@@ -72,7 +72,7 @@
 
 .titulo{
   width: 200px;
-  
+
 }
 
 .selectedInput{
@@ -84,4 +84,10 @@ div{
 }
 small{
   color: red;
+}
+
+.estoque{
+  display: inline-block;
+  width: 50%;
+  padding-right: 2rem;
 }

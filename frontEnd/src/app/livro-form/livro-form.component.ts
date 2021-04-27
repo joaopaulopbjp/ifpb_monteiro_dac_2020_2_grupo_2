@@ -21,10 +21,7 @@ export class LivroFormComponent implements OnInit {
 
   editoras = [];
 
-
   editora = { editoraId: 0, nome: '' };
-
-
 
   autor = { autorId: 0, nome: '' };
 
@@ -33,6 +30,8 @@ export class LivroFormComponent implements OnInit {
   autores = [];
 
   selectedAutores = [this.autor];
+
+
 
   product = {
     livroId: 0,
@@ -46,14 +45,13 @@ export class LivroFormComponent implements OnInit {
     anoPublicacao: '',
     categoria: this.categoria,
     editora: this.editora,
+    estoque: {livroid: {livroId: 0}, quantidade: 0, prateleira: '' },
     listAutor: []
   };
 
   selectedProducts = [];
 
   submitted = false;
-
-  estoque = { livroid: this.product , quantidade: 0 };
 
   constructor(
     private messageService: MessageService,
@@ -133,11 +131,11 @@ export class LivroFormComponent implements OnInit {
     this.submitted = true;
     this.livroService.salvar(product)
       .then(productSalvo => {
-        this.product = { ...productSalvo };
-        console.log(productSalvo);
-
-        this.estoque = {livroid: this.product, quantidade: this.estoque.quantidade};
-        this.livroService.salvarEstoque(this.estoque);
+        if (product.pagamentoId === '') {
+          this.messageService.add({ severity: 'success', summary: 'Livro', detail: 'Cadastrado com sucesso', life: 3000 });
+        } else {
+          this.messageService.add({ severity: 'success', summary: 'Livro', detail: 'Atualizado com sucesso', life: 3000 });
+        }
         this.hideDialog();
         this.listAll();
       });

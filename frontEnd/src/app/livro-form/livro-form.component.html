@@ -11,7 +11,7 @@
 
   <!-----------------------------------Configuração e inicio da Tabela------------------------------------->
   <p-table #dt [value]="products" [rows]="5" [paginator]="true" [responsive]="true" [globalFilterFields]="['livroId',
-    'titulo','descricao','price','ISBN','edicao','anoPublicacao','categoria','editora','estoque']"
+    'titulo','price','isbn','categoria','editora','estoque.quantidade']"
     [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
 
@@ -45,21 +45,15 @@
         <th>Capa</th>
         <th pSortableColumn="titulo" class="titulo">Titulo <p-sortIcon field="titulo"></p-sortIcon>
         </th>
-        <th pSortableColumn="descricao">Descricao <p-sortIcon field="descricao"></p-sortIcon>
-        </th>
         <th pSortableColumn="price">Preço <p-sortIcon field="price"></p-sortIcon>
-        </th>
-        <th pSortableColumn="edicao">Edição <p-sortIcon field="edicao"></p-sortIcon>
-        </th>
-        <th pSortableColumn="anoPublicacao">Ano de publicação <p-sortIcon field="anoPublicacao"></p-sortIcon>
         </th>
         <th pSortableColumn="categoria">Categoria <p-sortIcon field="categoria"></p-sortIcon>
         </th>
         <th pSortableColumn="editora">Editora<p-sortIcon field="editora"></p-sortIcon>
         </th>
-        <th pSortableColumn="estoque">Estoque <p-sortIcon field="estoque"></p-sortIcon>
+        <th pSortableColumn="estoque.quantidade">Estoque <p-sortIcon field="estoque.quantidade"></p-sortIcon>
         </th>
-        <th pSortableColumn="ISBN">ISBN<p-sortIcon field="ISBN"></p-sortIcon>
+        <th pSortableColumn="isbn">ISBN<p-sortIcon field="isbn"></p-sortIcon>
         </th>
         <th></th>
       </tr>
@@ -74,14 +68,11 @@
         <td>{{product.livroId}}</td>
         <td><img [src]="product.capa" [alt]="product.capa" width="100" class="p-shadow-4" /></td>
         <td><h4>{{product.titulo}}</h4></td>
-        <td>{{product.descricao}}</td>
         <td>{{product.price | currency:'R$'}}</td>
-        <td>{{product.edicao}}</td>
-        <td>{{product.anoPublicacao}}</td>
         <td>{{product.categoria}}</td>
         <td>{{product.editora}}</td>
         <td>{{product.estoque}}</td>
-        <td>{{product.ISBN}}</td>
+        <td>{{product.isbn}}</td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
             class="p-button-rounded p-button-success p-mr-2" (click)="update(product)"></button>
@@ -107,7 +98,7 @@
 
   <ng-template pTemplate="content">
 
-    <div class="p-field">
+    <div class="p-field" style="width: 40%;">
       <label for="name">ISBN <span style="color: red;">*</span></label>
       <p-inputNumber id="ISBN"  [(ngModel)]=product.isbn></p-inputNumber>
       <small class="p-invalid" *ngIf="submitted && !product.titulo">ISBN é obrigatorio.</small>
@@ -152,21 +143,19 @@
       <small class="p-invalid" *ngIf="submitted && !product.price">Preço é obrigatorio.</small>
     </div>
 
-    <div class="p-field pricecss">
+    <div class="p-field estoque">
       <label for="edicao">Edição <span style="color: red;">*</span></label>
       <input type="text" pInputText id="edicao" required autofocus [(ngModel)]=product.edicao />
       <small class="p-invalid" *ngIf="submitted && !product.edicao">Edicao é obrigatorio.</small>
     </div>
 
-    <div class="p-field pricecss">
+    <div class="p-field estoque">
       <label for="edicao">Ano de Publicação <span style="color: red;">*</span></label>
       <input type="text" pInputText id="ano" required autofocus [(ngModel)]=product.anoPublicacao />
       <small class="p-invalid" *ngIf="submitted && !product.anoPublicacao">Ano de publicação é obrigatorio.</small>
     </div>
 
     <div class="p-field">
-
-
       <label for="categoria">Categoria <span style="color: red;">*</span></label>
       <p-dropdown class="selectedInput" [options]="categorias" [(ngModel)]="product.categoria"
         placeholder="Selecione a categoria" [virtualScroll]="true" [itemSize]="31" [filter]="false" optionLabel="descricao">
@@ -180,12 +169,21 @@
         <small class="p-invalid" *ngIf="submitted && !product.editora">Editora é obrigatorio.</small>
     </div>
     <!-- daods de estoque ------------------------- -->
+
     <p-divider>Dados de estoque</p-divider>
-    <div class="p-field p-col pricecss">
+    <div >
+    <div class="p-field p-col estoque">
       <label for="estoque">Estoque<span style="color: red;">*</span></label>
-      <p-inputNumber id="estoque"  [(ngModel)]=estoque.quantidade></p-inputNumber>
-      <small class="p-invalid" *ngIf="submitted && !estoque.quantidade">Estoque é obrigatorio.</small>
+      <p-inputNumber id="estoque"  [(ngModel)]=product.estoque.quantidade></p-inputNumber>
+      <small class="p-invalid" *ngIf="submitted && !product.estoque.quantidade">Estoque é obrigatorio.</small>
     </div>
+
+    <div class="p-field p-col estoque">
+      <label for="estoque">Pratileira<span style="color: red;">*</span></label>
+      <input type="text" pInputText id="prateleira" required autofocus [(ngModel)]=product.estoque.prateleira/>
+      <small class="p-invalid" *ngIf="submitted && !product.estoque.prateleira">Estoque é obrigatorio.</small>
+    </div>
+  </div>
   </ng-template>
 
   <ng-template pTemplate="footer">

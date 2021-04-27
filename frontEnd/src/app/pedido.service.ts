@@ -1,3 +1,4 @@
+import { Livro } from './livro';
 import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -9,8 +10,33 @@ export class PedidoService {
 
   readonly apiURL: string;
 
+  carrinho: Livro[];
+
   constructor(private http: HttpClient, private messageService: MessageService) {
     this.apiURL = 'http://localhost:8080/pedido';
+    this.carrinho = this.getCarrinho();
+  }
+
+  addCarrinho(livro: Livro) {
+    this.carrinho.push(livro);
+    console.log(livro);
+    console.log(this.carrinho);
+
+
+  }
+
+  removeCarrinho() {
+    this.carrinho.pop();
+  }
+
+  getCarrinho(): Livro[] {
+    if (!this.carrinho) {
+      return this.carrinho = [];
+
+    } else {
+      return this.carrinho;
+    }
+
   }
 
   listAll(): Promise<any> {
@@ -19,8 +45,8 @@ export class PedidoService {
       .then(response => response.content);
   }
 
-  salvar(categoria: any): Promise<any> {
-    return this.http.post<any>(`${this.apiURL}`, categoria)
+  salvar(pedido: any): Promise<any> {
+    return this.http.post<any>(`${this.apiURL}`, pedido)
       .toPromise()
       .then(response => response.content)
 
@@ -32,12 +58,12 @@ export class PedidoService {
       .then(() => null);
   }
 
-  update(categoria: any): Promise<any> {
-    return this.http.put<any>(`${this.apiURL}/${categoria.id}`, categoria)
+  update(pedido: any): Promise<any> {
+    return this.http.put<any>(`${this.apiURL}/${pedido.id}`, pedido)
       .toPromise()
       .then(response => response.content)
       .catch(erro => {
-        return Promise.reject(`Erro ao alterar categoria ${categoria.id}.`);
+        return Promise.reject(`Erro ao alterar pedido ${pedido.id}.`);
       });
   }
 

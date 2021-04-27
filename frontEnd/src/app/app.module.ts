@@ -65,6 +65,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { DetalheProdutoComponent } from './detalhe-produto/detalhe-produto.component';
 import { PedidoGeralComponent } from './pedido-geral/pedido-geral.component';
 import { MessagemCompraComponent } from './messagem-compra/messagem-compra.component';
+import { CarrinhoComponent } from './carrinho/carrinho.component';
+import {OrderListModule} from 'primeng/orderlist';
 
 
 
@@ -89,9 +91,11 @@ import { MessagemCompraComponent } from './messagem-compra/messagem-compra.compo
     CheckoutFormComponent,
     PedidoGeralComponent,
     MessagemCompraComponent,
+    CarrinhoComponent,
 
   ],
   imports: [
+    OrderListModule,
     TabMenuModule,
     RippleModule,
     InputMaskModule,

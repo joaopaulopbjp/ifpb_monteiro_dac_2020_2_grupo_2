@@ -46,11 +46,11 @@ export class LivroService {
 
     return this.http.post<any>(`${this.apiURL}`, product)
       .toPromise()
-      .then(response => response.content)
-      .catch((err: HttpErrorResponse) => {
-        this.messageService.add({ severity: 'error', summary: 'Erro ao salvar', detail: `${err.message}`, life: 10000 });
-        console.error('An error occurred:', err.error);
-      });
+      .then(response => response.content);
+      // .catch((err: HttpErrorResponse) => {
+      //   this.messageService.add({ severity: 'error', summary: 'Erro ao salvar', detail: `${err.message}`, life: 10000 });
+      //   console.error('An error occurred:', err.error);
+      // });
 
 
 

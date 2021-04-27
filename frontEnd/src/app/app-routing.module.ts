@@ -1,3 +1,4 @@
+import { CarrinhoComponent } from './carrinho/carrinho.component';
 import { NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AutorFormComponent } from './autor-form/autor-form.component';
@@ -28,6 +29,8 @@ const routes: Routes = [
   { path: 'check/:total', component: CheckoutFormComponent },
   { path: 'pedido-geral', component: PedidoGeralComponent},
   { path: 'compra', component: MessagemCompraComponent},
+  { path: 'carrinho', component: CarrinhoComponent},
+
 
 ];
 

@@ -33,18 +33,13 @@ public class BookResumo implements Serializable {
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.price = price;
-		ISBN = iSBN;
+		this.ISBN = iSBN;
 		this.capa = capa;
 		this.edicao = edicao;
 		this.anoPublicacao = anoPublicacao;
 		this.categoria = categoria;
 		this.editora = editora;
-		
-		if(estoque==null) {
-			this.estoque=0;
-		}else {
-			this.estoque = estoque;
-		}
+		this.estoque = estoque;
 		
 
 	}

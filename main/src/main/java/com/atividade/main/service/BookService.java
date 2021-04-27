@@ -11,7 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.atividade.main.model.Book;
+import com.atividade.main.model.Estoque;
 import com.atividade.main.repository.BookRepository;
+import com.atividade.main.repository.EstoqueRepository;
 import com.atividade.main.repository.dto.BookDTO;
 import com.atividade.main.repository.dto.BookResumo;
 import com.atividade.main.repository.filter.BookFilter;
@@ -22,12 +24,26 @@ public class BookService {
 	
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired
+	private EstoqueRepository estoqueRepository;
 
 	public BookDTO save(Book book) {
 		if(isBookExist(book.getISBN())) {
 			throw new BookExistException();
 		}
+		Estoque estoque= book.getEstoque();
+		String isbn =book.getISBN();
+		
+		book.setEstoque(null);
+	
 		BookDTO dto = new BookDTO(bookRepository.save(book));
+		System.err.println("dto"+dto.getLivroId());
+	    Book b = findBookByISBN(isbn);
+	  
+	    System.err.println(b.getLivroId());
+		estoque.setLivroid(b);
+		estoqueRepository.save(estoque); 
 		return dto;
 	}
 	
