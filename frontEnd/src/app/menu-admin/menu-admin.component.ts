@@ -20,15 +20,15 @@ export class MenuAdminComponent implements OnInit {
 
   ngOnInit() {
     this.items = [
-      { label: 'Home', icon: 'pi pi-fw pi-home', url: 'admin'},
-      { label: 'Autor', icon: 'pi pi-user-plus', url: 'autor' },
-      { label: 'Pedido', icon: 'pi pi-folder-open', url: 'pedido-geral' },
-      { label: 'Estoque', icon: 'pi pi-inbox', url: 'livro' },
-      { label: 'Categoria', icon: 'pi pi-tags', url: 'categoria' },
-      { label: 'Endereço', icon: 'pi pi-map', url: 'endereco' },
-      { label: 'Editora', icon: 'pi pi-sitemap', url: 'editora' },
-      { label: 'Pagamento', icon: 'pi pi-money-bill', url: 'pagamento' },
-      { label: 'Sair', icon: 'pi pi-sign-out', url: 'home/1' },
+      { label: 'Home', icon: 'pi pi-fw pi-home', url: 'admin', id: 'home'},
+      { label: 'Autor', icon: 'pi pi-user-plus', url: 'autor', id: 'autor' },
+      { label: 'Pedido', icon: 'pi pi-folder-open', url: 'pedido-geral',id: 'pedido' },
+      { label: 'Estoque', icon: 'pi pi-inbox', url: 'livro',id: 'estoque' },
+      { label: 'Categoria', icon: 'pi pi-tags', url: 'categoria',id: 'categoria' },
+      { label: 'Endereço', icon: 'pi pi-map', url: 'endereco',id: 'endereço' },
+      { label: 'Editora', icon: 'pi pi-sitemap', url: 'editora',id: 'editora' },
+      { label: 'Pagamento', icon: 'pi pi-money-bill', url: 'pagamento',id: 'pagaemnto' },
+      { label: 'Sair', icon: 'pi pi-sign-out', url: 'home/1',id: 'sair' },
     ];
 
     this.activeItem = this.items[0];
