@@ -16,7 +16,7 @@
         <h3 class="p-m-0">Gerenciar Autores</h3>
         <p-toolbar styleClass="p-mb-4">
           <ng-template pTemplate="left">
-            <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
+            <button pButton pRipple label="Novo" id='novo' icon="pi pi-plus" class="p-button-success p-mr-2"
               (click)="openNew()"></button>
             <button pButton pRipple label="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"
               [disabled]="!selectedAutors || !selectedAutors.length"></button>
@@ -59,8 +59,8 @@
         <td>{{autor.dtNascimento | date:'dd/MM/yyyy'}}</td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
-            class="p-button-rounded p-button-success p-mr-2" (click)="update(autor)"></button>
-          <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+            class="p-button-rounded p-button-success p-mr-2" id="edit" (click)="update(autor)"></button>
+          <button pButton pRipple icon="pi pi-trash"  id="del" pTooltip="Excluir" tooltipPosition="top"
             class="p-button-rounded p-button-warning" (click)="delete(autor.autorId, autor.nome)"></button>
         </td>
       </tr>
@@ -85,24 +85,24 @@
 
     <div class="p-field">
       <h5>Sexo</h5>
-      <p-selectButton [options]="options" optionLabel="label" optionValue="value" [(ngModel)]=autor.sexo>
+      <p-selectButton [options]="options" id="sexo" optionLabel="label" optionValue="value" [(ngModel)]=autor.sexo>
       </p-selectButton>
     </div>
 
     <div class="p-field" style="width: 200px">
       <label class="p-mb-3">Nacionalidade</label>
-      <input type="text" pInputText id="nacionalidade" [(ngModel)]=autor.nacionalidade />
+      <input type="text" pInputText id="nacionalidade" id="nac" [(ngModel)]=autor.nacionalidade />
     </div>
 
     <div class="p-field p-col-12 p-md-4">
       <label for="icon">Data de Nascimento</label>
-      <p-calendar [(ngModel)]="dataNasc" [showIcon]="true" inputId="icon"></p-calendar>
+      <p-calendar [(ngModel)]="dataNasc" id="data" [showIcon]="true" inputId="icon"></p-calendar>
     </div>
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancela" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-    <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="save(autor)"></button>
+    <button pButton pRipple label="Cancela" id="cancela" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Salvar" id="save" icon="pi pi-check" class="p-button-text" (click)="save(autor)"></button>
   </ng-template>
 </p-dialog>
 

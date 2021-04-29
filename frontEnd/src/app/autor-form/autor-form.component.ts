@@ -34,7 +34,7 @@ export class AutorFormComponent implements OnInit {
     ) {
 
     this.dataNasc = new Date();
-    this.options = [{ label: 'Masculino', value: 'M' }, { label: 'Feminino', value: 'F' }];
+    this.options = [{ label: 'Masculino', value: 'M', id: 'M', name: 'masc' }, { label: 'Feminino', value: 'F', id: 'F', name: 'fam' }];
   }
 
   ngOnInit() {

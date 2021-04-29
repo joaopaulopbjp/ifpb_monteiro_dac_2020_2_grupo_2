@@ -27,7 +27,7 @@
               placeholder="Pesquisar..." style="width: 500px;"/>
           </span>
           <ng-template pTemplate="left">
-            <button pButton pRipple label="Novo" icon="pi pi-plus" class="p-button-success p-mr-2"
+            <button pButton pRipple label="Novo" id="novo" icon="pi pi-plus" class="p-button-success p-mr-2"
               (click)="openNew()"></button>
             <button pButton pRipple label="" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelected()"></button>
           </ng-template>
@@ -55,8 +55,8 @@
         </td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
-            class="p-button-rounded p-button-success p-mr-2" (click)="update(editora)"></button>
-          <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+            class="p-button-rounded p-button-success p-mr-2" id="edit" (click)="update(editora)"></button>
+          <button pButton pRipple icon="pi pi-trash" pTooltip="Excluir" id="del" tooltipPosition="top"
             class="p-button-rounded p-button-warning" (click)="delete(editora.editoraId, editora.nome)"></button>
         </td>
       </tr>
@@ -133,7 +133,7 @@
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Cancelar" id="save" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
     <button pButton pRipple label="Salvar" icon="pi pi-check" class="p-button-text" (click)="save(editora)"></button>
   </ng-template>
 
