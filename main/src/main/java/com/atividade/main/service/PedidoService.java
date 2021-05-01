@@ -8,9 +8,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import com.atividade.main.model.Pedido;
-import com.atividade.main.repository.EnderecoRepository;
 import com.atividade.main.repository.PedidoRepository;
+import com.atividade.main.repository.UsuarioRepository;
 import com.atividade.main.repository.dto.PedidoDTO;
 import com.atividade.main.repository.filter.PedidoFilter;
 
@@ -19,22 +20,18 @@ public class PedidoService {
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
-
+	
 	@Autowired
-	private EnderecoRepository enderecoRepository;
+	private UsuarioService usuarioService;
 
 	public Pedido save(Pedido pedido) {
-
-		if (pedido.getEnderecoEntrega().getEndID() == 0) {
-			pedido.getEnderecoEntrega().setUsuario(pedido.getUser());
-			pedido.setEnderecoEntrega(enderecoRepository.save(pedido.getEnderecoEntrega()));
-		}
+		
+		usuarioService.save(pedido.getUser());
+		
+		pedido.setUser(usuarioService.findById(1));
 		
 		Pedido ped = pedidoRepository.save(pedido);
-		
-		
-		
-		
+				
 		return ped;
 	}
 
