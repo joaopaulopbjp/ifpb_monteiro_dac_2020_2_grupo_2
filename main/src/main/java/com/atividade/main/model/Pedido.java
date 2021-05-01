@@ -52,10 +52,6 @@ public class Pedido {
 	private StatusPedido status;
 
 	@OneToOne
-	@JoinColumn(name = "ENDERECO")
-	private Endereco enderecoEntrega;
-
-	@OneToOne
 	@JoinColumn(name = "pagamento")
 	private Pagamento pagamento;
 
@@ -64,7 +60,7 @@ public class Pedido {
 	private Date dataFechamento;
 	
 	@OneToMany(mappedBy = "pedidoId")
-	private List<BookPedido>listaPedido;
+	private List<BookPedido>listaBook;
 	
 	
 
@@ -78,9 +74,9 @@ public class Pedido {
 	private void setBaixaNoEstoque() {
 		if (this.dataFechamento != null) {
 			EstoqueService estoqueService = new EstoqueService();
-			for (int i=0;i<this.listaPedido.size();i++) {
-				Estoque estoque = this.listaPedido.get(i).getBookId().getEstoque();	
-				estoque.setQuantidade(estoque.getQuantidade() - this.listaPedido.get(i).getQuantidadeVendida());
+			for (int i=0;i<this.listaBook.size();i++) {
+				Estoque estoque = this.listaBook.get(i).getBookId().getEstoque();	
+				estoque.setQuantidade(estoque.getQuantidade() - this.listaBook.get(i).getQuantidadeVendida());
 				estoqueService.save(estoque);
 			}
 			Email email = new Email();

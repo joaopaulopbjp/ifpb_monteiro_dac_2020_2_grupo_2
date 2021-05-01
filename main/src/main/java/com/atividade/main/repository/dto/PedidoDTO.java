@@ -37,7 +37,7 @@ public class PedidoDTO {
 	private Date dataFechamento;
 	
 	public PedidoDTO(Pedido pedido) {
-		BeanUtils.copyProperties(pedido, this, Pedido_.LISTA_PEDIDO);
+		BeanUtils.copyProperties(pedido, this, Pedido_.LISTA_BOOK);
 	}
 	
 
