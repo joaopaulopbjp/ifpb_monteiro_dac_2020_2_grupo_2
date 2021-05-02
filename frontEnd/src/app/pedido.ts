@@ -1,14 +1,15 @@
 import { Data } from "@angular/router";
+import { BookPedido } from "./book-pedido";
+import { Livro } from "./livro";
 
 export interface Pedido {
 
 pedidoID: number;
-user: {};
+user: {userID: 1};
 total: number;
-dataCriacao: Data;
+dataCriacao: Date;
 status: string;
-enderecoEntrega: {};
-pagamento: {};
+pagamento: {pagamentoId: 1};
 dataFechamento: Data;
-listaPedido: [];
+listaBook: BookPedido[];
 }

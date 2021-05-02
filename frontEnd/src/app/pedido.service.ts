@@ -1,3 +1,4 @@
+import { Pedido } from './pedido';
 import { Livro } from './livro';
 import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
@@ -20,9 +21,8 @@ export class PedidoService {
   addCarrinho(livro: Livro) {
     this.carrinho.push(livro);
     console.log(livro);
+
     console.log(this.carrinho);
-
-
   }
 
   removeCarrinho() {
@@ -45,10 +45,10 @@ export class PedidoService {
       .then(response => response.content);
   }
 
-  salvar(pedido: any): Promise<any> {
+  salvar(pedido: Pedido): Promise<any> {
     return this.http.post<any>(`${this.apiURL}`, pedido)
       .toPromise()
-      .then(response => response.content)
+      .then(response => response.content);
 
   }
 

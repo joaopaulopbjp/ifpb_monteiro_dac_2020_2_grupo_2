@@ -39,9 +39,11 @@ public class PedidoController {
 //	metodo de salvar autor
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Pedido> save(@Valid @RequestBody Pedido pedido, HttpServletResponse response) {
-		Pedido pedidoSalva = pedidoService.save(pedido);
+	public ResponseEntity<PedidoDTO> save(@Valid @RequestBody Pedido pedido, HttpServletResponse response) {
+		
+		PedidoDTO pedidoSalva = pedidoService.save(pedido);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, pedidoSalva.getPedidoID()));
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoSalva);
 	}
 	

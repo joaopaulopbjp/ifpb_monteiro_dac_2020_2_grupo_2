@@ -108,4 +108,12 @@
     width: 100%;
   }
 }
+.cart{
+  /* position:fixed; */
+  margin-top: -50%;
+  margin-left: 88%;
+  max-width: 25%;
+  align-content: flex-end;
+}
+
 

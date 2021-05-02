@@ -25,22 +25,21 @@ public class PedidoService {
 	private PedidoRepository pedidoRepository;
 	
 	@Autowired
-	private UsuarioService usuarioService;
-	@Autowired
 	private BookPedidoService bookPedidoService;
 	
-	public Pedido save(Pedido pedido) {
+	public PedidoDTO save(Pedido pedido) {
 		
 		List<BookPedido>listaBook = pedido.getListaBook();
 		
 		Pedido pedidoSalvo = pedidoRepository.save(pedido);
+		PedidoDTO pedidoDTO = new PedidoDTO(pedidoSalvo); 
 		
 		for (int i = 0; i < listaBook.size(); i++) {
 			pedido.getListaBook().get(i).setPedidoId(pedidoSalvo);	
 			bookPedidoService.save(pedido.getListaBook().get(i));
 		}
 		
-		return pedidoSalvo;
+		return pedidoDTO;
 	}
 
 	public Pedido update(Long codigo, Pedido pedido) {

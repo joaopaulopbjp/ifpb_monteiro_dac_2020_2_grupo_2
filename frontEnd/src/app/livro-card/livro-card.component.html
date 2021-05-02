@@ -30,7 +30,7 @@
           <div class="product-list-action">
             <span class="product-price">{{product.price | currency:'R$'}}</span>
             <p-button icon="pi pi-arrow-circle-right" label="Detalhes"  (click)="option(product)"></p-button>
-            <p-button icon="pi pi-shopping-cart" label="Adicionar ao carrinho"  (click)="addCarrinho(product)"></p-button>
+            <p-button icon="pi pi-shopping-cart" label="Adicionar ao carrinho"  (click)="addCarrinho(product.livroId, product.price)"></p-button>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
           <br>
           <div class="product-grid-item-bottom">
             <span class="product-price">{{product.price | currency:'R$'}}</span>
-            <p-button icon="pi pi-arrow-circle-right" label="Adicionar ao carrinho"  (click)="addCarrinho(product)"></p-button>
+            <p-button icon="pi pi-arrow-circle-right" label="Adicionar ao carrinho"  (click)="addCarrinho(product.livroId, product.price)"></p-button>
             <p-button icon="pi pi-shopping-cart" label="Detalhes"  (click)="option(product)"></p-button>
           </div>
         </div>
@@ -69,3 +69,4 @@
 </div>
 <app-menu-bar></app-menu-bar>
 <app-rodape-bar></app-rodape-bar>
+

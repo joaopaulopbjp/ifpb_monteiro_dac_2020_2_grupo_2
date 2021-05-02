@@ -1,8 +1,8 @@
 export interface Livro {
-    livroId: string;
+    livroId: number;
     titulo: string;
     descricao: string;
-    price: 0;
+    price: number;
     ISBN: string;
     capa: string;
     edicao: string;

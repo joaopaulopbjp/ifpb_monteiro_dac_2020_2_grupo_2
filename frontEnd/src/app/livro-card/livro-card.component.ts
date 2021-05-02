@@ -1,9 +1,12 @@
+import { LivroVendido } from './../livro-vendido';
 import { PedidoService } from './../pedido.service';
 import { LivroService } from './../livro.service';
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig, MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Livro } from '../livro';
+import { Pedido } from '../pedido';
+import { BookPedido } from '../book-pedido';
 
 @Component({
   selector: 'app-livro-card',
@@ -17,22 +20,23 @@ import { Livro } from '../livro';
 export class LivroCardComponent implements OnInit {
   // tipo de consulta
   tipo = 1;
+  pedido!: Pedido;
+  bookPedido!: BookPedido;
+  livro: LivroVendido = {livroId: 0};
 
-  product = {
-    livroId: '',
-    titulo: '',
-    descricao: '',
-    price: '',
-    ISBN: '',
-    capa: '',
-    edicao: '',
-    anoPublicacao: '',
-    categoria: '',
-    editora: '',
-    estoque: 0,
-  };
+  // pedido = {
+  //   user: { userID: 1 },
+  //   total: 150.0,
+  //   dataCriacao: Date,
+  //   status: 'PENDENTE',
+  //   pagamento: {},
+  //   dataFechamento: Date,
+  //   listaBook: []
+  // };
 
-  products: [any];
+  // { dataVenda: null, quantidadeVendida: 10, bookid: { livroId: 0 }, pedidoid: 0 }
+
+  products: [];
 
   listCarrinho: [any];
 
@@ -46,16 +50,28 @@ export class LivroCardComponent implements OnInit {
   sortField: string;
 
 
-  constructor(private productService: LivroService, private primengConfig: PrimeNGConfig,
+  constructor(private productService: LivroService,
+              private primengConfig: PrimeNGConfig,
               private router: Router,
               private route: ActivatedRoute,
-              private pedidoService: PedidoService) {
-    this.products = [this.product];
-    this.listCarrinho = [{}];
-    this.sortField = '';
-    this.sortOrder = 5;
-    this.totalCarrinho = 0;
-
+              private pedidoService: PedidoService,
+              private messageService: MessageService) {
+              this.products = [];
+              this.listCarrinho = [{}];
+              this.sortField = '';
+              this.sortOrder = 5;
+              this.totalCarrinho = 0;
+              this.bookPedido = {dataVenda: new Date(), quantidadeVendida: 0, bookId: this.livro};
+              this.pedido = {
+                pedidoID: 0,
+                user: { userID: 1 },
+                total: 0,
+                dataCriacao: new Date(),
+                status: 'PENDENTE',
+                pagamento: {pagamentoId: 1},
+                dataFechamento: new Date(),
+                listaBook: []
+              };
 
   }
 
@@ -97,13 +113,36 @@ export class LivroCardComponent implements OnInit {
       .then(data => this.products = data);
   }
 
-  addCarrinho(product: Livro) {
-   this.pedidoService.addCarrinho(product);
-   
+
+  addCarrinho(id: number,  price: number) {
+    this.livro.livroId = id;
+
+    this.bookPedido.bookId = this.livro;
+    this.bookPedido.quantidadeVendida += 1;
+    this.bookPedido.dataVenda = new Date();
+    this.pedido.total += this.bookPedido.quantidadeVendida * price;
+    // this.pedidoService.addCarrinho(this.livro);
+
+    if (this.pedido.listaBook.length === 0) {
+      this.pedido.listaBook.push(this.bookPedido);
+      // criando o pedido com carrinho
+      this.pedidoService.salvar(this.pedido).then(productSalvo => {
+        this.pedido = productSalvo;
+        this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado ao carrinho', life: 3000 });
+      });
+    } else {
+      this.pedido.listaBook.push(this.bookPedido);
+      this.pedidoService.update(this.pedido).then(productSalvo => {
+        this.pedido = productSalvo;
+        this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado ao carrinho', life: 3000 });
+      });
+    }
+
+
   }
 
 
-  option(livro: Livro){
+  option(livro: Livro) {
     this.router.navigateByUrl('/detalhe-produto');
     this.productService.setLivro(livro);
 

@@ -47,7 +47,7 @@
     <ng-template pTemplate="body" let-categoria>
       <tr>
         <td>{{categoria.categoriaId}}</td>
-        <td><h4>{{categoria.descricao}}</h4></td>
+        <td><h4 id="nome">{{categoria.descricao}}</h4></td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
             class="p-button-rounded p-button-success p-mr-2" (click)="update(categoria)"></button>
