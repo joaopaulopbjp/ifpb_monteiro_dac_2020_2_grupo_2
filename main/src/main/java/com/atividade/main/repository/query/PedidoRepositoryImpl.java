@@ -1,6 +1,5 @@
 package com.atividade.main.repository.query;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +57,7 @@ public class PedidoRepositoryImpl implements PedidoRepositoryQuery {
 		CriteriaQuery<BookCart> criteria = builder.createQuery(BookCart.class);
 		Root<BookPedido> root = criteria.from(BookPedido.class);
 		 criteria.select(builder.construct(BookCart.class
+				 	,root.get(BookPedido_.BOOK_PEDIDO_ID)
 		    		,root.get(BookPedido_.BOOK_ID).get(Book_.LIVRO_ID)
 		    		,root.get(BookPedido_.BOOK_ID).get(Book_.TITULO)
 		    		,root.get(BookPedido_.BOOK_ID).get(Book_.PRICE)

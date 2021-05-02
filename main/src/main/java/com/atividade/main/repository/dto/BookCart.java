@@ -3,8 +3,6 @@ package com.atividade.main.repository.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.atividade.main.model.BookPedido_;
-
 public class BookCart implements Serializable {
 	
 	/**
@@ -12,6 +10,7 @@ public class BookCart implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private long bookPedidoId;
 	private Long livroId;
 	private String titulo;
 	private BigDecimal price;
@@ -28,9 +27,10 @@ public class BookCart implements Serializable {
 
 
 
-	public BookCart(Long livroId, String titulo, BigDecimal price, Integer quantidadeVendida, String capa,
-			String categoria, BigDecimal total) {
+	public BookCart(long bookPedidoId, Long livroId, String titulo, BigDecimal price, Integer quantidadeVendida, String capa,
+			String categoria, BigDecimal total ) {
 		super();
+		this.bookPedidoId = bookPedidoId;
 		this.livroId = livroId;
 		this.titulo = titulo;
 		this.price = price.multiply(new BigDecimal(quantidadeVendida));
@@ -128,6 +128,18 @@ public class BookCart implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+
+
+	public long getBookPedidoId() {
+		return bookPedidoId;
+	}
+
+
+
+	public void setBookPedidoId(long bookPedidoId) {
+		this.bookPedidoId = bookPedidoId;
 	}
 
 
