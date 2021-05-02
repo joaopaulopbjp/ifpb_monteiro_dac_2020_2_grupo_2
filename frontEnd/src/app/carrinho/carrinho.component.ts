@@ -1,3 +1,4 @@
+import { Carrinho } from './../carrinho';
 import { element } from 'protractor';
 import { Data, Router, RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,7 @@ export class CarrinhoComponent implements OnInit {
   total = 0;
   pedidoID = 0;
 
-  carrinho = [];
+  carrinho: Carrinho[] = [];
 
   constructor( private pedidoService: PedidoService, private  router: Router,  private route: ActivatedRoute) {
 
@@ -29,8 +30,11 @@ export class CarrinhoComponent implements OnInit {
   statusCarrinho(){
     this.pedidoService.listaCarrinho(this.pedidoID).then(data => {
       this.carrinho = data;
-      this.total = 3000;
-      console.log(this.carrinho[0]);
+      for(let i = 0; i<this.carrinho.length;i++){
+        this.total += this.carrinho[i].price;
+        console.log(this.carrinho[0]);
+      }
+
     });
 
 

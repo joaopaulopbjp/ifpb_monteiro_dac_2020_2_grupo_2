@@ -2,7 +2,7 @@ import { LivroVendido } from './../livro-vendido';
 import { PedidoService } from './../pedido.service';
 import { LivroService } from './../livro.service';
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig, MessageService } from 'primeng/api';
+import { PrimeNGConfig, MessageService, ConfirmationService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Livro } from '../livro';
 import { Pedido } from '../pedido';
@@ -20,6 +20,7 @@ import { BookPedido } from '../book-pedido';
 export class LivroCardComponent implements OnInit {
   // tipo de consulta
   tipo = 1;
+  pedidoid=0;
   pedido!: Pedido;
   bookPedido!: BookPedido;
   livro: LivroVendido = {livroId: 0};
@@ -38,6 +39,10 @@ export class LivroCardComponent implements OnInit {
 
   products: [];
 
+  quant='';
+
+  quantCarrinho=0;
+
   listCarrinho: [any];
 
   totalCarrinho: number;
@@ -55,7 +60,8 @@ export class LivroCardComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private pedidoService: PedidoService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService,) {
               this.products = [];
               this.listCarrinho = [{}];
               this.sortField = '';
@@ -116,7 +122,8 @@ export class LivroCardComponent implements OnInit {
 
   addCarrinho(id: number,  price: number) {
     this.livro.livroId = id;
-
+    this.quantCarrinho++;
+    this.quant = ""+this.quantCarrinho;
     this.bookPedido.bookId = this.livro;
     this.bookPedido.quantidadeVendida += 1;
     this.bookPedido.dataVenda = new Date();
@@ -126,20 +133,23 @@ export class LivroCardComponent implements OnInit {
     if (this.pedido.pedidoID === 0) {
       this.pedido.listaBook.push(this.bookPedido);
       // criando o pedido com carrinho
-      this.pedidoService.salvar(this.pedido).then(productSalvo => {
-        this.pedido = {...productSalvo};
-        this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado ao carrinho', life: 3000 });
+      this.pedidoService.addCarrinho(this.pedido);
+      this.pedidoService.salvar(this.pedido).then(productSalvo =>{
+      this.pedido = productSalvo;
+      this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado com sucesso', life: 3000 });
+      this.pedidoid=this.pedido.pedidoID;
+      console.log(this.pedido);
       });
+
     } else {
       this.pedido.listaBook = this.pedidoService.getCarrinho();
       this.pedido.listaBook.push(this.bookPedido);
-      this.pedidoService.update(this.pedido).then(productSalvo => {
-      this.pedido = {...productSalvo};
+      this.pedidoService.addCarrinho(this.pedido);
+      this.pedidoService.update(this.pedido).then(productSalvo =>this.pedido = productSalvo);
+      this.pedidoid=this.pedido.pedidoID;
+      console.log(this.pedidoid);
       this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado ao carrinho', life: 3000 });
-      });
-    }
-
-
+      }
   }
 
 

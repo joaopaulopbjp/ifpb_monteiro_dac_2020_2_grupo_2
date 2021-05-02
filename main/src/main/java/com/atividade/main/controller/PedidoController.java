@@ -43,6 +43,7 @@ public class PedidoController {
 	public ResponseEntity<PedidoDTO> save(@Valid @RequestBody Pedido pedido, HttpServletResponse response) {
 		
 		PedidoDTO pedidoSalva = pedidoService.save(pedido);
+		System.err.println("id do pedido: "+pedidoSalva.getPedidoID());
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, pedidoSalva.getPedidoID()));
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(pedidoSalva);

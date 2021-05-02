@@ -31,7 +31,8 @@ public class PedidoService {
 		List<BookPedido>listaBook = pedido.getListaBook();
 		
 		Pedido pedidoSalvo = pedidoRepository.save(pedido);
-		PedidoDTO pedidoDTO = new PedidoDTO(pedidoSalvo); 
+		PedidoDTO pedidoDTO = new PedidoDTO(pedidoSalvo);
+		
 		
 		for (int i = 0; i < listaBook.size(); i++) {
 			pedido.getListaBook().get(i).setPedidoId(pedidoSalvo);	

@@ -22,6 +22,7 @@
         <i class="pi pi-book"><span class="product-category"> Quantidade: {{livro.quantidadeVendida}}</span></i>
         <h3 class="p-mb-2">{{livro.price * livro.quantidadeVendida | currency:'R$'}}</h3>
       </div>
+      <div style="margin-left: 50px;"> <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button></div>
     </div>
   </ng-template>
 </p-orderList>

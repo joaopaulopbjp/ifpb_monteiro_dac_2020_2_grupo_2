@@ -28,11 +28,14 @@ export class PortalAdminComponent implements OnInit {
 
   listAll() {
     this.pedidoService.listAll().then(data => {
-      this.pedidos = data;
+      this.pedidos = data
+      for(let i=0;i<this.pedidos.length;i++){
+        this.total +=  this.pedidos[i].total;
+
+      }
+
     });
-    for(let i=0;i<this.pedidos.length;i++){
-      this.total +=  this.pedidos[i].total;
-    }
+
 
   }
 

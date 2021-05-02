@@ -48,7 +48,7 @@ export class PedidoService {
   salvar(pedido: Pedido): Promise<any> {
     return this.http.post<any>(`${this.apiURL}`, pedido)
       .toPromise()
-      .then(response => response.content);
+      .then(response => response);
 
   }
 
@@ -61,7 +61,7 @@ export class PedidoService {
   update(pedido: Pedido): Promise<any> {
     return this.http.put<any>(`${this.apiURL}/${pedido.pedidoID}`, pedido)
       .toPromise()
-      .then(response => response.content)
+      .then(response => response)
       .catch(erro => {
         return Promise.reject(`Erro ao alterar pedido ${pedido.pedidoID}.`);
       });
