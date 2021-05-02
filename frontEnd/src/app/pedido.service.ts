@@ -11,14 +11,14 @@ export class PedidoService {
 
   readonly apiURL: string;
 
-  carrinho: Livro[];
+  carrinho:any[];
 
   constructor(private http: HttpClient, private messageService: MessageService) {
     this.apiURL = 'http://localhost:8080/pedido';
     this.carrinho = this.getCarrinho();
   }
 
-  addCarrinho(livro: Livro) {
+  addCarrinho(livro: any) {
     this.carrinho.push(livro);
     console.log(livro);
 
@@ -29,7 +29,7 @@ export class PedidoService {
     this.carrinho.pop();
   }
 
-  getCarrinho(): Livro[] {
+  getCarrinho(): any[] {
     if (!this.carrinho) {
       return this.carrinho = [];
 
@@ -58,14 +58,21 @@ export class PedidoService {
       .then(() => null);
   }
 
-  update(pedido: any): Promise<any> {
-    return this.http.put<any>(`${this.apiURL}/${pedido.id}`, pedido)
+  update(pedido: Pedido): Promise<any> {
+    return this.http.put<any>(`${this.apiURL}/${pedido.pedidoID}`, pedido)
       .toPromise()
       .then(response => response.content)
       .catch(erro => {
-        return Promise.reject(`Erro ao alterar pedido ${pedido.id}.`);
+        return Promise.reject(`Erro ao alterar pedido ${pedido.pedidoID}.`);
       });
   }
+
+  listaCarrinho(id: number): Promise<any> {
+    return this.http.get<any>(`${this.apiURL}/listcart/${id}`)
+      .toPromise()
+      .then(response => response.content);
+  }
+
 
 }
 

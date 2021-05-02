@@ -14,7 +14,7 @@ export class MessagemCompraComponent implements OnInit {
   }
 
   voltar() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home/1']);
   }
 
 }

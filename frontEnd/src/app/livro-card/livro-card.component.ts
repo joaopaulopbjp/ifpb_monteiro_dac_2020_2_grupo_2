@@ -123,18 +123,19 @@ export class LivroCardComponent implements OnInit {
     this.pedido.total += this.bookPedido.quantidadeVendida * price;
     // this.pedidoService.addCarrinho(this.livro);
 
-    if (this.pedido.listaBook.length === 0) {
+    if (this.pedido.pedidoID === 0) {
       this.pedido.listaBook.push(this.bookPedido);
       // criando o pedido com carrinho
       this.pedidoService.salvar(this.pedido).then(productSalvo => {
-        this.pedido = productSalvo;
+        this.pedido = {...productSalvo};
         this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado ao carrinho', life: 3000 });
       });
     } else {
+      this.pedido.listaBook = this.pedidoService.getCarrinho();
       this.pedido.listaBook.push(this.bookPedido);
       this.pedidoService.update(this.pedido).then(productSalvo => {
-        this.pedido = productSalvo;
-        this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado ao carrinho', life: 3000 });
+      this.pedido = {...productSalvo};
+      this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado ao carrinho', life: 3000 });
       });
     }
 
@@ -145,7 +146,6 @@ export class LivroCardComponent implements OnInit {
   option(livro: Livro) {
     this.router.navigateByUrl('/detalhe-produto');
     this.productService.setLivro(livro);
-
   }
 
 

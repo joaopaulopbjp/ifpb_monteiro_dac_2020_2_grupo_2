@@ -45,13 +45,15 @@
     <ng-template pTemplate="body" let-pedido>
       <tr>
         <td>{{pedido.pedidoID}}</td>
-        <td><img [src]="pedido.capa" [alt]="pedido.capa" width="100" class="p-shadow-4" /></td>
         <td>
-          <h4>{{pedido.pagamento}}</h4>
+          <h4>{{pedido.user.nome}}</h4>
+        </td>
+        <td>
+          <h5>{{pedido.pagamento.descricao}}</h5>
         </td>
         <td>{{pedido.total | currency:'R$'}}</td>
-        <td>{{pedido.dataCriacao}}</td>
-        <td>{{pedido.dataFechamento}}</td>
+        <td>{{pedido.dataCriacao | date:'dd/MM/yyyy'}}</td>
+        <td>{{pedido.dataFechamento | date:'dd/MM/yyyy'}}</td>
         <td>{{pedido.status}}</td>
       </tr>
     </ng-template>

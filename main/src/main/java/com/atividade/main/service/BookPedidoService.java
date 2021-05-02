@@ -1,6 +1,5 @@
 package com.atividade.main.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -40,8 +39,8 @@ public class BookPedidoService {
 	}
 	
 	public BookPedido findById(long id) {
-		Optional<BookPedido> endereco =bookPedidoRepository.findById(id);
-		return endereco.get();
+		Optional<BookPedido> bookPedido =bookPedidoRepository.findById(id);
+		return bookPedido.get();
 	}
 	
 	

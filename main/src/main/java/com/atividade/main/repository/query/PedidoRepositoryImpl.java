@@ -1,5 +1,6 @@
 package com.atividade.main.repository.query;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import com.atividade.main.model.BookPedido;
+import com.atividade.main.model.BookPedido_;
+import com.atividade.main.model.Book_;
+import com.atividade.main.model.Categoria_;
 import com.atividade.main.model.Pedido;
 import com.atividade.main.model.Pedido_;
+import com.atividade.main.repository.dto.BookCart;
 import com.atividade.main.repository.filter.PedidoFilter;
 
 import lombok.Data;
@@ -46,6 +52,24 @@ public class PedidoRepositoryImpl implements PedidoRepositoryQuery {
 		return new PageImpl<>(query.getResultList(), page,totalDeRegistro(pedidoFilter));
 	}
 	
+	@Override
+	public Page<BookCart> listaBookByPedido(Long id, Pageable page) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<BookCart> criteria = builder.createQuery(BookCart.class);
+		Root<BookPedido> root = criteria.from(BookPedido.class);
+		 criteria.select(builder.construct(BookCart.class
+		    		,root.get(BookPedido_.BOOK_ID).get(Book_.LIVRO_ID)
+		    		,root.get(BookPedido_.BOOK_ID).get(Book_.TITULO)
+		    		,root.get(BookPedido_.BOOK_ID).get(Book_.PRICE)
+		    		,root.get(BookPedido_.QUANTIDADE_VENDIDA)
+		    		,root.get(BookPedido_.BOOK_ID).get(Book_.CAPA)
+		    		,root.get(BookPedido_.BOOK_ID).get(Book_.CATEGORIA).get(Categoria_.DESCRICAO)
+		 			,root.get(BookPedido_.PEDIDO_ID).get(Pedido_.TOTAL)));
+		criteria.where(builder.equal(root.get(BookPedido_.PEDIDO_ID), id));
+		TypedQuery<BookCart> query = manager.createQuery(criteria);
+		return new PageImpl<>(query.getResultList(), page, query.getMaxResults());
+	}
+	
 	private Predicate[] criarRestricoes(PedidoFilter pedidoFilter, CriteriaBuilder builder, Root<Pedido> root) {
 		List<Predicate> predicates = new ArrayList<Predicate>();		
 	
@@ -56,6 +80,7 @@ public class PedidoRepositoryImpl implements PedidoRepositoryQuery {
 		
 		return predicates.toArray( new Predicate[predicates.size()]);
 	}
+	
 	
 	
 	private void adicionarPaginacao(TypedQuery<Pedido> query, Pageable page) {
@@ -76,6 +101,8 @@ public class PedidoRepositoryImpl implements PedidoRepositoryQuery {
 		criteria.where(predicates).multiselect(builder.count(root));
 		return manager.createQuery(criteria).getSingleResult();
 	}
+
+	
 	
 	
 	

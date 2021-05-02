@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atividade.main.event.RecursoCriadoEvent;
 import com.atividade.main.model.Pedido;
+import com.atividade.main.repository.dto.BookCart;
 import com.atividade.main.repository.dto.PedidoDTO;
 import com.atividade.main.repository.filter.PedidoFilter;
 import com.atividade.main.service.PedidoService;
@@ -68,5 +69,11 @@ public class PedidoController {
 	public Page<PedidoDTO> getListaOrdenadaAsedente(PedidoFilter pedidoFilter ,Pageable page) {
 		return pedidoService.getListaOrdenadaAsedente(pedidoFilter, page);
 	}
+	
+	@GetMapping("/listcart/{codigo}")
+	public Page<BookCart> listaBookByPedido(@PathVariable Long codigo,Pageable page){
+		return pedidoService.listaBookByPedido(codigo, page);
+	}
+
 
 }

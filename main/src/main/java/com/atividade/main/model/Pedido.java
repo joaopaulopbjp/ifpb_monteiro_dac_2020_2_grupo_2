@@ -68,6 +68,7 @@ public class Pedido {
 	@PrePersist
 	private void setDataDeCriacaoPedido() {
 		this.dataCriacao = new Date();
+		this.dataFechamento = null;
 	}
 
 	@PreUpdate

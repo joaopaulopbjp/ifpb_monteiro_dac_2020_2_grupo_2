@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'check/:total', component: CheckoutFormComponent },
   { path: 'pedido-geral', component: PedidoGeralComponent},
   { path: 'compra', component: MessagemCompraComponent},
-  { path: 'carrinho', component: CarrinhoComponent},
+  { path: 'carrinho/:id', component: CarrinhoComponent},
 
 
 ];

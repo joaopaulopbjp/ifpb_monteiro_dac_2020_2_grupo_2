@@ -1,6 +1,5 @@
 package com.atividade.main.service;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.atividade.main.model.BookPedido;
 import com.atividade.main.model.Pedido;
 import com.atividade.main.repository.PedidoRepository;
-import com.atividade.main.repository.UsuarioRepository;
+import com.atividade.main.repository.dto.BookCart;
 import com.atividade.main.repository.dto.PedidoDTO;
 import com.atividade.main.repository.filter.PedidoFilter;
 
@@ -64,6 +63,9 @@ public class PedidoService {
 
 	public Page<PedidoDTO> getListaOrdenadaAsedente(PedidoFilter pedidoFilter, Pageable page) {
 		return pedidoRepository.filter(pedidoFilter, page).map(e -> new PedidoDTO(e));
+	}
+	public Page<BookCart> listaBookByPedido(Long codigo,Pageable page){
+		return pedidoRepository.listaBookByPedido(codigo, page);
 	}
 
 }

@@ -30,7 +30,6 @@ public class PedidoDTO {
 
 	private StatusPedido status;
 
-	private Endereco enderecoEntrega;
 
 	private Pagamento pagamento;
 
