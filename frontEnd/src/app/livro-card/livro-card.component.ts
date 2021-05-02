@@ -121,6 +121,7 @@ export class LivroCardComponent implements OnInit {
 
 
   addCarrinho(id: number,  price: number) {
+    this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado com sucesso', life: 3000 });
     this.livro.livroId = id;
     this.quantCarrinho++;
     this.quant = ""+this.quantCarrinho;
@@ -132,11 +133,11 @@ export class LivroCardComponent implements OnInit {
 
     if (this.pedido.pedidoID === 0) {
       this.pedido.listaBook.push(this.bookPedido);
+      
       // criando o pedido com carrinho
       this.pedidoService.addCarrinho(this.pedido);
       this.pedidoService.salvar(this.pedido).then(productSalvo =>{
       this.pedido = productSalvo;
-      this.messageService.add({ severity: 'success', summary: 'Carrinho', detail: 'Livro adicionado com sucesso', life: 3000 });
       this.pedidoid=this.pedido.pedidoID;
       console.log(this.pedido);
       });

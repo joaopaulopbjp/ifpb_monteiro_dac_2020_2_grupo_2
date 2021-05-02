@@ -61,10 +61,10 @@ export class PedidoService {
   update(pedido: Pedido): Promise<any> {
     return this.http.put<any>(`${this.apiURL}/${pedido.pedidoID}`, pedido)
       .toPromise()
-      .then(response => response)
-      .catch(erro => {
-        return Promise.reject(`Erro ao alterar pedido ${pedido.pedidoID}.`);
-      });
+      .then(response => response);
+      // .catch(erro => {
+      //   return Promise.reject(`Erro ao alterar pedido ${pedido.pedidoID}.`);
+      // });
   }
 
   listaCarrinho(id: number): Promise<any> {

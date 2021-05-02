@@ -1,4 +1,5 @@
 export interface Carrinho {
+  bookPedidoId: number;
   livroId: number;
 	titulo: String;
 	price: number;
