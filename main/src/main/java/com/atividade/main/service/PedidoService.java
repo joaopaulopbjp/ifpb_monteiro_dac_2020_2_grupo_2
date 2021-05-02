@@ -1,5 +1,7 @@
 package com.atividade.main.service;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.atividade.main.model.BookPedido;
 import com.atividade.main.model.Pedido;
 import com.atividade.main.repository.PedidoRepository;
 import com.atividade.main.repository.UsuarioRepository;
@@ -23,12 +26,21 @@ public class PedidoService {
 	
 	@Autowired
 	private UsuarioService usuarioService;
-
+	@Autowired
+	private BookPedidoService bookPedidoService;
+	
 	public Pedido save(Pedido pedido) {
 		
-		Pedido ped = pedidoRepository.save(pedido);
-				
-		return ped;
+		List<BookPedido>listaBook = pedido.getListaBook();
+		
+		Pedido pedidoSalvo = pedidoRepository.save(pedido);
+		
+		for (int i = 0; i < listaBook.size(); i++) {
+			pedido.getListaBook().get(i).setPedidoId(pedidoSalvo);	
+			bookPedidoService.save(pedido.getListaBook().get(i));
+		}
+		
+		return pedidoSalvo;
 	}
 
 	public Pedido update(Long codigo, Pedido pedido) {
