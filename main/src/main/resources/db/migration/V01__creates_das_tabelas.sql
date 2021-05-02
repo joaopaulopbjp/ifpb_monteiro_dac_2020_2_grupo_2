@@ -105,7 +105,7 @@ CREATE  TABLE  LIVROAUTOR(
 
 
 INSERT INTO USUARIO (NOME, EMAIL, CELULAR, CPF, SEXO, SENHA, USER_PAPEL) 
-VALUES ('convidado', 'convidado@email.com','99999999999', '99999999999', 'I', 'senha', 'CLIENTE'); 
+VALUES ('convidado', 'convidado@email.com','99999999999', '99999999999', 'M', 'senha', 'CLIENTE'); 
 
 
 
