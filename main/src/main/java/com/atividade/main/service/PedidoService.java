@@ -26,10 +26,6 @@ public class PedidoService {
 
 	public Pedido save(Pedido pedido) {
 		
-		usuarioService.save(pedido.getUser());
-		
-		pedido.setUser(usuarioService.findById(1));
-		
 		Pedido ped = pedidoRepository.save(pedido);
 				
 		return ped;
